@@ -11,14 +11,16 @@
 
   <body tabindex="-1" style="width: 100%; height: 100%">
     <header>
-      <select class="topcoat-select">
+      <select class="topcoat-select http-method-select">
         <option value="get">GET</option>
         <option value="put">PUT</option>
         <option value="post">POST</option>
         <option value="delete">DELETE</option>
       </select>
 
-      <input type="text" class="topcoat-text-input--large address-bar" value="http://"/>
+      <input type="text" class="topcoat-text-input--large address-bar" placeholder="https://"/>
+
+      <div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div>
     </header>
     <div class="main-container">
       <section class="request-build-panel">

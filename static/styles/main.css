@@ -76,9 +76,16 @@ section.request-preview-panel {
   text-align: center;
 }
 
+.http-method-select {
+  font-weight: 500;
+  font-size: 14px;
+  height: 1.80rem;
+}
+
 header {
   text-align: center;
   padding: 7px 20px;
+  width: 88%;
 }
 
 header .topcoat-select {
@@ -86,5 +93,40 @@ header .topcoat-select {
 }
 
 .address-bar {
-  width: 60%;
+  width: 67%;
+}
+
+.info-code {
+  background-color: #78909C;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
+}
+
+.success-code {
+  background-color: #4CAF50;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
+}
+
+.redirection-code {
+  background-color: #2196F3;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
+}
+
+.client-error-code {
+  background-color: #F44336;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
+}
+
+.server-error-code {
+  background-color: #673AB7;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
 }
