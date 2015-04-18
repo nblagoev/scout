@@ -3390,29 +3390,12 @@ input[type="search"]::-webkit-search-cancel-button {
   outline: 0;
 }
 
-@font-face {
-  font-family: "Source Sans";
-  src: url("../font/SourceSansPro-Regular.otf");
-}
-
-@font-face {
-  font-family: "Source Sans";
-  src: url("../font/SourceSansPro-Light.otf");
-  font-weight: 200;
-}
-
-@font-face {
-  font-family: "Source Sans";
-  src: url("../font/SourceSansPro-Semibold.otf");
-  font-weight: 600;
-}
-
 body {
   margin: 0;
   padding: 0;
   background: #4b4d4e;
   color: #000;
-  font: 16px "Source Sans", helvetica, arial, sans-serif;
+  font: 16px "Source Sans Pro", helvetica, arial, sans-serif;
   font-weight: 400;
 }
 
