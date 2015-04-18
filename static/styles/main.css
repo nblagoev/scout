@@ -1,0 +1,90 @@
+html, body {
+  margin:0;
+  padding:0;
+  height: 100%;
+}
+
+body {
+  font-family: SourceSansPro;
+  position: relative;
+  color: #F0F1F1;
+  background: #4A4D4E;
+}
+
+section.response-panel {
+  margin-left: 50%;
+  height: 100%;
+  border-right: 1px solid #333434;
+  border-top: 1px solid #333434;
+}
+
+section.request-build-panel {
+  float: left;
+  width: 50%;
+  height: 60%;
+  border-right: 1px solid #333434;
+  border-top: 1px solid #333434;
+}
+
+section.request-preview-panel {
+  float: left;
+  width: 50%;
+  height: 40%;
+  border-right: 1px solid #333434;
+  border-top: 1px solid #333434;
+}
+
+.main-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: #454646;
+}
+
+.panel-header {
+  padding: 4px 20px;
+  font-size: 0.9em;
+  font-weight: 400;
+  background-color: #3f4041;
+  color: #c6c8c8;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.panel-container {
+  border-top: 1px solid #333434;
+  color: #c6c8c8;
+}
+
+.panel-body {
+  padding: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.panel-header .topcoat-button--quiet {
+  vertical-align: baseline;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+.panel-header-buttons {
+  width: 100%;
+  text-align: center;
+}
+
+header {
+  text-align: center;
+  padding: 7px 20px;
+}
+
+header .topcoat-select {
+  vertical-align: baseline;
+}
+
+.address-bar {
+  width: 60%;
+}

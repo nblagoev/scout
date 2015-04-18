@@ -48,10 +48,6 @@ class Scout {
 
   initialize() {
     //TODO
-    var h1 = document.createElement('h1');
-    h1.innerText = 'A Newborn Scout!';
-
-    document.body.appendChild(h1);
   }
 
   get loadTime() {
