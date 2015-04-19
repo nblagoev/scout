@@ -47,7 +47,9 @@ class Scout {
   }
 
   initialize() {
-    //TODO
+    let StyleManager = require('./style-manager');
+    this.styles = new StyleManager(this.loadSettings.resourcePath);
+    this.styles.loadBaseStylesheets();
   }
 
   get loadTime() {

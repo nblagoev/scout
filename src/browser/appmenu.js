@@ -6,10 +6,11 @@ var Menu = require('menu');
 var path = require('path');
 var season = require('season');
 var _ = require('underscore-plus');
-var {EventEmitter} = require('events');
+var {Emitter} = require('event-kit');
 
-class ApplicationMenu extends EventEmitter {
+class ApplicationMenu extends Emitter {
   constructor(options) {
+    super();
     let menuJson = season.resolve(path.join(process.resourcesPath, 'app.asar', 'menus', process.platform + ".json"))
     let template = season.readFileSync(menuJson);
 

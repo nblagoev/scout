@@ -76,7 +76,7 @@ module.exports = function (grunt) {
 
     less: {
       options: {
-        paths: ['static']
+        paths: ['static/styles']
       },
 
       glob_to_multiple: {
@@ -176,7 +176,7 @@ module.exports = function (grunt) {
 
   grunt.initConfig(opts);
 
-  grunt.registerTask('compile', ['compile-babel']);
+  grunt.registerTask('compile', ['compile-babel', 'less']);
   grunt.registerTask('lint', ['csslint', 'lesslint', 'jshint']);
   grunt.registerTask('test', ['shell:kill-app', 'run-specs']);
 

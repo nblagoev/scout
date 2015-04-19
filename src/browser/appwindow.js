@@ -8,12 +8,13 @@ var path = require('path');
 var os = require('os');
 var net = require('net');
 var url = require('url');
-var {EventEmitter} = require('events');
+var {Emitter} = require('event-kit');
 var BrowserWindow = require('browser-window');
 var _ = require('underscore-plus');
 
-class AppWindow extends EventEmitter {
+class AppWindow extends Emitter {
   constructor(options) {
+    super();
     this.loadSettings = _.extend({}, options);
     this.loadSettings.appVersion = app.getVersion();
 

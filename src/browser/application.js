@@ -9,13 +9,14 @@ var path = require('path');
 var os = require('os');
 var net = require('net');
 var url = require('url');
-var {EventEmitter} = require('events');
+var {Emitter} = require('event-kit');
 var {spawn} = require('child_process');
 var AppMenu = require('./appmenu');
 var AppWindow = require('./appwindow');
 
-class Application extends EventEmitter {
+class Application extends Emitter {
   constructor(options) {
+    super();
     this.resourcePath = options.resourcePath;
     this.devMode = options.devMode;
 
