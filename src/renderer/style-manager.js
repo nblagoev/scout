@@ -39,10 +39,14 @@ class StyleManager {
   }
 
   resolveStylesheet(stylesheetPath) {
-    if (path.extname(stylesheetPath).length > 0) {
-      return fs.resolveOnLoadPath(stylesheetPath);
+    let extensions = ['css', 'less'];
+    let pathHasExtension = path.extname(stylesheetPath).length > 0;
+
+    if (this.resourcePath) {
+      let fullPath = path.join(this.resourcePath, stylesheetPath);
+      return pathHasExtension ? fullPath : fs.resolveExtension(fullPath, extensions);
     } else {
-      return fs.resolveOnLoadPath(stylesheetPath, ['css', 'less']);
+      return fs.resolveOnLoadPath(stylesheetPath, pathHasExtension ? void 0 : extensions);
     }
   }
 
