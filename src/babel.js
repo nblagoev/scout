@@ -66,7 +66,7 @@ function createBabelVersionAndOptionsDigest(version, options) {
   return shasum.digest('hex');
 }
 
-var cacheDir = path.join(fs.absolute('~/.scout'), 'compile-cache');
+var cacheDir = path.join(fs.absolute(process.env.SCOUT_HOME), 'compile-cache');
 
 var jsCacheDir = path.join(cacheDir, createBabelVersionAndOptionsDigest(babel.version, defaultOptions), 'js');
 

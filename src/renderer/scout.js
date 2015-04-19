@@ -29,8 +29,7 @@ class Scout {
    * Returns the absolute path to ~/.scout
    */
   static getConfigDirPath() {
-    var home = process.env.HOME || process.env.USERPROFILE;
-    return path.join(home, '.scout');
+    return process.env.SCOUT_HOME;
   }
 
   /*

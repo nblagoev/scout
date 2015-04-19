@@ -63,7 +63,7 @@ class StyleManager {
       let LessCache = require('less-cache');
       let cacheOptions = {
         resourcePath: this.resourcePath,
-        cacheDir: path.join(fs.absolute('~/.scout'), 'compile-cache', 'less'),
+        cacheDir: path.join(fs.absolute(process.env.SCOUT_HOME), 'compile-cache', 'less'),
         importPaths: [ path.join(this.resourcePath, 'static/styles') ],
         fallbackDir: path.join(this.resourcePath, 'less-compile-cache')
       };

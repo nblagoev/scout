@@ -1,9 +1,14 @@
+var fs = require('fs');
+var path = require('path');
 
 // Warning: You almost certainly do *not* want to edit this code - instead, you
 // want to edit src/renderer/main.js instead
 window.onload = function () {
   try {
     var startTime = Date.now();
+
+    // Ensure SCOUT_HOME is always set before anything else is required
+    setupScoutHome();
 
     var rawLoadSettings = decodeURIComponent(location.hash.substr(1));
     var loadSettings;
@@ -45,3 +50,23 @@ window.onload = function () {
     console.error(error.stack || error);
   }
 };
+
+var setupScoutHome = function() {
+  if (!process.env.SCOUT_HOME) {
+    var home;
+    if (process.platform === 'win32') {
+      home = process.env.USERPROFILE;
+    } else {
+      home = process.env.HOME;
+    }
+
+    var scoutHome = path.join(home, '.scout');
+    try {
+      scoutHome = fs.realpathSync(scoutHome);
+    } catch (error) {
+      // Ignore since the path might just not exist yet.
+    }
+
+    process.env.SCOUT_HOME = scoutHome;
+  }
+}
