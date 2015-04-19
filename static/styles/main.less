@@ -1,3 +1,6 @@
+@import "styles/topcoat-desktop-dark.css";
+@import "styles/fonts.css";
+
 html, body {
   margin:0;
   padding:0;
@@ -11,27 +14,29 @@ body {
   background: #4A4D4E;
 }
 
+.bordered-section {
+  border-right: 1px solid #333434;
+  border-top: 1px solid #333434;
+}
+
 section.response-panel {
   margin-left: 50%;
   height: 100%;
-  border-right: 1px solid #333434;
-  border-top: 1px solid #333434;
+  .bordered-section;
 }
 
 section.request-build-panel {
   float: left;
   width: 50%;
   height: 60%;
-  border-right: 1px solid #333434;
-  border-top: 1px solid #333434;
+  .bordered-section;
 }
 
 section.request-preview-panel {
   float: left;
   width: 50%;
   height: 40%;
-  border-right: 1px solid #333434;
-  border-top: 1px solid #333434;
+  .bordered-section;
 }
 
 .main-container {
@@ -51,6 +56,10 @@ section.request-preview-panel {
   text-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-top: 1px solid rgba(255,255,255,0.1);
   border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  .topcoat-button--quiet {
+    vertical-align: baseline;
+  }
 }
 
 .panel-container {
@@ -61,10 +70,6 @@ section.request-preview-panel {
 .panel-body {
   padding: 0.75rem;
   border-top: 1px solid rgba(0,0,0,0.05);
-}
-
-.panel-header .topcoat-button--quiet {
-  vertical-align: baseline;
 }
 
 .clearfix {
@@ -86,47 +91,39 @@ header {
   text-align: center;
   padding: 7px 20px;
   width: 88%;
-}
 
-header .topcoat-select {
-  vertical-align: baseline;
+  .topcoat-select {
+    vertical-align: baseline;
+  }
 }
 
 .address-bar {
   width: 67%;
 }
 
-.info-code {
-  background-color: #78909C;
+.http-code-base(@bgcolor) {
+  background-color: @bgcolor;
   border: 1px solid #333434;
   vertical-align: baseline;
   float: right;
+}
+
+.info-code {
+  .http-code-base(#78909C);
 }
 
 .success-code {
-  background-color: #4CAF50;
-  border: 1px solid #333434;
-  vertical-align: baseline;
-  float: right;
+  .http-code-base(#4CAF50);
 }
 
 .redirection-code {
-  background-color: #2196F3;
-  border: 1px solid #333434;
-  vertical-align: baseline;
-  float: right;
+  .http-code-base(#2196F3);
 }
 
 .client-error-code {
-  background-color: #F44336;
-  border: 1px solid #333434;
-  vertical-align: baseline;
-  float: right;
+  .http-code-base(#F44336);
 }
 
 .server-error-code {
-  background-color: #673AB7;
-  border: 1px solid #333434;
-  vertical-align: baseline;
-  float: right;
+  .http-code-base(#673AB7);
 }

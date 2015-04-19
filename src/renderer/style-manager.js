@@ -64,7 +64,7 @@ class StyleManager {
       let cacheOptions = {
         resourcePath: this.resourcePath,
         cacheDir: path.join(fs.absolute(process.env.SCOUT_HOME), 'compile-cache', 'less'),
-        importPaths: [ path.join(this.resourcePath, 'static/styles') ],
+        importPaths: [ path.join(this.resourcePath, 'static', 'styles') ],
         fallbackDir: path.join(this.resourcePath, 'less-compile-cache')
       };
 
