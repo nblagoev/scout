@@ -1,6 +1,12 @@
 @import "styles/topcoat-desktop-dark.css";
 @import "styles/fonts.css";
 
+@app-header-height: 43px;
+@request-secondary-panel-height: 130px;
+@request-panel-group-width: 500px;
+@resizer-line-tickness: 1px;
+@resizer-line-thumb: 3px;
+
 html, body {
   margin:0;
   padding:0;
@@ -9,10 +15,9 @@ html, body {
 
 body {
   font-family: "Source Sans Pro";
-  position: relative;
   color: #F0F1F1;
   background: #4A4D4E;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 .bordered-section {
@@ -20,35 +25,57 @@ body {
   border-top: 1px solid #333434;
 }
 
-section.response-panel {
-  margin-left: 50%;
-  height: 100%;
+#request-build-panel {
+  position: absolute;
+  top: 0;
+  bottom: @request-secondary-panel-height + @resizer-line-tickness;
+  left: 0;
+  right: 0;
+  overflow: auto;
   .bordered-section;
 }
 
-section.request-build-panel {
-  float: left;
-  width: 50%;
-  height: 60%;
+#request-preview-panel {
+  position: absolute;
+  height: @request-secondary-panel-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
   .bordered-section;
 }
 
-section.request-preview-panel {
-  float: left;
-  width: 50%;
-  height: 40%;
+#request-panel-group {
+  position: absolute;
+  width: 500px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+#response-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: @request-panel-group-width + @resizer-line-tickness;
+  right: 0;
+  overflow: auto;
   .bordered-section;
 }
 
 .main-container {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: @app-header-height;
   overflow: hidden;
-  height: 100%;
-  width: 100%;
   background-color: #454646;
 }
 
 .panel-header {
+  height: 23px;
   padding: 4px 20px;
   font-size: 0.9em;
   font-weight: 400;
@@ -66,8 +93,11 @@ section.request-preview-panel {
 .panel-container {
   border-top: 1px solid #333434;
   color: #c6c8c8;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 33px;
   overflow: auto;
 }
 
@@ -78,6 +108,29 @@ section.request-preview-panel {
 
 .clearfix {
   overflow: auto;
+}
+
+.vertical-resizer {
+  position: absolute;
+  width: @resizer-line-thumb;
+  top: 0;
+  bottom: 0;
+  left: @request-panel-group-width;
+	background-color: transparent;
+  border-bottom: 1px solid #333434;
+  cursor: e-resize;
+}
+
+.horizontal-resizer {
+  position: absolute;
+  height: @resizer-line-thumb;
+  bottom: @request-secondary-panel-height;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #333434;
+  cursor: n-resize;
+
 }
 
 .panel-header-buttons {

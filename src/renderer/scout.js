@@ -49,6 +49,13 @@ class Scout {
     let StyleManager = require('./style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
     this.styles.loadBaseStylesheets();
+
+    require('angular');
+
+    let app = angular.module('ScoutApp', ['content-resizer']);
+    app.controller('MainCtrl', function() {});
+
+    require('./content-resizer');
   }
 
   get loadTime() {

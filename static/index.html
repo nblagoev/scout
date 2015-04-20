@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html style="background: #fff; width: 100%; height: 100%;">
+<html ng-app="ScoutApp">
   <head>
     <title></title>
-    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self'; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
     <script src="index.js"></script>
   </head>
 
-  <body tabindex="-1" style="width: 100%; height: 100%">
+  <body tabindex="-1" style="width: 100%; height: 100%" ng-controller="MainCtrl">
     <header>
       <select class="topcoat-select http-method-select">
         <option value="get">GET</option>
@@ -20,21 +20,33 @@
       <div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div>
     </header>
     <div class="main-container">
-      <section class="request-build-panel">
-        <div class="panel-header">Request:
-          <button class="topcoat-button--quiet">Headers</button>
-          <button class="topcoat-button--quiet">Parameters</button>
-          <button class="topcoat-button--quiet">Body</button>
+      <div id="request-panel-group">
+        <section id="request-build-panel">
+          <div class="panel-header">Request:
+            <button class="topcoat-button--quiet">Headers</button>
+            <button class="topcoat-button--quiet">Parameters</button>
+            <button class="topcoat-button--quiet">Body</button>
+          </div>
+          <div class="panel-container"><div class="panel-body"></div></div>
+        </section>
+
+        <section id="request-preview-panel">
+          <div class="panel-header">
+              <button class="topcoat-button--quiet">Collections</button>
+              <button class="topcoat-button--quiet">Cookies</button>
+          </div>
+          <div class="panel-container"><div class="panel-body"></div></div>
+        </section>
+
+        <div class="horizontal-resizer" id="rez"
+             resizer="horizontal"
+             resizer-height="1"
+             resizer-top="#request-build-panel"
+             resizer-bottom="#request-preview-panel">
         </div>
-        <div class="panel-container"><div class="panel-body"></div></div>
-      </section>
+      </div>
 
-      <section class="request-preview-panel">
-        <div class="panel-header">Preview</div>
-        <div class="panel-container"><div class="panel-body"></div></div>
-      </section>
-
-      <section class="response-panel">
+      <section id="response-panel">
         <div class="panel-header">Response:
           <button class="topcoat-button--quiet">Headers</button>
           <button class="topcoat-button--quiet">Body</button>
@@ -42,6 +54,13 @@
         </div>
         <div class="panel-container"><div class="panel-body"></div></div>
       </section>
+
+      <div class="vertical-resizer"
+           resizer="vertical"
+           resizer-width="1"
+           resizer-left="#request-panel-group"
+           resizer-right="#response-panel">
+      </div>
     </div>
   </body>
 </html>
