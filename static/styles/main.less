@@ -12,6 +12,7 @@ body {
   position: relative;
   color: #F0F1F1;
   background: #4A4D4E;
+  overflow: hidden;
 }
 
 .bordered-section {
@@ -65,6 +66,9 @@ section.request-preview-panel {
 .panel-container {
   border-top: 1px solid #333434;
   color: #c6c8c8;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
 .panel-body {
@@ -126,4 +130,36 @@ header {
 
 .server-error-code {
   .http-code-base(#673AB7);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #333434;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	border: 3px solid #333434;
+	background: #595b5b;
+	background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner {
+	background: #333434;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	border-radius: 0;
+	border-left-width: 0;
+	border-right-width: 0;
+}
+
+::-webkit-scrollbar-thumb:horizontal:active {
+	border-radius: 0;
+	border-top-width: 0;
+	border-bottom-width: 0;
 }
