@@ -35,7 +35,7 @@ class StyleManager {
   }
 
   loadBaseStylesheets() {
-    this.requireStylesheet('static/styles/main');
+    this.requireStylesheet('static/styles/scout');
   }
 
   resolveStylesheet(stylesheetPath) {
