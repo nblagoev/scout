@@ -192,9 +192,9 @@ module.exports = function (grunt) {
     ciTasks.push('mkdeb');
   }
 
-  if (process.platform === 'win32') {
-    ciTasks.push('create-windows-installer');
-  }
+  //if (process.platform === 'win32') {
+  //  ciTasks.push('create-windows-installer');
+  //}
 
   if (process.platform === 'darwin') {
     ciTasks.push('test');
