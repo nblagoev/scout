@@ -8,6 +8,8 @@ os:
   - linux
   - osx
 
+sudo: true
+
 install:
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
