@@ -5,6 +5,7 @@ var os = require('os');
 var path = require('path');
 var remote = require('remote');
 var _ = require('underscore-plus');
+var {Emitter} = require('event-kit');
 
 /*
  * An instance of this class is always available as the `scout` global.
@@ -42,10 +43,34 @@ class Scout {
   }
 
   constructor() {
-    this._loadTime = -1;
+    this.emitter = new Emitter();
+    this.lastUncaughtError = null;
+    this.loadTime = -1;
   }
 
   initialize() {
+    window.onerror = () => {
+      this.lastUncaughtError = [].slice.call(arguments);
+      console.log(arguments);
+      console.log(this.lastUncaughtError);
+      let [message, url, line, column, originalError] = this.lastUncaughtError;
+      let eventObject = {message, url, line, column, originalError};
+
+      let openDevTools = true
+      eventObject.preventDefault = () => openDevTools = false;
+
+      this.emitter.emit('will-throw-error', eventObject);
+
+      if (openDevTools) {
+        this.openDevTools();
+        this.executeJavaScriptInDevTools('DevToolsAPI.showConsole()');
+      }
+
+      this.emitter.emit('did-throw-error', {message, url, line, column, originalError});
+
+      return true;
+    };
+
     let StyleManager = require('./style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
     this.styles.loadBaseStylesheets();
@@ -56,14 +81,6 @@ class Scout {
     app.controller('MainCtrl', function() {});
 
     require('./content-resizer');
-  }
-
-  get loadTime() {
-    return this._loadTime;
-  }
-
-  set loadTime(value) {
-    this._loadTime = value;
   }
 
   get loadSettings() {
@@ -272,6 +289,42 @@ class Scout {
 
   executeJavaScriptInDevTools(code) {
     ipc.send('call-window-method', 'executeJavaScriptInDevTools', code);
+  }
+
+  /*
+   * Invoke the given callback when there is an unhandled error, but
+   * before the devtools pop open
+   *
+   * * `callback` {Function} to be called whenever there is an unhandled error
+   *   * `event` {Object}
+   *     * `originalError` {Object} the original error object
+   *     * `message` {String} the original error object
+   *     * `url` {String} Url to the file where the error originated.
+   *     * `line` {Number}
+   *     * `column` {Number}
+   *     * `preventDefault` {Function} call this to avoid popping up the dev tools.
+   *
+   * Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
+   */
+  onWillThrowError(callback) {
+    return this.emitter.on('will-throw-error', callback);
+  }
+
+  /*
+   * Invoke the given callback whenever there is an unhandled error.
+   *
+   * * `callback` {Function} to be called whenever there is an unhandled error
+   *   * `event` {Object}
+   *     * `originalError` {Object} the original error object
+   *     * `message` {String} the original error object
+   *     * `url` {String} Url to the file where the error originated.
+   *     * `line` {Number}
+   *     * `column` {Number}
+   *
+   * Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
+   */
+  onDidThrowError(callback) {
+    return this.emitter.on('did-throw-error', callback);
   }
 
   exit(status) {
