@@ -17,22 +17,98 @@
 
       <input type="text" class="topcoat-text-input--large address-bar" placeholder="https://"/>
 
-      <div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div>
+      <!--div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div-->
     </header>
     <div class="main-container">
       <div id="request-panel-group">
         <section id="request-build-panel">
-          <div class="panel-header">Request:
-            <button class="topcoat-button--quiet">Headers</button>
+          <div class="panel-header"><div class="panel-title">Request:</div>
+            <button class="topcoat-button--cta">Headers</button>
             <button class="topcoat-button--quiet">Parameters</button>
             <button class="topcoat-button--quiet">Body</button>
           </div>
-          <div class="panel-container"><div class="panel-body"></div></div>
+          <div class="panel-container">
+            <div class="panel-body">
+              <table>
+               <thead>
+                <tr>
+                   <th>Header Name</th>
+                   <th>Header Value</th>
+                </tr>
+               </thead>
+               <tfoot>
+                  <tr>
+                    <td>
+                      <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
+                      <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
+                      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" placeholder="Add Header">
+                    </td>
+                    <td>
+                      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" placeholder="Add Value"/>
+                    </td>
+                  </tr>
+               </tfoot>
+               <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                    <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+                    <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Accept"/>
+                  </td>
+                  <td>
+                    <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="application/vnd.scout.v1+json"/>
+                  </td>
+                </tr>
+                 <tr>
+                   <td>
+                     <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                     <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+                     <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Accept-Language"/>
+                   </td>
+                   <td>
+                     <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="en_US"/>
+                   </td>
+                 </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                      <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+                      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Authorization"/>
+                    </td>
+                    <td>
+                      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="token 765893158vb4381b583b7158v31834y58"/>
+                    </td>
+                  </tr>
+                   <tr>
+                     <td>
+                       <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                       <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+                       <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Date"/>
+                     </td>
+                     <td>
+                       <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="23/04/2015"/>
+                     </td>
+                   </tr>
+                    <tr>
+                      <td>
+                        <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                        <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+                        <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Content-Type">
+                      </td>
+                      <td>
+                        <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="application/json"/>
+                      </td>
+                    </tr>
+               </tbody>
+              </table>
+            </div>
+          </div>
         </section>
 
         <section id="request-preview-panel">
           <div class="panel-header">
-              <button class="topcoat-button--quiet">Collections</button>
+              <button class="topcoat-button--cta">Collections</button>
+              <button class="topcoat-button--quiet">History</button>
               <button class="topcoat-button--quiet">Cookies</button>
           </div>
           <div class="panel-container"><div class="panel-body"></div></div>
@@ -48,8 +124,8 @@
       </div>
 
       <section id="response-panel">
-        <div class="panel-header">Response:
-          <button class="topcoat-button--quiet">Headers</button>
+        <div class="panel-header"><div class="panel-title">Response:</div>
+          <button class="topcoat-button--cta">Headers</button>
           <button class="topcoat-button--quiet">Body</button>
           <button class="topcoat-button--quiet">Raw</button>
         </div>

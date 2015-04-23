@@ -197,7 +197,7 @@
 .topcoat-button--large--cta:focus,
 .topcoat-button-bar__button:focus,
 .topcoat-button-bar__button--large:focus {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
@@ -617,7 +617,7 @@
 .topcoat-button--large--quiet:hover:focus,
 .topcoat-button--cta:focus,
 .topcoat-button--large--cta:focus {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
@@ -1059,7 +1059,7 @@ input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
 }
 
 input[type="checkbox"]:focus + .topcoat-checkbox__checkmark:before {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
@@ -1207,7 +1207,7 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 .topcoat-icon-button--large:focus,
 .topcoat-icon-button--large--quiet:focus,
 .topcoat-icon-button--large--quiet:hover:focus {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
@@ -1981,7 +1981,7 @@ input[type="radio"]:checked + .topcoat-radio-button__checkmark:after {
 }
 
 input[type="radio"]:focus + .topcoat-radio-button__checkmark:before {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
@@ -2175,12 +2175,12 @@ limitations under the License.
 }
 
 .topcoat-range:focus::-webkit-slider-thumb {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
 .topcoat-range:focus::-moz-range-thumb {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
@@ -2359,7 +2359,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .topcoat-search-input--large:focus {
   background-color: #595b5b;
   color: #fff;
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: inset 0 1px 0 rgba(0,0,0,0.23), 0 0 0 2px #6fb5f1;
 }
 
@@ -2712,7 +2712,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .topcoat-switch__input:focus + .topcoat-switch__toggle {
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
@@ -2993,7 +2993,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .topcoat-text-input--large:focus {
   background-color: #595b5b;
   color: #fff;
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
@@ -3217,7 +3217,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .topcoat-textarea--large:focus {
   background-color: #595b5b;
   color: #fff;
-  border: 1px solid #0036ff;
+  /*border: 1px solid #0036ff;*/
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
