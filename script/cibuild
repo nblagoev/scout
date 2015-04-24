@@ -3,7 +3,7 @@ var cp = require('./utils/child-process-wrapper.js');
 var fs = require('fs');
 var path = require('path');
 
-require('./utils/config')
+require('./utils/config');
 
 process.chdir(path.dirname(__dirname));
 

@@ -49,7 +49,7 @@
     "test": "node script/test",
     "bootstrap": "node script/bootstrap",
     "build": "node script/build",
-    "run": "node script/run",
+    "scout": "node script/run",
     "clean": "node script/clean"
   }
 }
