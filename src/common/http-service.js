@@ -1,6 +1,8 @@
 'use babel';
 
 let throws = require('./throws');
+let http = require('http');
+let url = require('url');
 
 class HttpService {
   constructor() {
@@ -12,14 +14,85 @@ class HttpService {
     this.request.headers.push(new HttpServiceHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
     this.request.headers.push(new HttpServiceHeader('Date', '23/04/2015'));
     this.request.headers.push(new HttpServiceHeader('Content-Type', 'application/json'));
+  }
 
-    this.response.headers.push(new HttpServiceHeader('Date', 'Sat, 25 Apr 2015 12:08:30 GMT'));
-    this.response.headers.push(new HttpServiceHeader('Content-Type', 'application/vnd.scout+json; charset=utf-8'));
-    this.response.headers.push(new HttpServiceHeader('Connection', 'close'));
+  sendRequest(method, address, callback) {
+    throws.ifEmpty(address);
+    throws.ifEmpty(method);
+    HttpService.httpMethodIsSupported(method, true);
+
+    let targetUrl = url.parse(address);
+
+    throws.ifEmpty(targetUrl.hostname);
+    throws.ifEmpty(targetUrl.port);
+    throws.ifEmpty(targetUrl.path);
+
+    let options = {
+      hostname: targetUrl.hostname,
+      port: targetUrl.port,
+      path: targetUrl.path,
+      method: method.toUpperCase(),
+      headers: {}
+    };
+
+    let headers = this.request.headers;
+    for (let i = 0; i < headers.length; i++) {
+      if (i in headers) {
+        let header = headers[i];
+        if (header.include === true) {
+          options.headers[header.name] = header.value;
+        }
+      }
+    }
+
+    if (!options.headers['Content-Length'] && this.request.body) {
+      options.headers['Content-Length'] = this.request.body;
+    }
+
+    if (targetUrl.protocol === "http:") {
+      let req = http.request(options, (res) => {
+        this.response.status = res.statusCode;
+
+        for (let name in res.headers) {
+          this.response.addHeader(name, res.headers[name]);
+        }
+
+        res.setEncoding('utf8');
+        res.on('data', (chunk) => {
+          this.response.body = chunk;
+          callback();
+        });
+
+        callback();
+      });
+
+      req.on('error', (e) => {
+        throw new Error (e.message);
+      });
+
+      if (this.request.body !== null && this.request.body !== undefined) {
+        req.write(this.request.body);
+      }
+
+      req.end();
+    } else {
+      throw new Error("Unsupported protocol " + targetUrl.protocol);
+    }
+  }
+
+  static httpMethodIsSupported(method, throwError) {
+    let supported = ["GET", "PUT", "POST", "DELETE"];
+    let result = supported.indexOf(method.toUpperCase()) !== -1;
+
+    if (throwError === true && !result) {
+        throw new Error("Unsupported HTTP method " + method);
+    } else {
+      return result;
+    }
   }
 }
 
-class HttpServiceRequest {
+class HttpServiceWrapper {
   constructor() {
     this.headers = [];
     this.body = null;
@@ -37,16 +110,16 @@ class HttpServiceRequest {
   }
 
   removeHeader(name) {
-    var headerIndex = this.findHeaderIndex(name);
+    let headerIndex = this.findHeaderIndex(name);
     if (headerIndex >= 0) {
       this.headers.splice(headerIndex, 1);
     }
   }
 
   findHeader(name) {
-    for (var i = 0; i < this.headers.length; i++) {
+    for (let i = 0; i < this.headers.length; i++) {
       if (i in this.headers) {
-        var header = this.headers[i];
+        let header = this.headers[i];
         if (header.name === name) {
           return header;
         }
@@ -57,9 +130,9 @@ class HttpServiceRequest {
   }
 
   findHeaderIndex(name) {
-    for (var i = 0; i < this.headers.length; i++) {
+    for (let i = 0; i < this.headers.length; i++) {
       if (i in this.headers) {
-        var header = this.headers[i];
+        let header = this.headers[i];
         if (header.name === name) {
           return i;
         }
@@ -70,10 +143,15 @@ class HttpServiceRequest {
   }
 }
 
-class HttpServiceResponse {
+class HttpServiceRequest extends HttpServiceWrapper {
   constructor() {
-    this.headers = [];
-    this.body = null;
+    super();
+  }
+}
+
+class HttpServiceResponse extends HttpServiceWrapper {
+  constructor() {
+    super();
     this.status = 0;
   }
 }

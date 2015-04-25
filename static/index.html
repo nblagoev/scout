@@ -7,16 +7,26 @@
   </head>
 
   <body tabindex="-1" style="width: 100%; height: 100%">
-    <header>
-      <select class="topcoat-select http-method-select">
+    <header ng-controller="HeaderCtrl as header">
+      <select class="topcoat-select http-method-select" ng-model="header.method">
         <option value="get">GET</option>
         <option value="put">PUT</option>
         <option value="post">POST</option>
         <option value="delete">DELETE</option>
       </select>
 
-      <input type="text" class="topcoat-text-input--large address-bar" placeholder="https://"/>
+      <input type="text" placeholder="https://"
+             ng-model="header.address" ng-enter="header.sendRequest()"
+             class="topcoat-text-input--large address-bar"/>
 
+
+      <button class="topcoat-button--large--quiet"
+              ng-disabled="header.inProgress"
+              ng-click="header.sendRequest()">
+        <i class="fa fa-send fa-lg"></i>
+      </button>
+
+      <div class="spinner" ng-class="{'hidden': !header.inProgress}"></div>
       <!--div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div-->
     </header>
     <div class="main-container">
@@ -27,13 +37,14 @@
             <button class="topcoat-button--quiet">Parameters</button>
             <button class="topcoat-button--quiet">Body</button>
             <button class="topcoat-button--quiet">Raw</button>
+            <button class="topcoat-button--quiet"> <i class="fa fa-gear fa-lm"></i> </button>
           </div>
           <div class="panel-container">
             <div class="panel-body">
               <table id="request-headers-table">
                <thead>
                 <tr>
-                   <th>Header Name</th>
+                   <th width="180px">Header Name</th>
                    <th>Header Value</th>
                 </tr>
                </thead>
@@ -53,7 +64,7 @@
                       <i class="fa fa-check action-btn green"
                          ng-show="rpc.newHeaderName"
                          ng-click="rpc.submitHeader()"></i>
-                      </td>
+                    </td>
                   </tr>
                </tfoot>
                <tbody>
@@ -96,7 +107,7 @@
       </div>
 
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
-        <div class="panel-header"><div class="panel-title">Response:</div>
+        <div class="panel-header"><div class="panel-title">Response: {{rpc.response.status}}</div>
           <button class="topcoat-button--cta">Headers</button>
           <button class="topcoat-button--quiet">Body</button>
           <button class="topcoat-button--quiet">Raw</button>

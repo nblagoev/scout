@@ -51,8 +51,6 @@ class Scout {
   initialize() {
     window.onerror = () => {
       this.lastUncaughtError = [].slice.call(arguments);
-      console.log(arguments);
-      console.log(this.lastUncaughtError);
       let [message, url, line, column, originalError] = this.lastUncaughtError;
       let eventObject = {message, url, line, column, originalError};
 
@@ -67,6 +65,7 @@ class Scout {
       }
 
       this.emitter.emit('did-throw-error', {message, url, line, column, originalError});
+      console.error(originalError);
 
       return true;
     };
@@ -76,10 +75,12 @@ class Scout {
     this.styles.loadBaseStylesheets();
 
     require('angular');
-    angular.module('scout', ['content-resizer']);
+    angular.module('scout', ['content-resizer', 'ng-enter']);
     require('./services/http-service-factory');
+    require('./controllers/header');
     require('./controllers/request-panel');
     require('./controllers/response-panel');
+    require('./directives/ng-enter');
     require('./directives/content-resizer');
   }
 
