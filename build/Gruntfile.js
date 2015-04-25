@@ -76,12 +76,12 @@ module.exports = function (grunt) {
 
     less: {
       options: {
-        paths: ['static/styles']
+        paths: ['static/styles', 'vendor/components/font-awesome']
       },
 
       glob_to_multiple: {
         expand: true,
-        src: ['static/**/*.less'],
+        src: ['static/**/*.less', 'vendor/components/**/*.less'],
         dest: appDir,
         ext: '.css'
       }
@@ -176,7 +176,7 @@ module.exports = function (grunt) {
 
   grunt.initConfig(opts);
 
-  grunt.registerTask('compile', ['compile-babel', 'less']);
+  grunt.registerTask('compile', ['compile-babel']);
   grunt.registerTask('lint', ['csslint', 'lesslint', 'jshint']);
   grunt.registerTask('test', ['shell:kill-app', 'run-specs']);
 

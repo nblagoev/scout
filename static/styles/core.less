@@ -1,0 +1,107 @@
+@import "ui-variables";
+@import "../vendor/components/topcoat/topcoat-desktop-dark.css";
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Source Sans Pro";
+  color: #F0F1F1;
+  background: #4A4D4E;
+  //overflow: hidden;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+.action-btn {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.http-method-select {
+  font-weight: 500;
+  font-size: 14px;
+  height: 1.80rem;
+}
+
+header {
+  text-align: center;
+  padding: 7px 20px;
+
+  .topcoat-select {
+    vertical-align: baseline;
+  }
+}
+
+.address-bar {
+  width: 67%;
+}
+
+.http-code-base(@bgcolor) {
+  background-color: @bgcolor;
+  border: 1px solid #333434;
+  vertical-align: baseline;
+  float: right;
+}
+
+.info-code {
+  .http-code-base(#78909C);
+}
+
+.success-code {
+  .http-code-base(#4CAF50);
+}
+
+.redirection-code {
+  .http-code-base(#2196F3);
+}
+
+.client-error-code {
+  .http-code-base(#F44336);
+}
+
+.server-error-code {
+  .http-code-base(#673AB7);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #333434;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	border: 3px solid #333434;
+	background: #595b5b;
+	background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner {
+	background: #333434;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	border-radius: 0;
+	border-left-width: 0;
+	border-right-width: 0;
+}
+
+::-webkit-scrollbar-thumb:horizontal:active {
+	border-radius: 0;
+	border-top-width: 0;
+	border-bottom-width: 0;
+}
+
+.hidden {
+  visibility: hidden;
+}

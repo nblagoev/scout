@@ -3369,7 +3369,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: hsla(180, 1%, 35%, 1);
   box-shadow: inset 0 1px hsla(0, 0%, 45%, 1);
   border: 1px solid hsla(180, 1%, 20%, 1);
-  background-image: url('../images/dropdown.svg');
+  background-image: url('./images/dropdown.svg');
   background-repeat: no-repeat;
   background-position: center right;
   min-width: 3.4rem;
