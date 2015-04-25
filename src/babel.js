@@ -11,7 +11,6 @@ var stats = {
 
 var defaultOptions = {
   sourceMap: 'inline',
-  reactCompat: true,
   blacklist: [],
   experimental: true,
   optional: ['asyncToGenerator']

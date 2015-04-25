@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="ScoutApp">
+<html ng-app="scout">
   <head>
     <title></title>
     <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
     <script src="index.js"></script>
   </head>
 
-  <body tabindex="-1" style="width: 100%; height: 100%" ng-controller="MainCtrl">
+  <body tabindex="-1" style="width: 100%; height: 100%">
     <header>
       <select class="topcoat-select http-method-select">
         <option value="get">GET</option>
@@ -21,7 +21,7 @@
     </header>
     <div class="main-container">
       <div id="request-panel-group">
-        <section id="request-build-panel">
+        <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
           <div class="panel-header"><div class="panel-title">Request:</div>
             <button class="topcoat-button--cta">Headers</button>
             <button class="topcoat-button--quiet">Parameters</button>
@@ -30,7 +30,7 @@
           </div>
           <div class="panel-container">
             <div class="panel-body">
-              <table>
+              <table id="request-headers-table">
                <thead>
                 <tr>
                    <th>Header Name</th>
@@ -42,7 +42,8 @@
                     <td>
                       <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
                       <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
-                      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" placeholder="Add Header">
+                      <input type="text" placeholder="Add Header"
+                             class="topcoat-text-input table-row-header-name-input borderless-input">
                     </td>
                     <td>
                       <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" placeholder="Add Value"/>
@@ -50,61 +51,17 @@
                   </tr>
                </tfoot>
                <tbody>
-                <tr>
+                <tr ng-repeat="header in rpc.request.headers">
                   <td>
-                    <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
+                    <input type="checkbox" class="table-row-fix-input-position" ng-model="header.include"/>
                     <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-                    <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Accept"/>
+                    <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" ng-model="header.name"/>
                   </td>
                   <td>
-                    <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="application/vnd.scout.v1+json"/>
+                    <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" ng-model="header.value"/>
                   </td>
-                  <td class="action-cell"><i class="fa fa-minus action-btn"></i></td>
+                  <td class="action-cell"><i class="fa fa-minus action-btn" ng-click="rpc.request.removeHeader(header.name)"></i></td>
                 </tr>
-                 <tr>
-                   <td>
-                     <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
-                     <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-                     <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Accept-Language"/>
-                   </td>
-                   <td>
-                     <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="en_US"/>
-                   </td>
-                   <td class="action-cell"><i class="fa fa-minus action-btn"></i></td>
-                 </tr>
-                  <tr>
-                    <td>
-                      <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
-                      <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-                      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Authorization"/>
-                    </td>
-                    <td>
-                      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="token 765893158vb4381b583b7158v31834y58"/>
-                    </td>
-                    <td class="action-cell"><i class="fa fa-minus action-btn"></i></td>
-                  </tr>
-                   <tr>
-                     <td>
-                       <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
-                       <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-                       <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Date"/>
-                     </td>
-                     <td>
-                       <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="23/04/2015"/>
-                     </td>
-                     <td class="action-cell"><i class="fa fa-minus action-btn"></i></td>
-                   </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="table-row-fix-input-position" checked="true"/>
-                        <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-                        <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" value="Content-Type">
-                      </td>
-                      <td>
-                        <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" value="application/json"/>
-                      </td>
-                      <td class="action-cell"><i class="fa fa-minus action-btn"></i></td>
-                    </tr>
                </tbody>
               </table>
             </div>
@@ -136,7 +93,7 @@
           <button class="topcoat-button--quiet">Raw</button>
         </div>
         <div class="panel-container"><div class="panel-body">
-          <table>
+          <table id="response-headers-table">
            <thead>
             <tr>
                <th>Header Name</th>

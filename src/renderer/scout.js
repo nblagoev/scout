@@ -76,11 +76,10 @@ class Scout {
     this.styles.loadBaseStylesheets();
 
     require('angular');
-
-    let app = angular.module('ScoutApp', ['content-resizer']);
-    app.controller('MainCtrl', function() {});
-
-    require('./content-resizer');
+    angular.module('scout', ['content-resizer']);
+    require('./services/http-service-factory')
+    require('./controllers/request-panel')
+    require('./directives/content-resizer');
   }
 
   get loadSettings() {
