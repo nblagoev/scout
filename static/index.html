@@ -26,7 +26,7 @@
             <button class="topcoat-button--cta">Headers</button>
             <button class="topcoat-button--quiet">Parameters</button>
             <button class="topcoat-button--quiet">Body</button>
-            <button class="topcoat-button--quiet">Preview</button>
+            <button class="topcoat-button--quiet">Raw</button>
           </div>
           <div class="panel-container">
             <div class="panel-body">
@@ -135,7 +135,42 @@
           <button class="topcoat-button--quiet">Body</button>
           <button class="topcoat-button--quiet">Raw</button>
         </div>
-        <div class="panel-container"><div class="panel-body"></div></div>
+        <div class="panel-container"><div class="panel-body">
+          <table>
+           <thead>
+            <tr>
+               <th>Header Name</th>
+               <th>Header Value</th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+              <td class="response-header-name-cell">
+                Date
+              </td>
+              <td class="response-header-value-cell">
+                Sat, 25 Apr 2015 12:08:30 GMT
+              </td>
+            </tr>
+             <tr>
+               <td class="response-header-name-cell">
+                 Content-Type
+               </td>
+               <td class="response-header-value-cell">
+                 application/vnd.scout+json; charset=utf-8
+               </td>
+             </tr>
+              <tr>
+                <td class="response-header-name-cell">
+                  Connection
+                </td>
+                <td class="response-header-value-cell">
+                  close
+                </td>
+              </tr>
+           </tbody>
+          </table>
+        </div></div>
       </section>
 
       <div class="vertical-resizer"

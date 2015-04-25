@@ -19,7 +19,7 @@ class AppWindow extends Emitter {
     this.loadSettings.appVersion = app.getVersion();
 
     let windowOpts = {
-      width: 800,
+      width: 920,
       height: 600,
       title: options.title || "Scout",
       'web-preferences': {
