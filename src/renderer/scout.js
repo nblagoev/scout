@@ -77,8 +77,9 @@ class Scout {
 
     require('angular');
     angular.module('scout', ['content-resizer']);
-    require('./services/http-service-factory')
-    require('./controllers/request-panel')
+    require('./services/http-service-factory');
+    require('./controllers/request-panel');
+    require('./controllers/response-panel');
     require('./directives/content-resizer');
   }
 

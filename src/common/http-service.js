@@ -12,6 +12,10 @@ class HttpService {
     this.request.headers.push(new HttpServiceHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
     this.request.headers.push(new HttpServiceHeader('Date', '23/04/2015'));
     this.request.headers.push(new HttpServiceHeader('Content-Type', 'application/json'));
+
+    this.response.headers.push(new HttpServiceHeader('Date', 'Sat, 25 Apr 2015 12:08:30 GMT'));
+    this.response.headers.push(new HttpServiceHeader('Content-Type', 'application/vnd.scout+json; charset=utf-8'));
+    this.response.headers.push(new HttpServiceHeader('Connection', 'close'));
   }
 }
 
@@ -68,7 +72,7 @@ class HttpServiceRequest {
 
 class HttpServiceResponse {
   constructor() {
-    this.headers = {};
+    this.headers = [];
     this.body = null;
     this.status = 0;
   }

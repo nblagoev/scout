@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <section id="response-panel">
+      <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
         <div class="panel-header"><div class="panel-title">Response:</div>
           <button class="topcoat-button--cta">Headers</button>
           <button class="topcoat-button--quiet">Body</button>
@@ -110,30 +110,14 @@
             </tr>
            </thead>
            <tbody>
-            <tr>
+            <tr ng-repeat="header in rpc.response.headers">
               <td class="response-header-name-cell">
-                Date
+                {{header.name}}
               </td>
               <td class="response-header-value-cell">
-                Sat, 25 Apr 2015 12:08:30 GMT
+                {{header.value}}
               </td>
             </tr>
-             <tr>
-               <td class="response-header-name-cell">
-                 Content-Type
-               </td>
-               <td class="response-header-value-cell">
-                 application/vnd.scout+json; charset=utf-8
-               </td>
-             </tr>
-              <tr>
-                <td class="response-header-name-cell">
-                  Connection
-                </td>
-                <td class="response-header-value-cell">
-                  close
-                </td>
-              </tr>
            </tbody>
           </table>
         </div></div>
