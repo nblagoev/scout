@@ -23,7 +23,7 @@ class HttpServiceRequest {
 
   addHeader(name, value) {
     throws.ifEmpty(name, "name");
-    let header = this.findHeaderByName(name);
+    let header = this.findHeader(name);
 
     if (header !== null && header !== undefined) {
       header.value = value;

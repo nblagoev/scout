@@ -42,12 +42,18 @@
                     <td>
                       <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
                       <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
-                      <input type="text" placeholder="Add Header"
+                      <input type="text" placeholder="Add Header" ng-model="rpc.newHeaderName"
                              class="topcoat-text-input table-row-header-name-input borderless-input">
                     </td>
                     <td>
-                      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" placeholder="Add Value"/>
+                      <input type="text" placeholder="Add Value" ng-model="rpc.newHeaderValue"
+                             class="topcoat-text-input table-row-header-value-input borderless-input"/>
                     </td>
+                    <td class="action-cell">
+                      <i class="fa fa-check action-btn"
+                         ng-show="rpc.newHeaderName || rpc.newHeaderValue"
+                         ng-click="rpc.submitHeader()"></i>
+                      </td>
                   </tr>
                </tfoot>
                <tbody>
