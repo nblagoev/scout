@@ -50,7 +50,7 @@
                              class="topcoat-text-input table-row-header-value-input borderless-input"/>
                     </td>
                     <td class="action-cell">
-                      <i class="fa fa-check action-btn"
+                      <i class="fa fa-check action-btn green"
                          ng-show="rpc.newHeaderName || rpc.newHeaderValue"
                          ng-click="rpc.submitHeader()"></i>
                       </td>
@@ -66,7 +66,10 @@
                   <td>
                     <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" ng-model="header.value"/>
                   </td>
-                  <td class="action-cell"><i class="fa fa-minus action-btn" ng-click="rpc.request.removeHeader(header.name)"></i></td>
+                  <td class="action-cell">
+                    <i class="fa fa-minus action-btn red"
+                       ng-click="rpc.request.removeHeader(header.name)"></i>
+                  </td>
                 </tr>
                </tbody>
               </table>
