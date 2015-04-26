@@ -51,8 +51,11 @@ class HttpService {
       let req = http.request(options, (res) => {
         this.response.status = res.statusCode;
 
-        for (let name in res.headers) {
-          this.response.addHeader(name, res.headers[name]);
+        let hlen = res.rawHeaders.length;
+        for (let i = 0; i < hlen; i++) {
+          let name = res.rawHeaders[i];
+          let value = res.rawHeaders[++i];
+          this.response.addHeader(name, value);
         }
 
         res.setEncoding('utf8');
