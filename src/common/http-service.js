@@ -24,8 +24,6 @@ class HttpService {
     let targetUrl = url.parse(address);
 
     throws.ifEmpty(targetUrl.hostname);
-    throws.ifEmpty(targetUrl.port);
-    throws.ifEmpty(targetUrl.path);
 
     let options = {
       hostname: targetUrl.hostname,
