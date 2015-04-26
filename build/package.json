@@ -15,7 +15,7 @@
     "grunt": "~0.4.1",
     "grunt-atom-shell-installer": "^0.7.0",
     "grunt-bower-task": "^0.4.0",
-    "grunt-build-atom-shell": "^1.1.5",
+    "grunt-build-atom-shell": "^2.0.4",
     "grunt-cli": "~0.1.9",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-csslint": "~0.1.2",
