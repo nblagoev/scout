@@ -70,18 +70,18 @@ class Scout {
       return true;
     };
 
-    let StyleManager = require('./style-manager');
+    let StyleManager = require('./managers/style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
     this.styles.loadBaseStylesheets();
 
     require('angular');
     angular.module('scout', ['content-resizer', 'ng-enter']);
-    require('./services/http-service-factory');
-    require('./controllers/header');
-    require('./controllers/request-panel');
-    require('./controllers/response-panel');
-    require('./directives/ng-enter');
-    require('./directives/content-resizer');
+    require('./components/ng-enter.directive');
+    require('./components/content-resizer.directive');
+    require('./services/http.service');
+    require('./layout/header.controller');
+    require('./layout/request-panel.controller');
+    require('./layout/response-panel.controller');
   }
 
   get loadSettings() {
