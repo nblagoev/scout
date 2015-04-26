@@ -8,6 +8,12 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
   self.newHeaderValue = '';
 
   self.submitHeader = () => {
+    if (self.newHeaderName === undefined ||
+        self.newHeaderName === null ||
+        self.newHeaderName === '') {
+      return;
+    }
+
     httpService.request.addHeader(self.newHeaderName, self.newHeaderValue);
     self.newHeaderName = '';
     self.newHeaderValue = '';
