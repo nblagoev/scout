@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Scout</string>
 	<key>CFBundleIconFile</key>
-	<string>app.icns</string>
+	<string>scout.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.nikoblag.scout</string>
 	<key>CFBundleInfoDictionaryVersion</key>

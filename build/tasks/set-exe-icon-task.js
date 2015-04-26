@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 
     var shellAppDir = grunt.config.get("scout.shellAppDir");
     var shellExePath = path.join(shellAppDir, 'scout.exe');
-    var iconPath = path.resolve('resources', 'win', 'app.ico');
+    var iconPath = path.resolve('resources', 'win', 'scout.ico');
 
     var rcedit = require('rcedit');
     rcedit(shellExePath, { 'icon': iconPath }, done);
