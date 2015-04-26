@@ -11,8 +11,8 @@ var Scout = require('../src/renderer/scout');
 
 window.scout = new Scout();
 
-let {resourcePath, specDirectory, exitWhenDone} = global.loadSettings;
-let specPath = path.join(resourcePath, specDirectory);
+let {resourcePath, exitWhenDone} = global.loadSettings;
+let specPath = path.join(resourcePath, 'spec/');
 specPath = path.resolve(specPath);
 
 if (exitWhenDone) {

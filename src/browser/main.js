@@ -38,7 +38,6 @@ function parseCommandLine() {
     .alias('h', 'help').boolean('h').describe('h', 'Print this usage message.')
     .alias('l', 'log-file').string('l').describe('l', 'Log all output to file.')
     .alias('r', 'resource-path').string('r').describe('r', 'Set the path to the Scout source directory and enable dev-mode.')
-    .alias('s', 'spec-directory').string('s').describe('s', 'Set the directory from which to run package specs (default: Scout\'s spec directory).')
     .alias('t', 'test').boolean('t').describe('t', 'Run the specified specs and exit with error code on failures.')
     .alias('v', 'version').boolean('v').describe('v', 'Print the version.')
 
@@ -62,41 +61,25 @@ function parseCommandLine() {
   let devMode = args['dev'];
   let test = args['test'];
   let exitWhenDone = test;
-  let specDirectory = args['spec-directory'] || 'spec/';
   let logFile = args['log-file'];
   let resourcePath;
 
   if (args['resource-path']) {
     devMode = true;
     resourcePath = args['resource-path'];
-  } else {
-    // Set resourcePath based on the specDirectory if running specs on atom core
-    if (specDirectory != null) {
-      let packageDirectoryPath = path.join(specDirectory, '..');
-      let packageManifestPath = path.join(packageDirectoryPath, 'package.json');
+  }
 
-      if (fs.statSyncNoException(packageManifestPath)) {
-        try {
-          let packageManifest = JSON.parse(fs.readFileSync(packageManifestPath));
-          if (packageManifest.name === 'scout') {
-            resourcePath = packageDirectoryPath;
-          }
-        } catch (_error) {}
-      }
-    }
-
-    if (devMode && resourcePath == null) {
-      resourcePath = global.devResourcePath;
-    }
+  if (devMode && resourcePath == null) {
+    resourcePath = global.devResourcePath;
   }
 
   if (!fs.statSyncNoException(resourcePath)) {
-    resourcePath = path.dirname(path.dirname(__dirname));
     resourcePath = path.join(process.resourcesPath, 'app.asar');
   }
 
   resourcePath = path.resolve(resourcePath);
-  return {resourcePath, devMode, test, exitWhenDone, specDirectory, logFile};
+
+  return {resourcePath, devMode, test, exitWhenDone, logFile};
 }
 
 function setupCrashReporter() {
@@ -115,7 +98,7 @@ function start() {
 
   //app.on('will-finish-launching', () => setupCrashReporter());
 
-  // Note: It's important that you don't do anything with Atom Shell
+  // Note: It's important that you don't do anything with Electron
   // unless it's after 'ready', or else mysterious bad things will happen
   // to you.
   app.on('ready', () => {

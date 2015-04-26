@@ -56,7 +56,6 @@ class Application extends Emitter {
    *   :devMode - Boolean to determine if the application is running in dev mode.
    *   :test - Boolean to determine if the application is running in test mode.
    *   :exitWhenDone - Boolean to determine whether to automatically exit.
-   *   :specDirectory - The directory to load specs from.
    *   :logfile - The file path to log output to.
    */
   openWithOptions(options) {
@@ -78,11 +77,10 @@ class Application extends Emitter {
    *   :devMode - Boolean to determine if the application is running in dev mode.
    *   :test - Boolean to determine if the application is running in test mode.
    *   :exitWhenDone - Boolean to determine whether to automatically exit.
-   *   :specDirectory - The directory to load specs from.
    *   :logFile - The file path to log output to.
    */
   openSpecsWindow(options) {
-    let {resourcePath, test, exitWhenDone, specDirectory, logFile} = options;
+    let {resourcePath, test, exitWhenDone, logFile} = options;
 
     if (resourcePath !== this.resourcePath && !fs.existsSync(resourcePath)) {
       resourcePath = this.resourcePath;
@@ -100,7 +98,7 @@ class Application extends Emitter {
     let devMode = true;
     let title = "Spec Suite - Scout";
 
-    return new AppWindow({bootstrapScript, exitWhenDone, resourcePath, isSpec, devMode, specDirectory, logFile, title});
+    return new AppWindow({bootstrapScript, exitWhenDone, resourcePath, isSpec, devMode, logFile, title});
   }
 
   /**
@@ -111,11 +109,10 @@ class Application extends Emitter {
    *   :devMode - Boolean to determine if the application is running in dev mode.
    *   :test - Boolean to determine if the application is running in test mode.
    *   :exitWhenDone - Boolean to determine whether to automatically exit.
-   *   :specDirectory - The directory to load specs from.
    *   :logFile - The file path to log output to.
    */
   openWindow(options) {
-    let {resourcePath, devMode, test, exitWhenDone, specDirectory, logFile} = options;
+    let {resourcePath, devMode, test, exitWhenDone, logFile} = options;
     if (resourcePath !== this.resourcePath && !fs.existsSync(resourcePath)) {
       resourcePath = this.resourcePath;
     }
@@ -152,7 +149,7 @@ class Application extends Emitter {
 
     this.menu.on('application:run-specs', () => {
       let test = true;
-      this.openWithOptions({ resourcePath, devMode, test, exitWhenDone, specDirectory, logFile });
+      this.openWithOptions({ resourcePath, devMode, test, exitWhenDone, logFile });
     });
 
     return appWindow;
