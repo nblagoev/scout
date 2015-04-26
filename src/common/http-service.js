@@ -8,6 +8,9 @@ class HttpService {
   constructor() {
     this.request = new HttpServiceRequest();
     this.response = new HttpServiceResponse();
+    this.lastResponseTime = 0;
+    this.lastDeliveryTime = 0;
+    this.inProgress = false;
 
     this.request.headers.push(new HttpServiceHeader('Accept', 'application/vnd.scout.v1+json'));
     this.request.headers.push(new HttpServiceHeader('Accept-Language', 'en_US'));
@@ -17,12 +20,16 @@ class HttpService {
   }
 
   sendRequest(method, address, callback) {
+    if (this.inProgress) {
+      return;
+    }
+
     throws.ifEmpty(address);
     throws.ifEmpty(method);
     HttpService.httpMethodIsSupported(method, true);
 
+    this.inProgress = true;
     let targetUrl = url.parse(address);
-
     throws.ifEmpty(targetUrl.hostname);
 
     let options = {
@@ -47,8 +54,15 @@ class HttpService {
       options.headers['Content-Length'] = this.request.body;
     }
 
+    this.response.body = null;
+    this.response.headers = [];
+    this.lastResponseTime = 0;
+    this.lastDeliveryTime = 0;
+
     if (targetUrl.protocol === "http:") {
+      let startTime = Date.now();
       let req = http.request(options, (res) => {
+        this.lastResponseTime = Date.now() - startTime;
         this.response.status = res.statusCode;
 
         let hlen = res.rawHeaders.length;
@@ -60,10 +74,12 @@ class HttpService {
 
         res.setEncoding('utf8');
         res.on('data', (chunk) => {
+          this.lastDeliveryTime = Date.now() - startTime;
           this.response.body = chunk;
           callback();
         });
 
+        this.inProgress = false;
         callback();
       });
 

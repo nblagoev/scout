@@ -21,13 +21,10 @@
 
 
       <button class="topcoat-button--large--quiet"
-              ng-disabled="header.inProgress"
+              ng-disabled="header.httpSrv.inProgress"
               ng-click="header.sendRequest()">
         <i class="fa fa-send fa-lg"></i>
       </button>
-
-      <div class="spinner" ng-class="{'hidden': !header.inProgress}"></div>
-      <!--div class="topcoat-notification success-code">200&nbsp;&nbsp;&nbsp;OK</div-->
     </header>
     <div class="main-container">
       <div id="request-panel-group">
@@ -109,7 +106,7 @@
       </div>
 
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
-        <div class="panel-header"><div class="panel-title">Response: {{rpc.response.status}}</div>
+        <div class="panel-header"><div class="panel-title">Response:</div>
           <button class="topcoat-button--cta">Headers</button>
           <button class="topcoat-button--quiet">Body</button>
           <button class="topcoat-button--quiet">Raw</button>
@@ -144,5 +141,16 @@
            resizer-right="#response-panel">
       </div>
     </div>
+
+    <footer ng-controller="StatusBarCtrl as statusBar">
+
+      <response-time ms="statusBar.httpSrv.lastResponseTime"
+                     ng-class="{'hidden': !ms}"></response-time>
+
+      <response-status code="statusBar.httpSrv.response.status"
+                       ng-class="{'hidden': !code}"></response-status>
+
+      <div class="spinner" ng-show="statusBar.httpSrv.inProgress"></div>
+    </footer>
   </body>
 </html>

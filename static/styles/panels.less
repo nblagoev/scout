@@ -1,10 +1,5 @@
 @import "ui-variables";
 
-.bordered-section {
-  border-right: 1px solid #333434;
-  border-top: 1px solid #333434;
-}
-
 #request-build-panel {
   position: absolute;
   top: 0;
@@ -12,7 +7,7 @@
   left: 0;
   right: 0;
   overflow: auto;
-  .bordered-section;
+  border-right: 1px solid #333434;
 }
 
 #request-preview-panel {
@@ -22,7 +17,7 @@
   left: 0;
   right: 0;
   overflow: auto;
-  .bordered-section;
+  border-right: 1px solid #333434;
 }
 
 #request-panel-group {
@@ -41,17 +36,17 @@
   left: @request-panel-group-width + @resizer-line-tickness;
   right: 0;
   overflow: auto;
-  .bordered-section;
 }
 
 .main-container {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  bottom: @app-statusbar-height;
+  right: @app-body-padding;
+  left: @app-body-padding;
   top: @app-header-height;
   overflow: hidden;
   background-color: #454646;
+  border: 1px solid #333434;
 }
 
 .panel-header {
@@ -105,7 +100,6 @@
   bottom: 0;
   left: @request-panel-group-width;
 	background-color: transparent;
-  border-bottom: 1px solid #333434;
   cursor: e-resize;
 }
 

@@ -40,15 +40,35 @@ header {
   }
 }
 
+footer {
+  position: absolute;
+  padding: 5px 20px;
+  font-size: 12px;
+  right: 0;
+  bottom: 0;
+
+  span {
+    vertical-align: middle;
+    padding-left: 14px;
+  }
+
+  response-status {
+    vertical-align: middle;
+    padding-left: 14px;
+  }
+}
+
 .address-bar {
   width: 67%;
 }
 
 .http-code-base(@bgcolor) {
   background-color: @bgcolor;
-  border: 1px solid #333434;
-  vertical-align: baseline;
-  float: right;
+  //vertical-align: baseline;
+}
+
+.unknown-code {
+  .http-code-base(#E6C195);
 }
 
 .info-code {

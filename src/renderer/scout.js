@@ -78,8 +78,12 @@ class Scout {
     angular.module('scout', ['content-resizer', 'ng-enter']);
     require('./components/ng-enter.directive');
     require('./components/content-resizer.directive');
+    require('./components/response-status.directive');
+    require('./components/response-time.directive');
+    require('./services/status-bar.service');
     require('./services/http.service');
     require('./layout/header.controller');
+    require('./layout/status-bar.controller');
     require('./layout/request-panel.controller');
     require('./layout/response-panel.controller');
   }
