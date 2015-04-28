@@ -140,7 +140,7 @@ module.exports = function (grunt) {
       appDirectory: shellAppDir,
       outputDirectory: path.join(buildDir, 'installer'),
       authors: packageJson.author,
-      iconUrl: packageJson.iconUrl || 'https://raw.githubusercontent.com/atom/atom/master/resources/atom.png'
+      iconUrl: packageJson.iconUrl || 'https://raw.githubusercontent.com/nikoblag/scout/master/resources/scout.png'
     },
 
     bower: {

@@ -48,7 +48,7 @@ module.exports = function (grunt) {
     var section = 'devel';
     var maintainer = 'Nikolay Blagoev <nikolay.blagoev@gmail.com>';
     var installDir = '/usr';
-    var iconName = 'app';
+    var iconName = 'scout';
     var executable = path.join(installDir, 'share', 'scout', 'scout');
 
     getInstalledSize(buildDir, function (error, installedSize) {
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
 
       var controlFilePath = fillTemplate(path.join('resources', 'linux', 'debian', 'control'), data);
       var desktopFilePath = fillTemplate(path.join('resources', 'linux', "scout.desktop"), data);
-      var icon = path.join('resources', 'app.png');
+      var icon = path.join('resources', 'scout.png');
 
       var cmd = path.join('script', 'mkdeb');
       var args = [ version, arch, controlFilePath, desktopFilePath, icon, buildDir, 'scout' ];

@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     } else {
       var binDir = path.join(installDir, 'bin');
       var shareDir = path.join(installDir, 'share', 'scout');
-      var iconName = path.join(shareDir, 'resources', 'app', 'resources', 'app.png');
+      var iconName = path.join(shareDir, 'resources', 'app', 'resources', 'scout.png');
 
       mkdir(binDir);
       //cp('scout.sh', path.join(binDir, 'scout'));
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
         var desktopInstallFile = path.join(installDir, 'share', 'applications', 'scout.desktop');
 
         var description = grunt.file.readJSON('package.json').description;
-        iconName = path.join(shareDir, 'resources', 'app', 'resources', 'app.png');
+        iconName = path.join(shareDir, 'resources', 'app', 'resources', 'scout.png');
         var executable = path.join(shareDir, 'scout');
         var template = _.template(String(fs.readFileSync(desktopFile)));
         var filled = template({

@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 
     var installDir = grunt.config.get("scout.installDir");
     var shareDir = path.join(installDir, 'share', 'scout');
-    var iconName = path.join(shareDir, 'resources', 'app.png');
+    var iconName = path.join(shareDir, 'resources', 'scout.png');
     var executable = path.join(shareDir, 'scout');
 
     var data = {
