@@ -70,7 +70,7 @@ module.exports = function (grunt) {
       var icon = path.join('resources', 'app.png');
 
       var cmd = path.join('script', 'mkdeb');
-      var args = [ version, arch, controlFilePath, desktopFilePath, icon, buildDir ];
+      var args = [ version, arch, controlFilePath, desktopFilePath, icon, buildDir, 'scout' ];
       spawn({ cmd: cmd, args: args },
         function (error) {
           if (error != null) {
