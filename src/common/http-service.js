@@ -56,6 +56,7 @@ class HttpService {
 
     this.response.body = null;
     this.response.headers = [];
+    this.response.status = 0;
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
 
