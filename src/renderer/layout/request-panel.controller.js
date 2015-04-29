@@ -32,10 +32,12 @@ class PanelNavigation {
     ];
 
     this.selectedView = 'templates/nav-request-headers.html';
+    this.selectedViewId = 'headers';
   }
 
   select(targetViewId) {
     require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
     this.selectedView = 'templates/nav-request-' + targetViewId + '.html';
+    this.selectedViewId = targetViewId;
   }
 }

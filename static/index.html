@@ -31,7 +31,9 @@
         <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
           <div class="panel-header"><div class="panel-title">Request:</div>
             <button ng-repeat="btn in rpc.nav.model"
-                    class="topcoat-button--quiet"
+                    ng-class="{'topcoat-button--cta': rpc.nav.selectedViewId === btn.targetViewId,
+                               'topcoat-button--quiet': rpc.nav.selectedViewId !== btn.targetViewId}"
+                    ng-disabled="rpc.nav.selectedViewId === btn.targetViewId"
                     ng-click="rpc.nav.select(btn.targetViewId)">
               <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
               <span ng-if="!btn.iconClass">{{btn.label}}</span>
