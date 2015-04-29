@@ -78,6 +78,7 @@ class Scout {
     angular.module('scout', ['content-resizer', 'ng-enter']);
     require('./components/ng-enter.directive');
     require('./components/content-resizer.directive');
+    require('./components/panel-nav.directive');
     require('./components/response-status.directive');
     require('./components/response-time.directive');
     require('./services/status-bar.service');

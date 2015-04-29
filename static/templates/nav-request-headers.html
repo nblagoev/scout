@@ -1,0 +1,45 @@
+<table id="request-headers-table">
+ <thead>
+  <tr>
+     <th width="180px">Header Name</th>
+     <th>Header Value</th>
+  </tr>
+ </thead>
+ <tfoot>
+    <tr>
+      <td>
+        <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
+        <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
+        <input type="text" placeholder="Add Header"
+               ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderName"
+               class="topcoat-text-input table-row-header-name-input borderless-input">
+      </td>
+      <td>
+        <input type="text" placeholder="Add Value"
+               ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderValue"
+               class="topcoat-text-input table-row-header-value-input borderless-input"/>
+      </td>
+      <td class="action-cell">
+        <i class="fa fa-check action-btn green"
+           ng-show="rpc.newHeaderName"
+           ng-click="rpc.submitHeader()"></i>
+      </td>
+    </tr>
+ </tfoot>
+ <tbody>
+  <tr ng-repeat="header in rpc.request.headers">
+    <td>
+      <input type="checkbox" class="table-row-fix-input-position" ng-model="header.include"/>
+      <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" ng-model="header.name"/>
+    </td>
+    <td>
+      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" ng-model="header.value"/>
+    </td>
+    <td class="action-cell">
+      <i class="fa fa-minus action-btn red"
+         ng-click="rpc.request.removeHeader(header.name)"></i>
+    </td>
+  </tr>
+ </tbody>
+</table>
