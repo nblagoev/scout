@@ -20,8 +20,16 @@ class HttpService {
   }
 
   set inProgress(value) {
+    if (this._inProgress == value) {
+      return;
+    }
+
     this._inProgress = value;
-    scout.currentWindow.setProgressBar(value ? 2 : 0);
+    //scout.currentWindow.setProgressBar(value ? 2 : 0);
+
+    if (!value && !scout.currentWindow.isFocused()) {
+      scout.currentWindow.flashFrame(true);
+    }
   }
 
   get inProgress() {
