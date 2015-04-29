@@ -31,14 +31,14 @@
         <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
           <div class="panel-header"><div class="panel-title">Request:</div>
             <nav-buttons></nav-buttons>
-            <!--button class="topcoat-button--cta">Headers</button>
-            <button class="topcoat-button--quiet">Parameters</button>
-            <button class="topcoat-button--quiet">Body</button>
-            <button class="topcoat-button--quiet">Raw</button>
-            <button class="topcoat-button--quiet"> <i class="fa fa-gear fa-lm"></i> </button-->
+            <!--button class="topcoat-button-cta">Headers</button>
+            <button class="topcoat-button-quiet">Parameters</button>
+            <button class="topcoat-button-quiet">Body</button>
+            <button class="topcoat-button-quiet">Raw</button>
+            <button class="topcoat-button-quiet"> <i class="fa fa-gear fa-lm"></i> </button-->
           </div>
           <div class="panel-container">
-            <div class="panel-body" nav-view="{{rpc.nav.selectedView}}"> </div>
+            <div class="panel-body"> <nav-view template="rpc.nav.selectedView"></nav-view> </div>
           </div>
         </section>
 

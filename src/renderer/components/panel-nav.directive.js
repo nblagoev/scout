@@ -1,11 +1,14 @@
 
 angular.module('scout').directive('navView', function () {
   return {
-    restrict: 'A',
-    scope: {
-      navView: "="
+    restrict: 'E',
+    link: function (scope, element, attrs) {
+      scope.template = attrs.template;
+      scope.$watch(attrs.template, function(value) {
+        scope.template = value;
+      });
     },
-    templateUrl: './templates/nav-request-{{navView}}.html'
+    template: '<ng-include src="template"></ng-include>'
   };
 });
 

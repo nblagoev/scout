@@ -31,11 +31,11 @@ class PanelNavigation {
       {targetViewId: 'options', label: 'Options'},
     ];
 
-    this.selectedView = 'headers';
+    this.selectedView = 'templates/nav-request-headers.html';
   }
 
   select(targetViewId) {
     require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
-    this.selectedView = targetViewId;
+    this.selectedView = 'templates/nav-request-' + targetViewId + '.html';
   }
 }
