@@ -10,13 +10,22 @@ class HttpService {
     this.response = new HttpServiceResponse();
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
-    this.inProgress = false;
+    this._inProgress = false;
 
     this.request.headers.push(new HttpServiceHeader('Accept', 'application/vnd.scout.v1+json'));
     this.request.headers.push(new HttpServiceHeader('Accept-Language', 'en_US'));
     this.request.headers.push(new HttpServiceHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
     this.request.headers.push(new HttpServiceHeader('Date', '23/04/2015'));
     this.request.headers.push(new HttpServiceHeader('Content-Type', 'application/json'));
+  }
+
+  set inProgress(value) {
+    this._inProgress = value;
+    scout.currentWindow.setProgressBar(value ? 2 : 0);
+  }
+
+  get inProgress() {
+    return this._inProgress;
   }
 
   sendRequest(method, address, callback) {
