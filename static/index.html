@@ -19,17 +19,17 @@
              ng-model="header.address" ng-enter="header.sendRequest()"
              class="topcoat-text-input--large address-bar"/>
 
-
       <button class="topcoat-button--large--quiet"
               ng-disabled="header.httpSrv.inProgress"
               ng-click="header.sendRequest()">
         <i class="fa fa-send fa-lg"></i>
       </button>
     </header>
+
     <div class="main-container">
       <div id="request-panel-group">
         <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
-          <panel-header navigation="rpc.nav"> </panel-header>
+          <panel-header title="Request:" navigation="rpc.nav"> </panel-header>
           <div class="panel-container">
             <panel-body view="rpc.nav.selectedView"></panel-body>
           </div>
@@ -52,7 +52,7 @@
       </div>
 
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
-        <panel-header navigation="rpc.nav"> </panel-header>
+        <panel-header title="Response:" navigation="rpc.nav"> </panel-header>
         <div class="panel-container">
           <panel-body view="rpc.nav.selectedView"></panel-body>
         </div>

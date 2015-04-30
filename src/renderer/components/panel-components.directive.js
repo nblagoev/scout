@@ -3,7 +3,8 @@ angular.module('scout').directive('panelHeader', function () {
   return {
     restrict: 'E',
     scope: {
-      nav: "=navigation"
+      nav: "=navigation",
+      title: "@"
     },
     templateUrl: 'templates/panel-header.html'
   };
