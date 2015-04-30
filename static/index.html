@@ -29,34 +29,16 @@
     <div class="main-container">
       <div id="request-panel-group">
         <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
-          <div class="panel-header"><div class="panel-title">Request:</div>
-            <button ng-repeat="btn in rpc.nav.model"
-                    ng-class="{'topcoat-button--cta': rpc.nav.selectedViewId === btn.targetViewId,
-                               'topcoat-button--quiet': rpc.nav.selectedViewId !== btn.targetViewId}"
-                    ng-disabled="rpc.nav.selectedViewId === btn.targetViewId"
-                    ng-click="rpc.nav.select(btn.targetViewId)">
-              <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
-              <span ng-if="!btn.iconClass">{{btn.label}}</span>
-            </button>
-          </div>
+          <panel-header navigation="rpc.nav"> </panel-header>
           <div class="panel-container">
-            <div class="panel-body"> <nav-view template="rpc.nav.selectedView"></nav-view> </div>
+            <panel-body view="rpc.nav.selectedView"></panel-body>
           </div>
         </section>
 
         <section id="request-preview-panel" ng-controller="ManagementPanelCtrl as man">
-          <div class="panel-header">
-            <button ng-repeat="btn in man.nav.model"
-                    ng-class="{'topcoat-button--cta': man.nav.selectedViewId === btn.targetViewId,
-                               'topcoat-button--quiet': man.nav.selectedViewId !== btn.targetViewId}"
-                    ng-disabled="man.nav.selectedViewId === btn.targetViewId"
-                    ng-click="man.nav.select(btn.targetViewId)">
-              <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
-              <span ng-if="!btn.iconClass">{{btn.label}}</span>
-            </button>
-          </div>
+          <panel-header navigation="man.nav"> </panel-header>
           <div class="panel-container">
-            <div class="panel-body"> <nav-view template="man.nav.selectedView"></nav-view> </div>
+            <panel-body view="man.nav.selectedView"></panel-body>
           </div>
         </section>
 
@@ -70,18 +52,9 @@
       </div>
 
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
-        <div class="panel-header"><div class="panel-title">Response:</div>
-          <button ng-repeat="btn in rpc.nav.model"
-                  ng-class="{'topcoat-button--cta': rpc.nav.selectedViewId === btn.targetViewId,
-                             'topcoat-button--quiet': rpc.nav.selectedViewId !== btn.targetViewId}"
-                  ng-disabled="rpc.nav.selectedViewId === btn.targetViewId"
-                  ng-click="rpc.nav.select(btn.targetViewId)">
-            <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
-            <span ng-if="!btn.iconClass">{{btn.label}}</span>
-          </button>
-        </div>
+        <panel-header navigation="rpc.nav"> </panel-header>
         <div class="panel-container">
-          <div class="panel-body"> <nav-view template="rpc.nav.selectedView"></nav-view> </div>
+          <panel-body view="rpc.nav.selectedView"></panel-body>
         </div>
       </section>
 

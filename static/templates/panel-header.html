@@ -1,0 +1,11 @@
+<div class="panel-header">
+  <div class="panel-title">Request:</div>
+  <button ng-repeat="btn in nav.model"
+          ng-class="{'topcoat-button--cta': nav.selectedViewId === btn.targetViewId,
+                     'topcoat-button--quiet': nav.selectedViewId !== btn.targetViewId}"
+          ng-disabled="nav.selectedViewId === btn.targetViewId"
+          ng-click="nav.select(btn.targetViewId)">
+    <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
+    <span ng-if="!btn.iconClass">{{btn.label}}</span>
+  </button>
+</div>
