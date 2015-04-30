@@ -10,7 +10,7 @@ class PanelNavigation {
 
   select(targetViewId) {
     require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
-    this.selectedView = this.partialTemplateId + targetViewId + '.html';
+    this.selectedView = this.templatePartialPath + targetViewId + '.html';
     this.selectedViewId = targetViewId;
   }
 }

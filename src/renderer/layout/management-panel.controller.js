@@ -7,7 +7,6 @@ angular.module("scout").controller('ManagementPanelCtrl', function (httpService)
 });
 
 let PanelNavigation = require('../common/panel-nav');
-console.log(PanelNavigation);
 
 class ManagementNavigation extends PanelNavigation {
   constructor() {

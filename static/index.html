@@ -71,30 +71,18 @@
 
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
         <div class="panel-header"><div class="panel-title">Response:</div>
-          <button class="topcoat-button--cta">Headers</button>
-          <button class="topcoat-button--quiet">Body</button>
-          <button class="topcoat-button--quiet">Raw</button>
+          <button ng-repeat="btn in rpc.nav.model"
+                  ng-class="{'topcoat-button--cta': rpc.nav.selectedViewId === btn.targetViewId,
+                             'topcoat-button--quiet': rpc.nav.selectedViewId !== btn.targetViewId}"
+                  ng-disabled="rpc.nav.selectedViewId === btn.targetViewId"
+                  ng-click="rpc.nav.select(btn.targetViewId)">
+            <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
+            <span ng-if="!btn.iconClass">{{btn.label}}</span>
+          </button>
         </div>
-        <div class="panel-container"><div class="panel-body">
-          <table id="response-headers-table">
-           <thead>
-            <tr>
-               <th>Header Name</th>
-               <th>Header Value</th>
-            </tr>
-           </thead>
-           <tbody>
-            <tr ng-repeat="header in rpc.response.headers">
-              <td class="response-header-name-cell">
-                {{header.name}}
-              </td>
-              <td class="response-header-value-cell">
-                {{header.value}}
-              </td>
-            </tr>
-           </tbody>
-          </table>
-        </div></div>
+        <div class="panel-container">
+          <div class="panel-body"> <nav-view template="rpc.nav.selectedView"></nav-view> </div>
+        </div>
       </section>
 
       <div class="vertical-resizer"

@@ -1,0 +1,18 @@
+<table id="response-headers-table">
+ <thead>
+  <tr>
+     <th>Header Name</th>
+     <th>Header Value</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr ng-repeat="header in rpc.response.headers">
+    <td class="response-header-name-cell">
+      {{header.name}}
+    </td>
+    <td class="response-header-value-cell">
+      {{header.value}}
+    </td>
+  </tr>
+ </tbody>
+</table>
