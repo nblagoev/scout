@@ -86,6 +86,7 @@ class Scout {
     require('./layout/header.controller');
     require('./layout/status-bar.controller');
     require('./layout/request-panel.controller');
+    require('./layout/management-panel.controller');
     require('./layout/response-panel.controller');
   }
 

@@ -28,7 +28,7 @@ class PanelNavigation {
       {targetViewId: 'params', label: 'Parameters'},
       {targetViewId: 'body', label: 'Body'},
       {targetViewId: 'raw', label: 'Raw'},
-      {targetViewId: 'options', label: 'Options', iconClass: 'fa fa-gear fa-lm'},
+      {targetViewId: 'options', label: 'Options', iconClass: 'fa fa-gear fa-lm'}
     ];
 
     this.selectedView = 'templates/nav-request-headers.html';

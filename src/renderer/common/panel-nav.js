@@ -1,0 +1,18 @@
+'use babel';
+
+class PanelNavigation {
+  constructor() {
+    this.model = [];
+    this.selectedView = '';
+    this.selectedViewId = '';
+    this.templatePartialPath = '';
+  }
+
+  select(targetViewId) {
+    require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
+    this.selectedView = this.partialTemplateId + targetViewId + '.html';
+    this.selectedViewId = targetViewId;
+  }
+}
+
+module.exports = PanelNavigation;

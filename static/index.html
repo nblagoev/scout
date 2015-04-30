@@ -44,13 +44,20 @@
           </div>
         </section>
 
-        <section id="request-preview-panel">
+        <section id="request-preview-panel" ng-controller="ManagementPanelCtrl as man">
           <div class="panel-header">
-              <button class="topcoat-button--cta">Collections</button>
-              <button class="topcoat-button--quiet">History</button>
-              <button class="topcoat-button--quiet">Cookies</button>
+            <button ng-repeat="btn in man.nav.model"
+                    ng-class="{'topcoat-button--cta': man.nav.selectedViewId === btn.targetViewId,
+                               'topcoat-button--quiet': man.nav.selectedViewId !== btn.targetViewId}"
+                    ng-disabled="man.nav.selectedViewId === btn.targetViewId"
+                    ng-click="man.nav.select(btn.targetViewId)">
+              <i class="{{btn.iconClass}}" ng-if="btn.iconClass"></i>
+              <span ng-if="!btn.iconClass">{{btn.label}}</span>
+            </button>
           </div>
-          <div class="panel-container"><div class="panel-body"></div></div>
+          <div class="panel-container">
+            <div class="panel-body"> <nav-view template="man.nav.selectedView"></nav-view> </div>
+          </div>
         </section>
 
         <div class="horizontal-resizer"
