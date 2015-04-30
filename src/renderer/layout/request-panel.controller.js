@@ -6,7 +6,7 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
   self.request = httpService.request;
   self.newHeaderName = '';
   self.newHeaderValue = '';
-  self.nav = new PanelNavigation();
+  self.nav = new RequestNavigation();
 
   self.submitHeader = () => {
     if (self.newHeaderName === undefined ||
@@ -21,8 +21,11 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
   };
 });
 
-class PanelNavigation {
+let PanelNavigation = require('../common/panel-nav');
+
+class RequestNavigation extends PanelNavigation {
   constructor() {
+    super();
     this.model = [
       {targetViewId: 'headers', label: 'Headers'},
       {targetViewId: 'params', label: 'Parameters'},
@@ -31,13 +34,7 @@ class PanelNavigation {
       {targetViewId: 'options', label: 'Options', iconClass: 'fa fa-gear fa-lm'}
     ];
 
-    this.selectedView = 'templates/nav-request-headers.html';
-    this.selectedViewId = 'headers';
-  }
-
-  select(targetViewId) {
-    require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
-    this.selectedView = 'templates/nav-request-' + targetViewId + '.html';
-    this.selectedViewId = targetViewId;
+    this.templatePartialPath = 'templates/nav-request-';
+    this.select('headers');
   }
 }
