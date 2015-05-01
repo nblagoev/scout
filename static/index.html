@@ -13,13 +13,13 @@
         <option value="put">PUT</option>
         <option value="post">POST</option>
         <option value="delete">DELETE</option>
-      </select>
-
-      <input type="text" placeholder="https://"
+      </select><!--
+      used to remove the space
+   --><input type="text" placeholder="https://"
              ng-model="header.address" ng-enter="header.sendRequest()"
-             class="topcoat-text-input--large address-bar"/>
-
-      <button class="topcoat-button--large--quiet"
+             class="topcoat-text-input--large address-bar"/><!--
+      used to remove the space
+   --><button class="topcoat-button--large--quiet"
               ng-disabled="header.httpSrv.inProgress"
               ng-click="header.sendRequest()">
         <i class="fa fa-send fa-lg"></i>
