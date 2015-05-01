@@ -15,8 +15,9 @@ angular.module("scout").directive("rawPreview", function(){
       scout.styles.requireStylesheet("vendor/components/codemirror/theme/scout.css");
       var editor = CodeMirror(element[0], {
         mode: "message/http",
-        theme: "scout",
-        lineNumbers: true
+        readOnly: "nocursor",
+        lineNumbers: true,
+        theme: "scout"
       });
 
       scope.$watch('content', function(value) {
