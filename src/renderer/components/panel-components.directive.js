@@ -13,6 +13,7 @@ angular.module('scout').directive('panelHeader', function () {
 angular.module('scout').directive('panelBody', function () {
   return {
     restrict: 'E',
+    //todo: isolate the scope
     link: function (scope, element, attrs) {
       scope.$watch(attrs.view, function(value) {
         scope.view = value;

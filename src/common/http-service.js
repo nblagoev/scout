@@ -68,9 +68,10 @@ class HttpService {
     }
 
     if (!options.headers['Content-Length'] && this.request.body) {
-      options.headers['Content-Length'] = this.request.body;
+      options.headers['Content-Length'] = this.request.body.length;
     }
 
+    this.raw = '';
     this.response.body = null;
     this.response.headers = [];
     this.response.status = 0;
@@ -131,6 +132,7 @@ class HttpServiceWrapper {
   constructor() {
     this.headers = [];
     this.body = null;
+    this.raw = 'HTTP/1.1 200 OK\nContent-Type: text/json; charset=utf-8\nContent-Length: 14\n\n{"test": true}';
   }
 
   addHeader(name, value) {

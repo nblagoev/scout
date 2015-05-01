@@ -31,14 +31,14 @@
         <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
           <panel-header title="Request:" navigation="rpc.nav"> </panel-header>
           <div class="panel-container">
-            <panel-body view="rpc.nav.selectedView"></panel-body>
+            <panel-body view="rpc.nav.selectedView"> </panel-body>
           </div>
         </section>
 
         <section id="request-preview-panel" ng-controller="ManagementPanelCtrl as man">
           <panel-header navigation="man.nav"> </panel-header>
           <div class="panel-container">
-            <panel-body view="man.nav.selectedView"></panel-body>
+            <panel-body view="man.nav.selectedView"> </panel-body>
           </div>
         </section>
 
@@ -54,7 +54,7 @@
       <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
         <panel-header title="Response:" navigation="rpc.nav"> </panel-header>
         <div class="panel-container">
-          <panel-body view="rpc.nav.selectedView"></panel-body>
+          <panel-body view="rpc.nav.selectedView"> </panel-body>
         </div>
       </section>
 
@@ -68,7 +68,6 @@
     </div>
 
     <footer ng-controller="StatusBarCtrl as statusBar">
-
       <response-time ms="statusBar.httpSrv.lastResponseTime"
                      ng-class="{'hidden': !ms}"></response-time>
 

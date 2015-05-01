@@ -6,7 +6,7 @@ angular.module('scout').directive('responseStatus', function () {
     } else if (statusCode >= 200 && statusCode < 300) {
       return "success";
     } else if (statusCode >= 300 && statusCode < 400) {
-      return "redirection";
+      return "redirect";
     } else if (statusCode >= 400 && statusCode < 500) {
       return "client-error";
     } else if (statusCode >= 500 && statusCode < 600) {
