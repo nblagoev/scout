@@ -1,0 +1,41 @@
+<table id="request-params-table">
+ <thead>
+  <tr>
+     <th width="180px">URL Parameter</th>
+     <th>Value</th>
+  </tr>
+ </thead>
+ <tfoot>
+    <tr>
+      <td>
+        <input type="text" placeholder="Add Parameter"
+               ng-enter="rpc.submitParam()" ng-model="rpc.newParamName"
+               class="topcoat-text-input table-row-name-input borderless-input">
+      </td>
+      <td>
+        <input type="text" placeholder="Add Value"
+               ng-enter="rpc.submitParam()" ng-model="rpc.newParamValue"
+               class="topcoat-text-input table-row-value-input borderless-input"/>
+      </td>
+      <td class="action-cell">
+        <i class="fa fa-check action-btn green"
+           ng-show="rpc.newParamName"
+           ng-click="rpc.submitParam()"></i>
+      </td>
+    </tr>
+ </tfoot>
+ <tbody>
+  <tr ng-repeat="param in rpc.request.urlParams">
+    <td>
+      <input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="param.name"/>
+    </td>
+    <td>
+      <input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="param.value"/>
+    </td>
+    <td class="action-cell">
+      <i class="fa fa-minus action-btn red"
+         ng-click="rpc.request.removeParameter(param.name)"></i>
+    </td>
+  </tr>
+ </tbody>
+</table>

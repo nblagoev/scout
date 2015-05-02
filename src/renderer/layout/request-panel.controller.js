@@ -6,6 +6,8 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
   self.request = httpService.request;
   self.newHeaderName = '';
   self.newHeaderValue = '';
+  self.newParamName = '';
+  self.newParamValue = '';
   self.nav = new RequestNavigation();
 
   self.submitHeader = () => {
@@ -18,6 +20,18 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
     httpService.request.addHeader(self.newHeaderName, self.newHeaderValue);
     self.newHeaderName = '';
     self.newHeaderValue = '';
+  };
+
+  self.submitParam = () => {
+    if (self.newParamName === undefined ||
+        self.newParamName === null ||
+        self.newParamName === '') {
+      return;
+    }
+
+    httpService.request.addParameter(self.newParamName, self.newParamValue);
+    self.newParamName = '';
+    self.newParamValue = '';
   };
 });
 

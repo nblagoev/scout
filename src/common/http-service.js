@@ -58,11 +58,14 @@ class HttpService {
       url: targetUrl,
       method: method.toUpperCase(),
       headers: {},
-      body: HttpService.methodCanHaveBody(method) ? this.request.body : undefined,
+      //body: HttpService.methodCanHaveBody(method) ? this.request.body : undefined,
+      body: this.request.body,
       followRedirect: this.request.followRedirect,
       maxRedirects: this.request.maxRedirects || 10,
       timeout: this.request.timeout,
-      time: true
+      time: true,
+      useQuerystring: true,
+      qs: HttpService.paramsToJson(this.request.urlParams)
     };
 
     let headers = this.request.headers;
@@ -147,6 +150,19 @@ class HttpService {
       return result;
     }
   }
+
+  static paramsToJson(urlParams) {
+    let result = {};
+
+    for (let i = 0; i < urlParams.length; i++) {
+      if (i in urlParams) {
+        let param = urlParams[i];
+        result[param.name] = param.value;
+      }
+    }
+
+    return result;
+  }
 }
 
 class HttpServiceWrapper {
@@ -204,9 +220,54 @@ class HttpServiceWrapper {
 class HttpServiceRequest extends HttpServiceWrapper {
   constructor() {
     super();
+    this.urlParams = [];
     this.timeout = null;
     this.followRedirect = true;
     this.maxRedirects = 10;
+  }
+
+  addParameter(name, value) {
+    throws.ifEmpty(name, "name");
+    let param = this.findParameter(name);
+
+    if (param !== null && param !== undefined) {
+      param.value = value;
+    } else {
+      this.urlParams.push({name, value});
+    }
+  }
+
+  removeParameter(name) {
+    let paramIndex = this.findParameterIndex(name);
+    if (paramIndex >= 0) {
+      this.urlParams.splice(paramIndex, 1);
+    }
+  }
+
+  findParameter(name) {
+    for (let i = 0; i < this.urlParams.length; i++) {
+      if (i in this.urlParams) {
+        let param = this.urlParams[i];
+        if (param.name === name) {
+          return param;
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  findParameterIndex(name) {
+    for (let i = 0; i < this.urlParams.length; i++) {
+      if (i in this.urlParams) {
+        let parasm = this.urlParams[i];
+        if (param.name === name) {
+          return i;
+        }
+      }
+    }
+
+    return -1;
   }
 }
 

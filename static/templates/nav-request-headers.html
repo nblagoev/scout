@@ -12,12 +12,12 @@
         <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
         <input type="text" placeholder="Add Header"
                ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderName"
-               class="topcoat-text-input table-row-header-name-input borderless-input">
+               class="topcoat-text-input table-row-name-input borderless-input">
       </td>
       <td>
         <input type="text" placeholder="Add Value"
                ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderValue"
-               class="topcoat-text-input table-row-header-value-input borderless-input"/>
+               class="topcoat-text-input table-row-value-input borderless-input"/>
       </td>
       <td class="action-cell">
         <i class="fa fa-check action-btn green"
@@ -31,10 +31,10 @@
     <td>
       <input type="checkbox" class="table-row-fix-input-position" ng-model="header.include"/>
       <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-      <input type="text" class="topcoat-text-input table-row-header-name-input borderless-input" ng-model="header.name"/>
+      <input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="header.name"/>
     </td>
     <td>
-      <input type="text" class="topcoat-text-input table-row-header-value-input borderless-input" ng-model="header.value"/>
+      <input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="header.value"/>
     </td>
     <td class="action-cell">
       <i class="fa fa-minus action-btn red"
