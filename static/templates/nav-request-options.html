@@ -1,0 +1,45 @@
+<table id="request-options-table">
+ <tbody>
+  <tr>
+    <td class="request-options-table-header">
+      Timeout:
+    </td>
+    <td>
+      <input type="number" min="1" max="600"
+             style="width: 85px"
+             class="topcoat-number-input"
+             placeholder="No timeout"
+             ng-model="rpc.request.timeout"/>
+      <span class="numeric-input-label">second(s)</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="request-options-table-header">
+      Redirections:
+    </td>
+    <td>
+      <table id="redirections-option-table">
+        <tbody>
+          <tr><td>
+            <label class="topcoat-switch">
+              <input type="checkbox"
+                     class="topcoat-switch__input"
+                     ng-model="rpc.request.followRedirects">
+              <div class="topcoat-switch__toggle"></div>
+            </label>
+            <span class="switch-label">Follow redirects</span>
+          </td></tr>
+          <tr><td>
+            <input type="number" min="1" max="600"
+                   placeholder="10"
+                   style="width: 46px"
+                   class="topcoat-number-input"
+                   ng-model="rpc.request.maxRedirects"/>
+            <span class="numeric-input-label">maximum redirects</span>
+          </td></tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+ </tbody>
+</table>

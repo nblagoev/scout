@@ -183,6 +183,9 @@ class HttpServiceWrapper {
 class HttpServiceRequest extends HttpServiceWrapper {
   constructor() {
     super();
+    this.timeout = null;
+    this.followRedirects = true;
+    this.maxRedirects = 10;
   }
 }
 
