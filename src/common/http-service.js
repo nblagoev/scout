@@ -41,13 +41,18 @@ class HttpService {
       return;
     }
 
-    throws.ifEmpty(address);
-    throws.ifEmpty(method);
+    throws.ifEmpty(address, "address");
+    throws.ifEmpty(method, "method");
     HttpService.httpMethodIsSupported(method, true);
 
     this.inProgress = true;
     let targetUrl = url.parse(address);
-    throws.ifEmpty(targetUrl.hostname);
+
+    if (!targetUrl.protocol) {
+      targetUrl = url.parse('https://' + address);
+    }
+
+    throws.ifEmpty(targetUrl.hostname, "hostname");
 
     let options = {
       url: targetUrl,
