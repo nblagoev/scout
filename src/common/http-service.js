@@ -1,7 +1,7 @@
 'use babel';
 
 let throws = require('./throws');
-let http = require('http');
+let request = require('request');
 let url = require('url');
 
 class HttpService {
@@ -50,11 +50,14 @@ class HttpService {
     throws.ifEmpty(targetUrl.hostname);
 
     let options = {
-      hostname: targetUrl.hostname,
-      port: targetUrl.port,
-      path: targetUrl.path,
+      url: targetUrl,
       method: method.toUpperCase(),
-      headers: {}
+      headers: {},
+      body: HttpService.methodCanHaveBody(method) ? this.request.body : undefined,
+      followRedirect: this.request.followRedirect,
+      maxRedirects: this.request.maxRedirects || 10,
+      timeout: this.request.timeout,
+      time: true
     };
 
     let headers = this.request.headers;
@@ -67,53 +70,55 @@ class HttpService {
       }
     }
 
-    if (!options.headers['Content-Length'] && this.request.body) {
-      options.headers['Content-Length'] = this.request.body.length;
-    }
-
-    this.raw = '';
     this.response.body = null;
     this.response.headers = [];
     this.response.status = 0;
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
 
-    if (targetUrl.protocol === "http:") {
-      let startTime = Date.now();
-      let req = http.request(options, (res) => {
-        this.lastResponseTime = Date.now() - startTime;
-        this.response.status = res.statusCode;
-
-        let hlen = res.rawHeaders.length;
-        for (let i = 0; i < hlen; i++) {
-          let name = res.rawHeaders[i];
-          let value = res.rawHeaders[++i];
-          this.response.addHeader(name, value);
-        }
-
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => {
-          this.lastDeliveryTime = Date.now() - startTime;
-          this.response.body = chunk;
-          callback();
-        });
-
+    let startTime = Date.now();
+    request(options, (error, res, body) => {
+      if (error) {
         this.inProgress = false;
         callback();
-      });
-
-      req.on('error', (e) => {
-        throw new Error (e.message);
-      });
-
-      if (this.request.body !== null && this.request.body !== undefined) {
-        req.write(this.request.body);
+        throw new Error(error.message);
       }
 
-      req.end();
-    } else {
-      throw new Error("Unsupported protocol " + targetUrl.protocol);
-    }
+      this.lastDeliveryTime = res.elapsedTime;
+      //res.setEncoding('utf8');
+      this.inProgress = false;
+      callback();
+    }).on('response', (res) => {
+      this.lastResponseTime = Date.now() - startTime;
+      this.response.status = res.statusCode;
+
+      let hlen = res.rawHeaders.length;
+      for (let i = 0; i < hlen; i++) {
+        let name = res.rawHeaders[i];
+        let value = res.rawHeaders[++i];
+        this.response.addHeader(name, value);
+      }
+
+      callback();
+    }).on('data', (chunk) => {
+      if (this.response.body == null || this.response.body == undefined) {
+        this.response.body = '';
+      }
+
+      this.response.body += chunk.toString();
+    }).on('error', (e) => {
+      this.inProgress = false;
+      callback();
+      throw new Error(e.message);
+    }).on('socket', (socket) => {
+      this.response.raw = '';
+      socket.resume();
+      socket.on('data', (buf) => {
+        this.response.raw += buf.toString();
+      });
+    }).on('end', () => {
+      callback();
+    });
   }
 
   static httpMethodIsSupported(method, throwError) {
@@ -121,7 +126,18 @@ class HttpService {
     let result = supported.indexOf(method.toUpperCase()) !== -1;
 
     if (throwError === true && !result) {
-        throw new Error("Unsupported HTTP method " + method);
+      throw new Error("Unsupported HTTP method " + method);
+    } else {
+      return result;
+    }
+  }
+
+  static methodCanHaveBody(method, throwError) {
+    let canHaveBody = ["PUT", "POST", "PATCH"];
+    let result = canHaveBody.indexOf(method.toUpperCase()) !== -1;
+
+    if (throwError === true && !result) {
+      throw new Error("HTTP method " + method + " cannot have body");
     } else {
       return result;
     }
@@ -132,7 +148,7 @@ class HttpServiceWrapper {
   constructor() {
     this.headers = [];
     this.body = null;
-    this.raw = 'HTTP/1.1 200 OK\nContent-Type: text/json; charset=utf-8\nContent-Length: 14\n\n{"test": true}';
+    this.raw = '';
   }
 
   addHeader(name, value) {
@@ -184,7 +200,7 @@ class HttpServiceRequest extends HttpServiceWrapper {
   constructor() {
     super();
     this.timeout = null;
-    this.followRedirects = true;
+    this.followRedirect = true;
     this.maxRedirects = 10;
   }
 }
