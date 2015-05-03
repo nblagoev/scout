@@ -111,7 +111,7 @@ class StyleManager {
       this.styleElementsBySourcePath[sourcePath] = styleElement;
     }
 
-    this.styleSheetDisposablesBySourcePath[path] = new Disposable(() => {
+    this.styleSheetDisposablesBySourcePath[sourcePath] = new Disposable(() => {
       document.head.removeChild(styleElement);
       let sourcePath = styleElement.getAttribute('source-path');
       if (this.styleElementsBySourcePath[sourcePath]) {
