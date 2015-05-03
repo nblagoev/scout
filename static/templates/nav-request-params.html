@@ -8,9 +8,11 @@
  <tfoot>
     <tr>
       <td>
+        <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
+        <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
         <input type="text" placeholder="Add Parameter"
                ng-enter="rpc.submitParam()" ng-model="rpc.newParamName"
-               class="topcoat-text-input table-row-name-input borderless-input">
+               class="topcoat-text-input table-row-name-input borderless-input"/>
       </td>
       <td>
         <input type="text" placeholder="Add Value"
@@ -27,6 +29,8 @@
  <tbody>
   <tr ng-repeat="param in rpc.request.urlParams">
     <td>
+      <input type="checkbox" class="table-row-fix-input-position" ng-model="param.include"/>
+      <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
       <input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="param.name"/>
     </td>
     <td>

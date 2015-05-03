@@ -157,7 +157,9 @@ class HttpService {
     for (let i = 0; i < urlParams.length; i++) {
       if (i in urlParams) {
         let param = urlParams[i];
-        result[param.name] = param.value;
+        if (param.include === true) {
+          result[param.name] = param.value;
+        }
       }
     }
 
@@ -233,7 +235,7 @@ class HttpServiceRequest extends HttpServiceWrapper {
     if (param !== null && param !== undefined) {
       param.value = value;
     } else {
-      this.urlParams.push({name, value});
+      this.urlParams.push(new HttpServiceParameter(name, value));
     }
   }
 
@@ -278,12 +280,24 @@ class HttpServiceResponse extends HttpServiceWrapper {
   }
 }
 
-class HttpServiceHeader {
+class HttpServiceEntity {
   constructor(name, value) {
     throws.ifEmpty(name, "name");
     this.name = name;
     this.value = value;
     this.include = true;
+  }
+}
+
+class HttpServiceHeader extends HttpServiceEntity {
+  constructor(name, value) {
+    super(name, value);
+  }
+}
+
+class HttpServiceParameter extends HttpServiceEntity {
+  constructor(name, value) {
+    super(name, value);
   }
 }
 
