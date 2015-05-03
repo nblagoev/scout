@@ -1,0 +1,71 @@
+<header ng-controller="HeaderCtrl as header">
+  <select class="topcoat-select http-method-select"
+          ng-model="header.httpSrv.request.method">
+    <option value="get">GET</option>
+    <option value="put">PUT</option>
+    <option value="post">POST</option>
+    <option value="delete">DELETE</option>
+  </select><!--
+  used to remove the space
+--><input type="text" placeholder="https://"
+         ng-model="header.httpSrv.request.address"
+         ng-enter="header.sendRequest()"
+         class="topcoat-text-input--large address-bar"/><!--
+  used to remove the space
+--><button class="topcoat-button--large--quiet"
+          ng-disabled="header.httpSrv.inProgress"
+          ng-click="header.sendRequest()">
+    <i class="fa fa-send fa-lg"></i>
+  </button>
+</header>
+
+<div class="main-container">
+  <div id="request-panel-group">
+    <section id="request-build-panel" ng-controller="RequestPanelCtrl as rpc">
+      <panel-header title="Request:" navigation="rpc.nav"> </panel-header>
+      <div class="panel-container">
+        <panel-body view="rpc.nav.selectedView"> </panel-body>
+      </div>
+    </section>
+
+    <section id="request-preview-panel" ng-controller="ManagementPanelCtrl as man">
+      <panel-header navigation="man.nav"> </panel-header>
+      <div class="panel-container">
+        <panel-body view="man.nav.selectedView"> </panel-body>
+      </div>
+    </section>
+
+    <div class="horizontal-resizer"
+         resizer="horizontal"
+         resizer-height="1"
+         resizer-min="160"
+         resizer-top="#request-build-panel"
+         resizer-bottom="#request-preview-panel">
+    </div>
+  </div>
+
+  <section id="response-panel" ng-controller="ResponsePanelCtrl as rpc">
+    <panel-header title="Response:" navigation="rpc.nav"> </panel-header>
+    <div class="panel-container">
+      <panel-body view="rpc.nav.selectedView"> </panel-body>
+    </div>
+  </section>
+
+  <div class="vertical-resizer"
+       resizer="vertical"
+       resizer-width="1"
+       resizer-min="380"
+       resizer-left="#request-panel-group"
+       resizer-right="#response-panel">
+  </div>
+</div>
+
+<footer ng-controller="StatusBarCtrl as statusBar">
+  <response-time ms="statusBar.httpSrv.lastResponseTime"
+                 ng-class="{'hidden': !ms}"></response-time>
+
+  <response-status code="statusBar.httpSrv.response.status"
+                   ng-class="{'hidden': !code}"></response-status>
+
+  <div class="spinner" ng-show="statusBar.httpSrv.inProgress"></div>
+</footer>
