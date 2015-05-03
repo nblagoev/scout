@@ -1,6 +1,6 @@
 'use babel';
 
-let throws = require('./throws');
+let throws = require('../../common/throws');
 let request = require('request');
 let url = require('url');
 
@@ -36,29 +36,29 @@ class HttpService {
     return this._inProgress;
   }
 
-  sendRequest(method, address, callback) {
+  sendRequest(callback) {
     if (this.inProgress) {
       return;
     }
 
-    throws.ifEmpty(address, "address");
-    throws.ifEmpty(method, "method");
-    HttpService.httpMethodIsSupported(method, true);
+    throws.ifEmpty(this.request.address, "address");
+    throws.ifEmpty(this.request.method, "method");
+    HttpService.httpMethodIsSupported(this.request.method, true);
 
     this.inProgress = true;
-    let targetUrl = url.parse(address);
+    let targetUrl = url.parse(this.request.address);
 
     if (!targetUrl.protocol) {
-      targetUrl = url.parse('https://' + address);
+      targetUrl = url.parse('https://' + this.request.address);
     }
 
     throws.ifEmpty(targetUrl.hostname, "hostname");
 
     let options = {
       url: targetUrl,
-      method: method.toUpperCase(),
+      method: this.request.method.toUpperCase(),
       headers: {},
-      //body: HttpService.methodCanHaveBody(method) ? this.request.body : undefined,
+      //body: HttpService.methodCanHaveBody(this.request.method) ? this.request.body : undefined,
       body: this.request.body,
       followRedirect: this.request.followRedirect,
       maxRedirects: this.request.maxRedirects || 10,
@@ -222,6 +222,8 @@ class HttpServiceWrapper {
 class HttpServiceRequest extends HttpServiceWrapper {
   constructor() {
     super();
+    this.method = 'get';
+    this.address = '';
     this.urlParams = [];
     this.timeout = null;
     this.followRedirect = true;
@@ -301,4 +303,4 @@ class HttpServiceParameter extends HttpServiceEntity {
   }
 }
 
-module.exports = { HttpService, HttpServiceRequest, HttpServiceResponse, HttpServiceHeader };
+module.exports = { HttpService, HttpServiceRequest, HttpServiceResponse };

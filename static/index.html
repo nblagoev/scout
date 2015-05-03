@@ -8,7 +8,8 @@
 
   <body tabindex="-1" style="width: 100%; height: 100%">
     <header ng-controller="HeaderCtrl as header">
-      <select class="topcoat-select http-method-select" ng-model="header.method">
+      <select class="topcoat-select http-method-select"
+              ng-model="header.httpSrv.request.method">
         <option value="get">GET</option>
         <option value="put">PUT</option>
         <option value="post">POST</option>
@@ -16,7 +17,8 @@
       </select><!--
       used to remove the space
    --><input type="text" placeholder="https://"
-             ng-model="header.address" ng-enter="header.sendRequest()"
+             ng-model="header.httpSrv.request.address"
+             ng-enter="header.sendRequest()"
              class="topcoat-text-input--large address-bar"/><!--
       used to remove the space
    --><button class="topcoat-button--large--quiet"
