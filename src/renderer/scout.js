@@ -70,8 +70,11 @@ class Scout {
       return true;
     };
 
-    let StyleManager = require('./managers/style-manager');
+    let StyleManager = require('./core/style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
+
+    let NotificationManager = require('./core/notification-manager');
+    this.notifications = new NotificationManager();
   }
 
   get loadSettings() {

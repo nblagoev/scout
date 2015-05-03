@@ -5,6 +5,9 @@ var path = require('path');
 var {Disposable} = require('event-kit');
 var _ = require('underscore-plus');
 
+/**
+ * An instance of this class is always available as the `scout.styles` global.
+ */
 class StyleManager {
 
   constructor(resourcePath) {
@@ -13,16 +16,16 @@ class StyleManager {
     this.styleSheetDisposablesBySourcePath = {};
   }
 
-  /*
+  /**
    * Resolve and apply the stylesheet specified by the path.
    *
    * This supports both CSS and Less stylsheets.
    *
-   * * `stylesheetPath` A {String} path to the stylesheet that can be an absolute
-   *   path or a relative path that will be resolved against the load path.
+   * @param {string} stylesheetPath - A {String} path to the stylesheet that
+   *    can be an absolute path or a relative path that will be resolved against the load path.
    *
-   * Returns a {Disposable} on which `.dispose()` can be called to remove the
-   * required stylesheet.
+   * @returns a {Disposable} on which `.dispose()` can be called to remove the
+   *    required stylesheet.
    */
   requireStylesheet(stylesheetPath) {
     let fullPath = this.resolveStylesheet(stylesheetPath);
@@ -30,7 +33,9 @@ class StyleManager {
       let content = this.loadStylesheet(fullPath);
       return this.applyStylesheet(fullPath, content);
     } else {
-      throw new Error(`Could not find a file at path '${stylesheetPath}'`);
+      let message = `Could not find a file at path '${stylesheetPath}'`;
+      scout.notifications.addError(message, {dismissable: true})
+      throw new Error(message);
     }
   }
 
@@ -76,7 +81,7 @@ class StyleManager {
     } catch (error) {
       let message = `Error loading Less stylesheet: '${lessStylesheetPath}'`;
       let detail = error.message;
-      //scout.notifications.addError(message, {detail, dismissable: true});
+      scout.notifications.addError(message, {detail, dismissable: true});
       throw error
     }
   }
