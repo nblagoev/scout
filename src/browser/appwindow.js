@@ -33,9 +33,7 @@ class AppWindow extends Emitter {
     this.window = new BrowserWindow(windowOpts);
 
     this.handleEvents();
-  }
 
-  show() {
     let targetPath = path.resolve(__dirname, '..', '..', 'static', 'index.html');
 
     let targetUrl = url.format({
@@ -46,7 +44,6 @@ class AppWindow extends Emitter {
     });
 
     this.window.loadUrl(targetUrl);
-    this.window.show();
   }
 
   handleEvents() {

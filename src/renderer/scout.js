@@ -6,6 +6,7 @@ var path = require('path');
 var remote = require('remote');
 var _ = require('underscore-plus');
 var {Emitter} = require('event-kit');
+var WindowEventSubscriptions = require('./window-event-subscriptions');
 
 /*
  * An instance of this class is always available as the `scout` global.
@@ -44,8 +45,6 @@ class Scout {
 
   constructor() {
     this.emitter = new Emitter();
-    this.lastUncaughtError = null;
-    this.loadTime = -1;
   }
 
   initialize() {
@@ -70,11 +69,58 @@ class Scout {
       return true;
     };
 
+    this.loadTime = -1;
+
     let StyleManager = require('./core/style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
 
     let NotificationManager = require('./core/notification-manager');
     this.notifications = new NotificationManager();
+
+    if (this.windowEventSubscriptions) {
+      this.windowEventSubscriptions.dispose();
+    }
+
+    this.windowEventSubscriptions = new WindowEventSubscriptions();
+  }
+
+  startScoutWindow() {
+    scout.styles.loadBaseStylesheets();
+
+    require('angular');
+
+    angular.module('scout', ['content-resizer', 'ng-enter']);
+    require('./components/scout-canvas.directive');
+    require('./components/ng-enter.directive');
+    require('./components/content-resizer.directive');
+    require('./components/panel-components.directive');
+    require('./components/response-status.directive');
+    require('./components/response-time.directive');
+    require('./components/raw-preview.directive');
+    require('./services/status-bar.service');
+    require('./services/http.service');
+    require('./layout/header.controller');
+    require('./layout/status-bar.controller');
+    require('./layout/request-panel.controller');
+    require('./layout/management-panel.controller');
+    require('./layout/response-panel.controller');
+
+    let app = document.createElement('scout-canvas');
+    document.body.appendChild(app);
+
+    setImmediate(() => this.show());
+  }
+
+  unloadEditorWindow() {
+    //cleanup and save state
+  }
+
+  removeScoutWindow() {
+    // destroy UI elements
+
+    if (this.windowEventSubscriptions) {
+      this.windowEventSubscriptions.unsubscribe();
+    }
   }
 
   get loadSettings() {

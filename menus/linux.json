@@ -3,6 +3,7 @@
     {
       "label": "&File",
       "submenu": [
+        { "label": "&New Window", "command": "application:new-window", "accelerator": "Control+Shift+N"  },
         { "label": "&Preferences", "command": "application:show-settings" },
         { "label": "Quit", "command": "application:quit" }
       ]
@@ -42,6 +43,6 @@
         { "label": "About Scout", "command": "application:about" }
       ]
     }
-    
+
   ]
 }

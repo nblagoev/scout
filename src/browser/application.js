@@ -62,7 +62,7 @@ class Application extends Emitter {
     let {test} = options;
     let newWindow = test ? this.openSpecsWindow(options) : this.openWindow(options);
 
-    newWindow.show();
+    //newWindow.show();
     this.windows.push(newWindow);
     newWindow.on('closed', () => {
       this.removeAppWindow(newWindow);
@@ -150,6 +150,10 @@ class Application extends Emitter {
     this.menu.on('application:run-specs', () => {
       let test = true;
       this.openWithOptions({ resourcePath, devMode, test, exitWhenDone, logFile });
+    });
+
+    this.menu.on('application:new-window', () => {
+      this.openWithOptions({ resourcePath, devMode, exitWhenDone, logFile });
     });
 
     return appWindow;

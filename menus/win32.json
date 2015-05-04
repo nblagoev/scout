@@ -3,6 +3,7 @@
     {
       "label": "&File",
       "submenu": [
+        { "label": "&New Window", "command": "application:new-window", "accelerator": "Control+Shift+N"  },
         { "label": "&Options", "command": "application:show-settings" },
         { "type": "separator" },
         { "label": "E&xit", "command": "application:quit" }
@@ -36,7 +37,7 @@
         }
       ]
     },
-    
+
     {
       "label": "&Help",
       "submenu": [

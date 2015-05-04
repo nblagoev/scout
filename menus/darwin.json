@@ -47,6 +47,7 @@
     {
       "label": "Window",
       "submenu": [
+        { "label": "&New Window", "command": "application:new-window", "accelerator": "Command+Shift+N"  },
         { "label": "Minimize", "selector": "performMiniaturize:", "accelerator": "Command+M" },
         { "label": "Zoom", "selector": "performZoom:" }
       ]
@@ -59,6 +60,6 @@
         { "type": "separator" }
       ]
     }
-    
+
   ]
 }
