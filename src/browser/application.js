@@ -32,10 +32,6 @@ class Application extends Emitter {
    * Registers basic application commands, non-idempotent.
    */
   handleEvents() {
-    this.on('application:quit', () => {
-      app.quit();
-    });
-
     app.on('window-all-closed', () => {
       if (process.platform === 'win32' || process.platform === 'linux') {
         app.quit();

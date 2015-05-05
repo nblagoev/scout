@@ -175,8 +175,6 @@ class Scout {
    * Open a new window using the given options.
    *
    * `options` An {Object} with the following keys:
-   *   * `newWindow` A {Boolean}, true to always open a new window instead of
-   *     reusing existing windows depending on the paths to open.
    *   * `devMode` A {Boolean}, true to open the window in development mode.
    *     Development mode loads the Scout source from the locally cloned
    *     repository
