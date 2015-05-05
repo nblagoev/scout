@@ -23,4 +23,4 @@ install:
                            gcc-multilib g++-multilib fakeroot;
     fi
 
-script: script/build
+script: script/build --verbose
