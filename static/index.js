@@ -30,8 +30,6 @@ window.onload = function () {
       require('../src/babel').register();
     }
 
-    window.loadSettings = loadSettings;
-
     require(loadSettings.bootstrapScript);
     require('ipc').sendChannel('window-command', 'window:loaded');
 

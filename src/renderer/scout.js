@@ -84,6 +84,19 @@ class Scout {
     this.windowEventSubscriptions = new WindowEventSubscriptions();
   }
 
+  /**
+   * Schedule the window to be shown and focused on the next tick.
+   *
+   * This is done in a next tick to prevent a white flicker from occurring
+   * if called synchronously.
+   */
+  displayWindow() {
+    setImmediate(() => {
+      this.show()
+      this.focus()
+    });
+  }
+
   startScoutWindow() {
     scout.styles.loadBaseStylesheets();
 
@@ -108,7 +121,7 @@ class Scout {
     let app = document.createElement('scout-canvas');
     document.body.appendChild(app);
 
-    setImmediate(() => this.show());
+    this.displayWindow();
   }
 
   unloadEditorWindow() {
@@ -231,7 +244,7 @@ class Scout {
    */
   focus() {
     ipc.send('call-window-method', 'focus');
-    $(window).focus();
+    window.focus();
   }
 
   /*

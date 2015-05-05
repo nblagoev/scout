@@ -15,12 +15,11 @@ var _ = require('underscore-plus');
 class AppWindow extends Emitter {
   constructor(options) {
     super();
-    this.loadSettings = _.extend({}, options);
-    this.loadSettings.appVersion = app.getVersion();
 
     let windowOpts = {
       width: 920,
       height: 600,
+      show: false,
       title: options.title || "Scout",
       'web-preferences': {
         'subpixel-font-scaling': true,
@@ -28,11 +27,17 @@ class AppWindow extends Emitter {
       }
     };
 
-    windowOpts = _.extend(windowOpts, this.loadSettings);
+    if (process.platform === 'linux') {
+      windowOpts.icon = path.resolve(__dirname, '..', '..', 'resources', 'scout.png');
+    }
 
-    this.window = new BrowserWindow(windowOpts);
+    this.browserWindow = new BrowserWindow(windowOpts);
 
     this.handleEvents();
+
+    this.loadSettings = _.extend({}, options);
+    this.loadSettings.appVersion = app.getVersion();
+    this.browserWindow.loadSettings = this.loadSettings;
 
     let targetPath = path.resolve(__dirname, '..', '..', 'static', 'index.html');
 
@@ -43,29 +48,29 @@ class AppWindow extends Emitter {
       hash: encodeURIComponent(JSON.stringify(this.loadSettings))
     });
 
-    this.window.loadUrl(targetUrl);
+    this.browserWindow.loadUrl(targetUrl);
   }
 
   handleEvents() {
-    this.window.on('closed', (e) => {
+    this.browserWindow.on('closed', (e) => {
       this.emit('closed', e);
     });
 
-    this.window.on('devtools-opened', (e) => {
-      this.window.webContents.send('window:toggle-dev-tools', true);
+    this.browserWindow.on('devtools-opened', (e) => {
+      this.browserWindow.webContents.send('window:toggle-dev-tools', true);
     });
 
-    this.window.on('devtools-closed', (e) => {
-      this.window.webContents.send('window:toggle-dev-tools', false);
+    this.browserWindow.on('devtools-closed', (e) => {
+      this.browserWindow.webContents.send('window:toggle-dev-tools', false);
     });
 
-    this.window.on('unresponsive', (e) => {
+    this.browserWindow.on('unresponsive', (e) => {
       if (options.isSpec) {
         return;
       }
 
       let dialog = require('dialog');
-      let chosen = dialog.showMessageBox(this.window, {
+      let chosen = dialog.showMessageBox(this.browserWindow, {
         type: 'warning',
         buttons: ['Close', 'Keep Waiting'],
         message: 'Scout is not responding',
@@ -73,17 +78,17 @@ class AppWindow extends Emitter {
       });
 
       if (chosen === 0) {
-        return this.window.destroy();
+        return this.browserWindow.destroy();
       }
     });
 
-    this.window.on('crashed', (e) => {
+    this.browserWindow.on('crashed', (e) => {
       if (options.exitWhenDone) {
         app.exit(100);
       }
 
       let dialog = require('dialog');
-      let chosen = dialog.showMessageBox(this.window, {
+      let chosen = dialog.showMessageBox(this.browserWindow, {
         type: 'warning',
         buttons: ['Close Window', 'Reload', 'Keep It Open'],
         message: 'Scout has crashed',
@@ -92,28 +97,50 @@ class AppWindow extends Emitter {
 
       switch (chosen) {
         case 0:
-          return this.window.destroy();
+          return this.browserWindow.destroy();
         case 1:
-          return this.window.restart();
+          return this.browserWindow.restart();
       }
     });
   }
 
+  get dimensions() {
+    let [x, y] = this.browserWindow.getPosition();
+    let [width, height] = this.browserWindow.getSize();
+    return {x, y, width, height};
+  }
+
   toggleFullScreen() {
-    this.window.setFullScreen(!this.window.isFullScreen());
+    this.browserWindow.setFullScreen(!this.browserWindow.isFullScreen());
   }
 
   toggleDevTools() {
-    this.window.toggleDevTools();
+    this.browserWindow.toggleDevTools();
   }
 
   reload() {
-    this.window.webContents.reload();
+    this.browserWindow.restart();
   }
 
   close() {
-    this.window.close();
-    this.window = null;
+    this.browserWindow.close();
+    this.browserWindow = null;
+  }
+
+  focus() {
+    this.browserWindow.focus();
+  }
+
+  minimize() {
+    this.browserWindow.minimize();
+  }
+
+  maximize() {
+    this.browserWindow.maximize();
+  }
+
+  restore() {
+    this.browserWindow.restore();
   }
 }
 

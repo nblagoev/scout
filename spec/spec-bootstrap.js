@@ -11,7 +11,7 @@ var Scout = require('../src/renderer/scout');
 
 window.scout = new Scout();
 
-let {resourcePath, exitWhenDone} = global.loadSettings;
+let {resourcePath, exitWhenDone} = scout.loadSettings;
 let specPath = path.join(resourcePath, 'spec/');
 specPath = path.resolve(specPath);
 
@@ -61,3 +61,5 @@ if (exitWhenDone) {
 
   window.jasmineExecute();
 }
+
+scout.displayWindow();
