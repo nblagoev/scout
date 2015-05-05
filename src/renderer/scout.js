@@ -125,11 +125,11 @@ class Scout {
   }
 
   unloadEditorWindow() {
-    //cleanup and save state
+    // TODO: cleanup and save state
   }
 
   removeScoutWindow() {
-    // destroy UI elements
+    // TODO: sdestroy UI elements
 
     if (this.windowEventSubscriptions) {
       this.windowEventSubscriptions.unsubscribe();
