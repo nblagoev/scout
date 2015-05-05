@@ -48,12 +48,10 @@ class Scout {
   }
 
   initialize() {
-    window.onerror = () => {
-      this.lastUncaughtError = [].slice.call(arguments);
-      let [message, url, line, column, originalError] = this.lastUncaughtError;
+    window.onerror = (message, url, line, column, originalError) => {
       let eventObject = {message, url, line, column, originalError};
 
-      let openDevTools = true
+      let openDevTools = true;
       eventObject.preventDefault = () => openDevTools = false;
 
       this.emitter.emit('will-throw-error', eventObject);
@@ -64,9 +62,6 @@ class Scout {
       }
 
       this.emitter.emit('did-throw-error', {message, url, line, column, originalError});
-      console.error(originalError);
-
-      return true;
     };
 
     this.loadTime = -1;
@@ -104,6 +99,7 @@ class Scout {
 
     angular.module('scout', ['content-resizer', 'ng-enter']);
     require('./components/scout-canvas.directive');
+    require('./components/notifications.directive');
     require('./components/ng-enter.directive');
     require('./components/content-resizer.directive');
     require('./components/panel-components.directive');
@@ -112,6 +108,7 @@ class Scout {
     require('./components/raw-preview.directive');
     require('./services/status-bar.service');
     require('./services/http.service');
+    require('./layout/notifications.controller');
     require('./layout/header.controller');
     require('./layout/status-bar.controller');
     require('./layout/request-panel.controller');

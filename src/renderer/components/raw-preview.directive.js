@@ -3,7 +3,6 @@ angular.module("scout").directive("rawPreview", function(){
   return {
     restrict: "E",
     replace: true,
-    transclude: true,
     scope: {
       content: "@"
     },
