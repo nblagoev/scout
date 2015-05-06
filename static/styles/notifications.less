@@ -25,25 +25,7 @@ notifications-area {
     display: none;
   }
 
-  scout-notification {
-    .close-all {
-      display: none;
-    }
-  }
-
-  scout-notification:first-child {
-    .close-all {
-      display: block;
-    }
-    &.has-close .message {
-      padding-right: @component-padding * 2 + 95px; // space for icon and button
-    }
-  }
-
   scout-notification:only-child {
-    .close-all {
-      display: none;
-    }
     &.has-close .message {
       padding-right: @component-padding + 24px; // space for icon
     }
@@ -118,13 +100,6 @@ scout-notification {
   .message {
     max-height: @max-height-message;
     overflow-y: auto;
-  }
-
-  .close-all.btn {
-    position: absolute;
-    top: 7px;
-    right: 38px;
-    background: none;
   }
 
   .close {
@@ -232,19 +207,6 @@ scout-notification.success {
   &.icon:before {
     color: lighten(@bg, 36%);
     background-color: @bg;
-  }
-
-  .close-all.btn {
-    border: 1px solid fadeout(darken(@txt, 40%), 70%);
-    color: fadeout(darken(@txt, 20%), 25%);
-    text-shadow: none;
-    cursor: pointer;
-
-    &:hover {
-      background: none;
-      border-color: fadeout(darken(@txt, 20%), 20%);
-      color: darken(@txt, 20%);
-    }
   }
 }
 

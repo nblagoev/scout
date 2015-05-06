@@ -15,7 +15,6 @@ angular.module('scout').directive('scoutNotification', function () {
       <div class="meta item"></div>
     </div>
     <div class="close icon fa fa-close"></div>
-    <div class="close-all btn topcoat-button--cta">Close All</div>
   `;
 
   let FatalMetaNotificationTemplate = `
@@ -85,10 +84,6 @@ angular.module('scout').directive('scoutNotification', function () {
     if (model.isDismissable()) {
       let closeButton = angular.element(element[0].querySelector('.close'));
       closeButton.on('click', () => model.dismiss());
-
-      let closeAllButton = angular.element(element[0].querySelector('.close-all'));
-      closeAllButton.addClass(`btn-${model.type}`);
-      closeAllButton.on('click', () => scout.notifications.dismissAll());
     }
 
     if (model.type === 'fatal') {
