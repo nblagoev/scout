@@ -24,12 +24,14 @@ thead {
   padding-top: 6px;
 }
 
-#request-options-table > tbody > tr:first-child > td {
-  padding-top: 6px;
-}
+#request-options-table > tbody > tr:first-child {
+  > td {
+    padding-top: 6px;
+  }
 
-#request-options-table > tbody > tr:first-child > td.request-options-table-header {
-  padding-top: 9px;
+  > td.request-options-table-header {
+     padding-top: 9px;
+   }
 }
 
 #request-options-table > tbody > tr > td {
@@ -90,11 +92,11 @@ tfoot .table-row-value-input::-webkit-input-placeholder {
   box-shadow: none;
   padding: 0 0.313rem;
   text-overflow: ellipsis;
-}
 
-.borderless-input:focus {
-  border: 1px solid #323434;
-  box-shadow: none;
+  &:focus {
+    border: 1px solid #323434;
+    box-shadow: none;
+  }
 }
 
 .action-cell {
