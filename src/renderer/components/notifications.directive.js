@@ -2,15 +2,29 @@
 
 angular.module('scout').directive('notificationsArea', function ($compile) {
 
+  let animationDuration = 700;
+  let visibilityDuration = 5000;
+
   function addNotificationView(notification, scope, element, attrs) {
     let childScope = scope.$new();
     childScope.notification = notification;
     let notificationElement = $compile("<div>{{notification.message}}</div>")(childScope);
     element.append(notificationElement);
 
-    // TODO:
-    // childScope.$destroy();
-    // notificationElement.remove();
+    function removeNotification() {
+        notificationElement.addClass('remove')
+        setTimeout(() => {
+          childScope.$destroy();
+          notificationElement.remove();
+        }, animationDuration) // keep in sync with CSS animation
+    }
+
+    if (notification.isDismissable()) {
+      notification.onDidDismiss(() => removeNotification());
+    } else {
+      // autohide
+      setTimeout(() => removeNotification(), visibilityDuration);
+    }
   }
 
   function link(scope, element, attrs) {
