@@ -6,7 +6,7 @@ class WindowEventSubscriptions {
   constructor() {
     this.subscriptions = new CompositeDisposable();
 
-    window.onbeforeunload = () => { scout.unloadScoutWindow(); }
+    window.onbeforeunload = () => scout.unloadScoutWindow();
     this.subscriptions.add(new Disposable(() => window.onbeforeunload = null));
 
     window.onunload = () => scout.removeScoutWindow();

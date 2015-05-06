@@ -122,7 +122,7 @@ class Scout {
     this.displayWindow();
   }
 
-  unloadEditorWindow() {
+  unloadScoutWindow() {
     // TODO: cleanup and save state
   }
 
