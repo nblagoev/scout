@@ -87,13 +87,27 @@ class HttpService {
     let startTime = Date.now();
     request(options, (error, res, body) => {
       if (error) {
-        this.inProgress = false;
-        callback();
-        throw new Error(error.message);
+        let message = "Could not send request";
+        let detail = null;
+
+        switch (error.code) {
+          case "ENOTFOUND":
+            message = `Host ${error.host}:${error.port} is unreachable`;
+            break;
+          case "ESOCKETTIMEDOUT":
+          case "ETIMEDOUT":
+            message = "Connection timed out. Try to increase the timeout option in the Request panel."
+            break;
+          default:
+            detail = error.message;
+        }
+
+        scout.notifications.addError(message, {detail});
+      } else {
+        this.lastDeliveryTime = res.elapsedTime;
+        //res.setEncoding('utf8');
       }
 
-      this.lastDeliveryTime = res.elapsedTime;
-      //res.setEncoding('utf8');
       this.inProgress = false;
       callback();
     }).on('response', (res) => {
@@ -114,10 +128,6 @@ class HttpService {
       }
 
       this.response.body += chunk.toString();
-    }).on('error', (e) => {
-      this.inProgress = false;
-      callback();
-      throw new Error(e.message);
     }).on('socket', (socket) => {
       this.response.raw = '';
       socket.resume();

@@ -33,9 +33,8 @@ class StyleManager {
       let content = this.loadStylesheet(fullPath);
       return this.applyStylesheet(fullPath, content);
     } else {
-      let message = `Could not find a file at path '${stylesheetPath}'`;
-      scout.notifications.addError(message, {dismissable: true})
-      throw new Error(message);
+      let message = `Could not resolve stylesheet '${stylesheetPath}'`;
+      scout.notifications.addError(message, {dismissable: true});
     }
   }
 
@@ -82,7 +81,6 @@ class StyleManager {
       let message = `Error loading Less stylesheet: '${lessStylesheetPath}'`;
       let detail = error.message;
       scout.notifications.addError(message, {detail, dismissable: true});
-      throw error
     }
   }
 
