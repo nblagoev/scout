@@ -15,7 +15,7 @@ angular.module('scout').directive('scoutNotification', function () {
       <div class="meta item"></div>
     </div>
     <div class="close icon fa fa-close"></div>
-    <div class="close-all btn btn-error">Close All</div>
+    <div class="close-all btn topcoat-button--cta">Close All</div>
   `;
 
   let FatalMetaNotificationTemplate = `
@@ -26,7 +26,7 @@ angular.module('scout').directive('scoutNotification', function () {
     for (let line of content.split('\n')) {
       let div = document.createElement('div');
       div.classList.add('line');
-      div.textContent = marked(line);
+      div.textContent = line;
       container.append(div);
     }
   }

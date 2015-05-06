@@ -138,18 +138,18 @@ scout-notification {
     cursor: pointer;
     font-size: 16px;
     text-shadow: none;
-    color: inherit;
+    color: #515151;
     opacity: .6;
     &:hover, &:focus {
       opacity: 1;
-      color: inherit;
+      color: #515151;
     }
     &:active {
       opacity: .2;
     }
     &:before {
       margin: 0;
-      color: inherit;
+      color: #515151;
     }
   }
 
@@ -216,16 +216,16 @@ scout-notification.success {
 .notification(@txt; @bg) {
 
   .content {
-    color: darken(@txt, 40%);
+    color: darken(@txt, 20%);
     background-color: lighten(@bg, 25%);
   }
 
   a {
-    color: darken(@txt, 20%);
+    color: darken(@txt, 10%);
   }
 
   code {
-    color: darken(@txt, 40%);
+    color: darken(@txt, 20%);
     background-color: desaturate(lighten(@bg, 18%), 5%);
   }
 
@@ -236,13 +236,14 @@ scout-notification.success {
 
   .close-all.btn {
     border: 1px solid fadeout(darken(@txt, 40%), 70%);
-    color: fadeout(darken(@txt, 40%), 40%);
+    color: fadeout(darken(@txt, 20%), 25%);
     text-shadow: none;
+    cursor: pointer;
 
     &:hover {
       background: none;
-      border-color: fadeout(darken(@txt, 40%), 20%);
-      color: darken(@txt, 40%);
+      border-color: fadeout(darken(@txt, 20%), 20%);
+      color: darken(@txt, 20%);
     }
   }
 }
