@@ -100,6 +100,7 @@ class Scout {
     angular.module('scout', ['content-resizer', 'ng-enter']);
     require('./components/scout-canvas.directive');
     require('./components/notifications.directive');
+    require('./components/notification.directive');
     require('./components/ng-enter.directive');
     require('./components/content-resizer.directive');
     require('./components/panel-components.directive');

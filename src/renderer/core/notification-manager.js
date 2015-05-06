@@ -98,6 +98,14 @@ class NotificationManager {
     return notification;
   }
 
+  dismissAll() {
+    for (let notification of this.notifications) {
+      if (notification.isDismissable() && !notification.isDismissed()) {
+        notification.dismiss();
+      }
+    }
+  }
+
   /**
    * Remove all the previous notifications.
    */

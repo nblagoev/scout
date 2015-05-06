@@ -64,11 +64,11 @@ class Notification {
       case 'fatal':
         return 'bug';
       case 'error':
-        return 'flame';
+        return 'fire';
       case 'warning':
-        return 'alert';
+        return 'exclamation-triangle';
       case 'info':
-        return 'info';
+        return 'info-circle';
       case 'success':
         return 'check';
     }
