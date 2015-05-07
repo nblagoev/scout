@@ -26,21 +26,12 @@ class Scout {
   }
 
   /*
-   * Get the directory path to Scout's configuration area.
+   * Get the directory path to Scout's storage area.
    *
    * Returns the absolute path to ~/.scout
    */
-  static getConfigDirPath() {
-    return process.env.SCOUT_HOME;
-  }
-
-  /*
-   * Get the path to Scout's storage directory.
-   *
-   * Returns the absolute path to ~/.scout/storage
-   */
   static getStorageDirPath() {
-    return path.join(this.constructor.getConfigDirPath(), 'storage');
+    return process.env.SCOUT_HOME;
   }
 
   constructor() {
@@ -65,6 +56,9 @@ class Scout {
     };
 
     this.loadTime = -1;
+
+    let StorageManager = require('./core/storage-manager');
+    this.storage = new StorageManager({storageDirPath: this.storageDirPath, resourcePath: this.loadSettings.resourcePath});
 
     let StyleManager = require('./core/style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
@@ -93,6 +87,7 @@ class Scout {
   }
 
   startScoutWindow() {
+    scout.storage.initialize();
     scout.styles.loadBaseStylesheets();
 
     require('angular');
@@ -157,8 +152,8 @@ class Scout {
     return this.loadSettings.isSpec;
   }
 
-  get configDirPath() {
-    return this.constructor.getConfigDirPath();
+  get storageDirPath() {
+    return this.constructor.getStorageDirPath();
   }
 
   /*

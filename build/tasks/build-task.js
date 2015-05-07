@@ -34,6 +34,7 @@ module.exports = function (grunt) {
     cp('package.json', path.join(appDir, 'package.json'));
 
     var nonPackageDirectories = [
+      'dot-scout',
       'vendor',
       'resources'
     ];

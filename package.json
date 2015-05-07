@@ -33,6 +33,7 @@
     "mixto": "^1",
     "mkdirp": "0.3.5",
     "nslog": "^2.0.0",
+    "pathwatcher": "^4.4.0",
     "property-accessors": "^1",
     "q": "^1.0.1",
     "request": "^2.55.0",
