@@ -91,7 +91,7 @@ class StorageFile {
     if (value) {
       value = this.deepClone(value);
 
-      if (isPlainObject(value) && isPlainObject(defaultValue)) {
+      if (this.isPlainObject(value) && this.isPlainObject(defaultValue)) {
         _.defaults(value, defaultValue);
       }
     } else {
@@ -108,13 +108,13 @@ class StorageFile {
       shouldSave = options.save;
     }
 
-    if (value !== undefined) {
+    /*if (value !== undefined) {
       try {
         value = this.makeValueConformToSchema(keyPath, value);
       } catch (e) {
         return false;
       }
-    }
+    }*/
 
     let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
 
@@ -125,7 +125,7 @@ class StorageFile {
     _.setValueForKeyPath(this.content, keyPath, value);
     this.emitChangeEvent();
 
-    if (shouldSave && !fileHasErrors) {
+    if (shouldSave && !this.fileHasErrors ) {
       this.requestSave();
     }
 
@@ -179,7 +179,7 @@ class StorageFile {
   }
 
   emitChangeEvent() {
-    if (transactDepth > 0) {
+    if (this.transactDepth > 0) {
       return;
     }
 
@@ -188,7 +188,7 @@ class StorageFile {
 
   save() {
     try {
-      CSON.writeFileSync(this.filePath, allSettings);
+      CSON.writeFileSync(this.filePath, this.content);
     } catch (error) {
       let message = `Failed to save '${path.basename(this.filePath)}'`;
       let detail = error.message;
@@ -197,7 +197,7 @@ class StorageFile {
   }
 
   resetContent(newContent) {
-    if (!isPlainObject(newContent)) {
+    if (!this.isPlainObject(newContent)) {
       this.content = {};
       this.emitChangeEvent();
       return;
@@ -207,7 +207,7 @@ class StorageFile {
       this.content = {};
       for (var key in newContent) {
         if (newContent.hasOwnProperty(key)) {
-          this.set(key, newContent[key], save: false);
+          this.set(key, newContent[key], {save: false});
         }
       }
     });
@@ -216,7 +216,7 @@ class StorageFile {
   deepClone(object) {
     if (_.isArray(object)) {
       return object.map((value) => this.deepClone(value));
-    } else if (isPlainObject(object)) {
+    } else if (this.isPlainObject(object)) {
       return _.mapObject(object, (key, value) => [key, this.deepClone(value)]);
     } else {
       return object;
