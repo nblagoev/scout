@@ -19,6 +19,7 @@ class StorageManager {
     this.storageDirPath = storageDirPath;
     this.resourcePath = resourcePath;
     this.emitter = new Emitter();
+    this.files = {};
   }
 
   initialize(done) {

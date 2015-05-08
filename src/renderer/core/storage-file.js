@@ -84,12 +84,89 @@ class StorageFile {
     scout.notifications.addError(errorMessage, {detail, dismissable: true});
   }
 
+  get(keyPath) {
+    let value = _.valueForKeyPath(this.content, keyPath);
+    let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
+
+    if (value) {
+      value = this.deepClone(value);
+
+      if (isPlainObject(value) && isPlainObject(defaultValue)) {
+        _.defaults(value, defaultValue);
+      }
+    } else {
+      value = this.deepClone(defaultValue);
+    }
+
+    return value;
+  }
+
+  set(keyPath, value, options) {
+    let shouldSave = true;
+
+    if (options !== null && options !== undefined && options.save !== null && options.save != undefined) {
+      shouldSave = options.save;
+    }
+
+    if (value !== undefined) {
+      try {
+        value = this.makeValueConformToSchema(keyPath, value);
+      } catch (e) {
+        return false;
+      }
+    }
+
+    let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
+
+    if (_.isEqual(defaultValue, value)) {
+      value = undefined;
+    }
+
+    _.setValueForKeyPath(this.content, keyPath, value);
+    this.emitChangeEvent();
+
+    if (shouldSave && !fileHasErrors) {
+      this.requestSave();
+    }
+
+    return true;
+  }
+
+  unset(keyPath, options) {
+    this.set(keyPath, _.valueForKeyPath(this.defaultContent, keyPath));
+  }
+
   /**
-   * Suppress calls to handler functions registered with {::onDidChange}
+   * Add a listener for changes to a given key path.
+   *
+   * @param {string} keyPath - name of the key to observe
+   * @param {Function} callback({newValue, oldValue, keyPath}) -
+   *        called when the value of the key changes.
+
+   * @returns a {Disposable} on which you can call `.dispose()` to unsubscribe.
+   */
+  onDidChangeKeyPath(keyPath, callback) {
+    let oldValue = this.get(keyPath);
+    return this.emitter.on('did-change', () => {
+      // check for changes here and don't use any arguments passed
+      // by the emitter, to allow suppressing the callbacks using `transact()`
+      let newValue = this.get(keyPath);
+      if (!_.isEqual(oldValue, newValue)) {
+        let event = {oldValue, newValue, keyPath};
+        // store the old value locally, so it can be used
+        // the next time 'did-change' is emitted
+        oldValue = newValue;
+        callback(event);
+      }
+    });
+  }
+
+  /**
+   * Suppress calls to handler functions registered with {::onDidChangeKeyPath}
    * for the duration of `callback`. After `callback` executes, handlers
    * will be called once if the value for their key has changed.
    *
-   * this.param {Function} callback - {Function} to execute while suppressing calls to handlers.
+   * @param {Function} callback - {Function} to execute while suppressing calls to handlers.
    */
   transact(callback) {
     this.transactDepth++;
@@ -134,6 +211,20 @@ class StorageFile {
         }
       }
     });
+  }
+
+  deepClone(object) {
+    if (_.isArray(object)) {
+      return object.map((value) => this.deepClone(value));
+    } else if (isPlainObject(object)) {
+      return _.mapObject(object, (key, value) => [key, this.deepClone(value)]);
+    } else {
+      return object;
+    }
+  }
+
+  isPlainObject(value) {
+    return _.isObject(value) && !_.isArray(value) && !_.isFunction(value) && !_.isString(value);
   }
 }
 
