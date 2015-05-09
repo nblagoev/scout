@@ -2,7 +2,7 @@
 
 var {Emitter} = require('event-kit');
 
-/*
+/**
   A notification to the user containing a message and type.
 */
 class Notification {
