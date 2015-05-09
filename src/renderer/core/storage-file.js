@@ -7,6 +7,7 @@ var CSON = require('season');
 var path = require('path');
 var async = require('async');
 var pathWatcher = require('pathwatcher');
+var throws = require('../../common/throws');
 
 class StorageFile {
 
@@ -84,9 +85,11 @@ class StorageFile {
     scout.notifications.addError(errorMessage, {detail, dismissable: true});
   }
 
-  get(keyPath) {
+  get(keyPath, options = {}) {
+    throws.ifEmpty(keyPath, "keyPath");
+
     let value = _.valueForKeyPath(this.content, keyPath);
-    let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
+    let defaultValue = (options.ignoreDefault !== true) ? _.valueForKeyPath(this.defaultContent, keyPath) : undefined;
 
     if (value) {
       value = this.deepClone(value);
@@ -101,20 +104,14 @@ class StorageFile {
     return value;
   }
 
-  set(keyPath, value, options) {
+  set(keyPath, value, options = {}) {
+    throws.ifEmpty(keyPath, "keyPath");
+
     let shouldSave = true;
 
-    if (options !== null && options !== undefined && options.save !== null && options.save != undefined) {
+    if (options.save !== null && options.save != undefined) {
       shouldSave = options.save;
     }
-
-    /*if (value !== undefined) {
-      try {
-        value = this.makeValueConformToSchema(keyPath, value);
-      } catch (e) {
-        return false;
-      }
-    }*/
 
     let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
 
@@ -125,7 +122,7 @@ class StorageFile {
     _.setValueForKeyPath(this.content, keyPath, value);
     this.emitChangeEvent();
 
-    if (shouldSave && !this.fileHasErrors ) {
+    if (shouldSave && !this.fileHasErrors) {
       this.requestSave();
     }
 
@@ -133,6 +130,7 @@ class StorageFile {
   }
 
   unset(keyPath, options) {
+    throws.ifEmpty(keyPath, "keyPath");
     this.set(keyPath, _.valueForKeyPath(this.defaultContent, keyPath));
   }
 
@@ -145,7 +143,7 @@ class StorageFile {
 
    * @returns a {Disposable} on which you can call `.dispose()` to unsubscribe.
    */
-  onDidChangeKeyPath(keyPath, callback) {
+  onDidChange(keyPath, callback) {
     let oldValue = this.get(keyPath);
     return this.emitter.on('did-change', () => {
       // check for changes here and don't use any arguments passed
@@ -162,7 +160,7 @@ class StorageFile {
   }
 
   /**
-   * Suppress calls to handler functions registered with {::onDidChangeKeyPath}
+   * Suppress calls to handler functions registered with {::onDidChange}
    * for the duration of `callback`. After `callback` executes, handlers
    * will be called once if the value for their key has changed.
    *
@@ -205,12 +203,27 @@ class StorageFile {
 
     this.transact(() => {
       this.content = {};
-      for (var key in newContent) {
+      for (let key in newContent) {
         if (newContent.hasOwnProperty(key)) {
           this.set(key, newContent[key], {save: false});
         }
       }
     });
+  }
+
+  setDefaults(keyPath, defaults) {
+    if (defaults && this.isPlainObject(defaults)) {
+      let keys = this.splitKeyPath(keyPath);
+      for (let key in defaults) {
+        if (defaults.hasOwnProperty(key)) {
+          let childValue = defaults[key];
+          this.setDefaults(keys.concat([key]).join('.'), childValue);
+        }
+      }
+    } else {
+      _.setValueForKeyPath(this.defaultContent, keyPath, defaults);
+      this.emitChangeEvent();
+    }
   }
 
   deepClone(object) {
@@ -225,6 +238,26 @@ class StorageFile {
 
   isPlainObject(value) {
     return _.isObject(value) && !_.isArray(value) && !_.isFunction(value) && !_.isString(value);
+  }
+
+  splitKeyPath(keyPath) {
+    if (!keyPath) {
+      return [];
+    }
+
+    let startIndex = 0;
+    let keyPathArray = [];
+    let len = keyPath.length;
+
+    for (let i = 0; i < len; i++) {
+      if (keyPath[i] == '.' && (i == 0 || keyPath[i-1] != '\\')) {
+        keyPathArray.push(keyPath.substring(startIndex, i));
+        startIndex = i + 1;
+      }
+    }
+
+    keyPathArray.push(keyPath.substr(startIndex, keyPath.length));
+    return keyPathArray;
   }
 }
 

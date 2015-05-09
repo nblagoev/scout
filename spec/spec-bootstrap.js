@@ -10,6 +10,7 @@ var Scout = require('../src/renderer/scout');
 //require('crash-reporter').start({ productName: 'Scout', companyName: 'Nikolay Blagoev' });
 
 window.scout = new Scout();
+window.scout.initialize();
 
 let {resourcePath, exitWhenDone} = scout.loadSettings;
 let specPath = path.join(resourcePath, 'spec/');
@@ -28,6 +29,8 @@ if (exitWhenDone) {
       return app.exit(allPassed ? 0 : 1);
     }
   });
+
+  require('./spec-helpers');
 
   let jasmineEnv = jasmine.getEnv();
   jasmineEnv.addReporter(reporter);
@@ -50,6 +53,7 @@ if (exitWhenDone) {
   window.jasmineRequire = require('../vendor/jasmine/lib/jasmine-2.1.3/jasmine');
   require('../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
   require('../vendor/jasmine/lib/jasmine-2.1.3/boot');
+  require('./spec-helpers');
 
   let paths = fs.listTreeSync(specPath);
   for (let i = 0, len = paths.length; i < len; i++) {

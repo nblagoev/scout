@@ -87,11 +87,11 @@ class StorageManager {
     return storageFile.unset(nestedKeyPath, options);
   }
 
-  onDidChangeKeyPath(keyPath, callback) {
+  onDidChange(keyPath, callback) {
     let [relativeFilePath, nestedKeyPath] = keyPath.split(':');
     let storageFile = this.requireStorageFile(relativeFilePath);
 
-    return storageFile.onDidChangeKeyPath(nestedKeyPath, callback);
+    return storageFile.onDidChange(nestedKeyPath, callback);
   }
 }
 
