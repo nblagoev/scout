@@ -2,8 +2,10 @@
 
 angular.module("scout").controller('ResponsePanelCtrl', function (httpService) {
   let self = this;
+  let decodeWwwForm = require('../util/decodeWwwForm');
 
   self.response = httpService.response;
+  self.decodedBody = decodeWwwForm(self.response.body);
   self.nav = new ResponseNavigation();
 });
 

@@ -3,16 +3,18 @@
 let throws = require('../../common/throws');
 let request = require('request');
 let url = require('url');
+var {CompositeDisposable, Disposable, Emitter} = require('event-kit');
 
 class HttpService {
   constructor() {
+    this.emitter = new Emitter();
     this.request = new HttpServiceRequest();
     this.response = new HttpServiceResponse();
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
     this._inProgress = false;
 
-    this.request.headers.push(new HttpServiceHeader('Accept', 'application/vnd.scout.v1+json'));
+    this.request.headers.push(new HttpServiceHeader('Accept', 'application/x-www-form-urlencoded'));
     this.request.headers.push(new HttpServiceHeader('Accept-Language', 'en_US'));
     this.request.headers.push(new HttpServiceHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
     this.request.headers.push(new HttpServiceHeader('Date', '23/04/2015'));

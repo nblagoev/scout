@@ -1,0 +1,25 @@
+<div ng-switch on="rpc.response.findHeader('Content-Type').value | split:';'">
+  <div ng-switch-when="application/json">application/json</div>
+  <div ng-switch-when="application/x-www-form-urlencoded">
+    <table id="body-urlencoded-table">
+     <thead>
+      <tr>
+         <th width="180px">Key</th>
+         <th>Value</th>
+      </tr>
+     </thead>
+     <tbody>
+       <tr ng-repeat="pair in rpc.decodedBody">
+         <td class="response-table-name-cell">
+           {{pair.key}}
+         </td>
+         <td class="response-table-value-cell">
+           {{pair.value}}
+         </td>
+       </tr>
+     </tbody>
+    </table>
+
+  </div>
+  <div ng-switch-default>default</div>
+</div>
