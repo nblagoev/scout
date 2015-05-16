@@ -35,7 +35,7 @@
     "nslog": "^2.0.0",
     "pathwatcher": "^4.4.0",
     "property-accessors": "^1",
-    "q": "^1.0.1",
+    "q": "^1.4.0",
     "request": "^2.55.0",
     "runas": "^2.0.0",
     "season": "^1.0.2",
