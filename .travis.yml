@@ -17,10 +17,11 @@ install:
   - nvm use $NODE_VERSION
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
       sudo apt-get update;
-      sudo apt-get install build-essential clang libdbus-1-dev libgtk2.0-dev
-                           libnotify-dev libgnome-keyring-dev libgconf2-dev
-                           libasound2-dev libcap-dev libcups2-dev libxtst-dev
-                           gcc-multilib g++-multilib fakeroot;
+      sudo apt-get install -y build-essential ca-certificates curl git
+        fakeroot clang gcc-multilib g++-multilib libgnome-keyring-dev
+        libnss3 libgtk2.0-dev libnotify-dev libdbus-1-dev libxrandr-dev
+        libxext-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev
+        libXtst-dev --no-install-recommends;
     fi
 
 script: script/build --verbose
