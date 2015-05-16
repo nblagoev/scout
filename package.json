@@ -28,7 +28,7 @@
     "fstream": "0.1.24",
     "guid": "0.0.12",
     "jasmine": "2.2.0",
-    "less-cache": "0.17.0",
+    "less-cache": "0.22",
     "marked": "^0.3.3",
     "mixto": "^1",
     "mkdirp": "0.3.5",
