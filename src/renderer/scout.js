@@ -93,9 +93,10 @@ export default class Scout {
 
     require('angular');
 
-    angular.module('scout', ['content-resizer', 'ng-enter']);
+    angular.module('scout', ['content-resizer', 'ng-enter', 'angular-json-tree']);
     require('./util/split.filter');
     require('./components/scout-canvas.directive');
+    require('./components/json-tree.directive');
     require('./components/notifications.directive');
     require('./components/notification.directive');
     require('./components/ng-enter.directive');

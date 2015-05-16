@@ -14,13 +14,15 @@ angular.module("scout").controller('ResponsePanelCtrl', function ($scope) {
       let {header: contentTypeHeader} = self.response.findHeader('Content-Type');
       let contentType = contentTypeHeader ? contentTypeHeader.value.split(';')[0] : undefined;
 
-      $scope.$apply(() => {
-        if (contentType === 'application/x-www-form-urlencoded') {
-          self.decodedBody = decodeWwwForm(self.response.body);
-        } else {
-          self.decodedBody = null;
-        }
-      });
+      if (!contentType || contentType === 'application/json') {
+        self.decodedBody = JSON.parse(self.response.body);
+      } else if (contentType === 'application/x-www-form-urlencoded') {
+        self.decodedBody = decodeWwwForm(self.response.body);
+      } else {
+        self.decodedBody = null;
+      }
+
+      $scope.$apply();
     })
   );
 
