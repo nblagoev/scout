@@ -2,15 +2,15 @@
 
 global.shellStartTime = Date.now();
 
-// var crashReporter = require('crash-reporter');
-var app = require('app');
-var url = require('url');
-var path = require('path');
-var fs = require('fs-plus');
-var {spawn} = require('child_process');
+// import crashReporter from 'crash-reporter';
+import app from 'app';
+import url from 'url';
+import path from 'path';
+import fs from 'fs-plus';
+import {spawn} from 'child_process';
 
-var BrowserWindow = require('browser-window');
-var Application = require('./application');
+import BrowserWindow from 'browser-window';
+import Application from './application';
 
 // NB: Hack around broken native modules atm
 var nslog = console.log;

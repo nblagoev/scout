@@ -1,20 +1,20 @@
 "use babel";
 
-var Menu = require('menu');
-var BrowserWindow = require('browser-window');
-var app = require('app');
-var fs = require('fs-plus');
-var ipc = require('ipc');
-var path = require('path');
-var os = require('os');
-var net = require('net');
-var url = require('url');
-var {Emitter} = require('event-kit');
-var {spawn} = require('child_process');
-var AppMenu = require('./appmenu');
-var AppWindow = require('./appwindow');
+import Menu from 'menu';
+import BrowserWindow from 'browser-window';
+import app from 'app';
+import fs from 'fs-plus';
+import ipc from 'ipc';
+import path from 'path';
+import os from 'os';
+import net from 'net';
+import url from 'url';
+import AppMenu from './appmenu';
+import AppWindow from './appwindow';
+import {Emitter} from 'event-kit';
+import {spawn} from 'child_process';
 
-class Application extends Emitter {
+export default class Application extends Emitter {
   constructor(options) {
     super();
     this.resourcePath = options.resourcePath;
@@ -168,5 +168,3 @@ class Application extends Emitter {
     }
   }
 }
-
-module.exports = Application;

@@ -1,17 +1,22 @@
 "use babel";
 
-var ipc = require('ipc');
-var os = require('os');
-var path = require('path');
-var remote = require('remote');
-var _ = require('underscore-plus');
-var {Emitter} = require('event-kit');
-var WindowEventSubscriptions = require('./window-event-subscriptions');
+import ipc from 'ipc';
+import os from 'os';
+import path from 'path';
+import remote from 'remote';
+import _ from 'underscore-plus';
+import {Emitter} from 'event-kit';
+
+import StyleManager from './core/style-manager';
+import HttpEnvelope from './core/http-envelope';
+import StorageManager from './core/storage-manager';
+import NotificationManager from './core/notification-manager';
+import WindowEventSubscriptions from './window-event-subscriptions';
 
 /*
  * An instance of this class is always available as the `scout` global.
  */
-class Scout {
+export default class Scout {
   static getCurrentWindow() {
     return remote.getCurrentWindow();
   }
@@ -57,16 +62,9 @@ class Scout {
 
     this.loadTime = -1;
 
-    let StorageManager = require('./core/storage-manager');
     this.storage = new StorageManager({storageDirPath: this.storageDirPath, resourcePath: this.loadSettings.resourcePath});
-
-    let StyleManager = require('./core/style-manager');
     this.styles = new StyleManager(this.loadSettings.resourcePath);
-
-    let NotificationManager = require('./core/notification-manager');
     this.notifications = new NotificationManager();
-
-    let {HttpEnvelope} = require('./core/http-envelope');
     this.envelope = new HttpEnvelope();
 
     if (this.windowEventSubscriptions) {
@@ -380,5 +378,3 @@ class Scout {
     remote.process.exit(status);
   }
 }
-
-module.exports = Scout;

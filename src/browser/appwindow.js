@@ -1,18 +1,18 @@
 "use babel";
 
-var Menu = require('menu');
-var app = require('app');
-var fs = require('fs');
-var ipc = require('ipc');
-var path = require('path');
-var os = require('os');
-var net = require('net');
-var url = require('url');
-var {Emitter} = require('event-kit');
-var BrowserWindow = require('browser-window');
-var _ = require('underscore-plus');
+import Menu from 'menu';
+import app from 'app';
+import fs from 'fs';
+import ipc from 'ipc';
+import path from 'path';
+import os from 'os';
+import net from 'net';
+import url from 'url';
+import _ from 'underscore-plus';
+import {Emitter} from 'event-kit';
+import BrowserWindow from 'browser-window';
 
-class AppWindow extends Emitter {
+export default class AppWindow extends Emitter {
   constructor(options) {
     super();
 
@@ -143,5 +143,3 @@ class AppWindow extends Emitter {
     this.browserWindow.restore();
   }
 }
-
-module.exports = AppWindow;

@@ -1,11 +1,11 @@
 'use babel';
 
-var {Emitter} = require('event-kit');
+import {Emitter} from 'event-kit';
 
 /**
   A notification to the user containing a message and type.
 */
-class Notification {
+export default class Notification {
 
   constructor(type, message, options={}) {
     this.type = type;
@@ -74,5 +74,3 @@ class Notification {
     }
   }
 }
-
-module.exports = Notification;

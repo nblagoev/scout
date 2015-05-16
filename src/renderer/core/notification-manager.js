@@ -1,14 +1,14 @@
 'use babel';
 
-var {Emitter, Disposable} = require('event-kit');
-var Notification = require('./notification');
+import Notification from './notification';
+import {Emitter, Disposable} from 'event-kit';
 
 /**
  * A notification manager used to create {Notification}s to be shown to the user.
 
  * An instance of this class is always available as the `scout.notifications` global.
  */
-class NotificationManager {
+export default class NotificationManager {
 
   constructor() {
     this.notifications = [];
@@ -113,5 +113,3 @@ class NotificationManager {
     this.notifications = [];
   }
 }
-
-module.exports = NotificationManager;

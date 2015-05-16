@@ -1,15 +1,15 @@
 'use babel';
 
-var _ = require('underscore-plus');
-var fs = require('fs-plus');
-var {CompositeDisposable, Disposable, Emitter} = require('event-kit');
-var CSON = require('season');
-var path = require('path');
-var async = require('async');
-var pathWatcher = require('pathwatcher');
-var throws = require('../../common/throws');
+import path from 'path';
+import fs from 'fs-plus';
+import async from 'async';
+import CSON from 'season';
+import _ from 'underscore-plus';
+import pathWatcher from 'pathwatcher';
+import * as throws from '../../common/throws';
+import {CompositeDisposable, Disposable, Emitter} from 'event-kit';
 
-class StorageFile {
+export default class StorageFile {
 
   constructor(filePath) {
     this.emitter = new Emitter();
@@ -260,5 +260,3 @@ class StorageFile {
     return keyPathArray;
   }
 }
-
-module.exports = StorageFile;

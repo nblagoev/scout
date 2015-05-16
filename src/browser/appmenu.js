@@ -1,14 +1,14 @@
 "use babel";
 
-var app = require('app');
-var ipc = require('ipc');
-var Menu = require('menu');
-var path = require('path');
-var season = require('season');
-var _ = require('underscore-plus');
-var {Emitter} = require('event-kit');
+import app from 'app';
+import ipc from 'ipc';
+import Menu from 'menu';
+import path from 'path';
+import season from 'season';
+import _ from 'underscore-plus';
+import {Emitter} from 'event-kit';
 
-class ApplicationMenu extends Emitter {
+export default class ApplicationMenu extends Emitter {
   constructor(options) {
     super();
     let menuJson = season.resolve(path.join(process.resourcesPath, 'app.asar', 'menus', process.platform + ".json"))
@@ -74,5 +74,3 @@ class ApplicationMenu extends Emitter {
     return keys.join("+");
   }
 }
-
-module.exports = ApplicationMenu;

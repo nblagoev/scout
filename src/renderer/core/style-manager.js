@@ -1,14 +1,14 @@
 "use babel";
 
-var fs = require('fs-plus');
-var path = require('path');
-var {Disposable} = require('event-kit');
-var _ = require('underscore-plus');
+import path from 'path';
+import fs from 'fs-plus';
+import _ from 'underscore-plus';
+import {Disposable} from 'event-kit';
 
 /**
  * An instance of this class is always available as the `scout.styles` global.
  */
-class StyleManager {
+export default class StyleManager {
 
   constructor(resourcePath) {
     this.resourcePath = resourcePath;
@@ -118,5 +118,3 @@ class StyleManager {
     });
   }
 }
-
-module.exports = StyleManager;

@@ -1,20 +1,20 @@
 'use babel';
 
-var _ = require('underscore-plus');
-var fs = require('fs-plus');
-var {CompositeDisposable, Disposable, Emitter} = require('event-kit');
-var CSON = require('season');
-var path = require('path');
-var async = require('async');
-var pathWatcher = require('pathwatcher');
-var StorageFile = require('./storage-file');
+import path from 'path';
+import fs from 'fs-plus';
+import async from 'async';
+import CSON from 'season';
+import _ from 'underscore-plus';
+import pathWatcher from 'pathwatcher';
+import StorageFile from './storage-file';
+import {CompositeDisposable, Disposable, Emitter} from 'event-kit';
 
 /**
  * Used to access Scout's storage folder.
 
  * An instance of this class is always available as the `scout.storage` global.
  */
-class StorageManager {
+export default class StorageManager {
 
   constructor({storageDirPath, resourcePath}={}) {
     this.storageDirPath = storageDirPath;
@@ -94,5 +94,3 @@ class StorageManager {
     return storageFile.onDidChange(nestedKeyPath, callback);
   }
 }
-
-module.exports = StorageManager;

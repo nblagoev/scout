@@ -1,17 +1,17 @@
 'use babel';
 
-let {CompositeDisposable, Disposable, Emitter} = require('event-kit');
-let throws = require('../../common/throws');
-let symbols = require("../../common/symbol-stream");
-let request = require('request');
-let url = require('url');
+import url from 'url';
+import request from 'request';
+import * as throws from '../../common/throws';
+import symbols from "../../common/symbol-stream";
+import {CompositeDisposable, Disposable, Emitter} from 'event-kit';
 
 const [_request, _response, _inProgress] = [...symbols(3)];
 
 /**
  * An instance of this class is always available as the `scout.envelope` global.
  */
-class HttpEnvelope {
+export default class HttpEnvelope {
   constructor() {
     this[_request] = new HttpRequest();
     this[_response] = new HttpResponse();
@@ -339,5 +339,3 @@ class HttpParameter extends HttpEnvelopeEntity {
     super(name, value);
   }
 }
-
-module.exports = { HttpEnvelope };

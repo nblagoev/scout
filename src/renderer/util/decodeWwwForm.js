@@ -1,6 +1,6 @@
 'use babel';
 
-module.exports = (input) => {
+export default function decodeWwwForm(input) {
   function decode(token) {
   	return decodeURIComponent(token.replace(/\+/g, " "));
   }

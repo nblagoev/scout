@@ -1,6 +1,6 @@
 'use babel';
 
-module.exports = (n) => {
+export default function symbols(n) {
   let symbolGenerator = {
     * [Symbol.iterator]() {
       for (let i = 0; i < n; i++) {

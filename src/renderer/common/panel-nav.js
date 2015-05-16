@@ -1,6 +1,8 @@
 'use babel';
 
-class PanelNavigation {
+import * as throws from '../../common/throws';
+
+export default class PanelNavigation {
   constructor() {
     this.model = [];
     this.selectedView = '';
@@ -9,10 +11,8 @@ class PanelNavigation {
   }
 
   select(targetViewId) {
-    require("../../common/throws").ifEmpty(targetViewId, "targetViewId");
+    throws.ifEmpty(targetViewId, "targetViewId");
     this.selectedView = this.templatePartialPath + targetViewId + '.html';
     this.selectedViewId = targetViewId;
   }
 }
-
-module.exports = PanelNavigation;

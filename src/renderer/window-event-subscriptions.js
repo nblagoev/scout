@@ -1,8 +1,8 @@
 'use babel';
 
-let {Disposable, CompositeDisposable} = require('event-kit');
+import {Disposable, CompositeDisposable} from 'event-kit';
 
-class WindowEventSubscriptions {
+export default class WindowEventSubscriptions {
   constructor() {
     this.subscriptions = new CompositeDisposable();
 
@@ -57,5 +57,3 @@ class WindowEventSubscriptions {
     this.subscriptions = null;
   }
 }
-
-module.exports = WindowEventSubscriptions;
