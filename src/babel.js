@@ -12,7 +12,7 @@ var stats = {
 var defaultOptions = {
   sourceMap: 'inline',
   blacklist: [],
-  experimental: true,
+  stage: 0,
   optional: ['asyncToGenerator']
 };
 
