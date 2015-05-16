@@ -10,9 +10,16 @@ angular.module("scout").controller('ResponsePanelCtrl', function ($scope) {
   self.nav = new ResponseNavigation();
 
   subscriptions.add(
-    self.response.onDidChange(['body', "raw"], (changes) => {
+    self.response.onDidChange('body', (changes) => {
+      let {header: contentTypeHeader} = self.response.findHeader('Content-Type');
+      let contentType = contentTypeHeader ? contentTypeHeader.value.split(';')[0] : undefined;
+
       $scope.$apply(() => {
-        self.decodedBody = decodeWwwForm(self.response.body);
+        if (contentType === 'application/x-www-form-urlencoded') {
+          self.decodedBody = decodeWwwForm(self.response.body);
+        } else {
+          self.decodedBody = null;
+        }
       });
     })
   );
