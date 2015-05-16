@@ -309,7 +309,7 @@ class HttpResponse extends HttpEnvelopePart {
         let filteredChanges = changes.filter(change => properties.indexOf(change.name) >= 0);
 
         if (filteredChanges && filteredChanges.length > 0) {
-          callback();
+          callback(filteredChanges);
         }
       }
     };
