@@ -66,6 +66,9 @@ class Scout {
     let NotificationManager = require('./core/notification-manager');
     this.notifications = new NotificationManager();
 
+    let {HttpEnvelope} = require('./core/http-envelope');
+    this.envelope = new HttpEnvelope();
+
     if (this.windowEventSubscriptions) {
       this.windowEventSubscriptions.dispose();
     }
@@ -104,7 +107,6 @@ class Scout {
     require('./components/response-time.directive');
     require('./components/raw-preview.directive');
     require('./services/status-bar.service');
-    require('./services/http.service');
     require('./layout/notifications.controller');
     require('./layout/header.controller');
     require('./layout/status-bar.controller');

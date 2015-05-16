@@ -1,9 +1,9 @@
 'use babel';
 
-angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
+angular.module("scout").controller('RequestPanelCtrl', function () {
   let self = this;
 
-  self.request = httpService.request;
+  self.request = scout.envelope.request;
   self.newHeaderName = '';
   self.newHeaderValue = '';
   self.newParamName = '';
@@ -17,7 +17,7 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
       return;
     }
 
-    httpService.request.addHeader(self.newHeaderName, self.newHeaderValue);
+    self.request.addHeader(self.newHeaderName, self.newHeaderValue);
     self.newHeaderName = '';
     self.newHeaderValue = '';
   };
@@ -29,7 +29,7 @@ angular.module("scout").controller('RequestPanelCtrl', function (httpService) {
       return;
     }
 
-    httpService.request.addParameter(self.newParamName, self.newParamValue);
+    self.request.addParameter(self.newParamName, self.newParamValue);
     self.newParamName = '';
     self.newParamValue = '';
   };

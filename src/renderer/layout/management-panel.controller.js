@@ -1,6 +1,6 @@
 'use babel';
 
-angular.module("scout").controller('ManagementPanelCtrl', function (httpService) {
+angular.module("scout").controller('ManagementPanelCtrl', function () {
   let self = this;
 
   self.nav = new ManagementNavigation();

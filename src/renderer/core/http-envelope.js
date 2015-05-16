@@ -1,32 +1,46 @@
 'use babel';
 
+let {CompositeDisposable, Disposable, Emitter} = require('event-kit');
 let throws = require('../../common/throws');
+let symbols = require("../../common/symbol-stream");
 let request = require('request');
 let url = require('url');
-var {CompositeDisposable, Disposable, Emitter} = require('event-kit');
 
-class HttpService {
+const [_request, _response, _inProgress] = [...symbols(3)];
+
+/**
+ * An instance of this class is always available as the `scout.envelope` global.
+ */
+class HttpEnvelope {
   constructor() {
+    this[_request] = new HttpRequest();
+    this[_response] = new HttpResponse();
     this.emitter = new Emitter();
-    this.request = new HttpServiceRequest();
-    this.response = new HttpServiceResponse();
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
-    this._inProgress = false;
+    this.inProgress = false;
 
-    this.request.headers.push(new HttpServiceHeader('Accept', 'application/x-www-form-urlencoded'));
-    this.request.headers.push(new HttpServiceHeader('Accept-Language', 'en_US'));
-    this.request.headers.push(new HttpServiceHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
-    this.request.headers.push(new HttpServiceHeader('Date', '23/04/2015'));
-    this.request.headers.push(new HttpServiceHeader('Content-Type', 'application/json'));
+    this.request.headers.push(new HttpHeader('Accept', 'application/x-www-form-urlencoded'));
+    this.request.headers.push(new HttpHeader('Accept-Language', 'en_US'));
+    this.request.headers.push(new HttpHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
+    this.request.headers.push(new HttpHeader('Date', '23/04/2015'));
+    this.request.headers.push(new HttpHeader('Content-Type', 'application/json'));
+  }
+
+  get request() {
+    return this[_request];
+  }
+
+  get response() {
+    return this[_response];
   }
 
   set inProgress(value) {
-    if (this._inProgress == value) {
+    if (this[_inProgress] == value) {
       return;
     }
 
-    this._inProgress = value;
+    this[_inProgress] = value;
     //scout.currentWindow.setProgressBar(value ? 2 : 0);
 
     if (!value && !scout.currentWindow.isFocused()) {
@@ -35,7 +49,7 @@ class HttpService {
   }
 
   get inProgress() {
-    return this._inProgress;
+    return this[_inProgress];
   }
 
   sendRequest(callback) {
@@ -45,7 +59,7 @@ class HttpService {
 
     throws.ifEmpty(this.request.address, "address");
     throws.ifEmpty(this.request.method, "method");
-    HttpService.httpMethodIsSupported(this.request.method, true);
+    HttpEnvelope.httpMethodIsSupported(this.request.method, true);
 
     this.inProgress = true;
     let targetUrl = url.parse(this.request.address);
@@ -60,14 +74,14 @@ class HttpService {
       url: targetUrl,
       method: this.request.method.toUpperCase(),
       headers: {},
-      //body: HttpService.methodCanHaveBody(this.request.method) ? this.request.body : undefined,
+      //body: HttpEnvelope.methodCanHaveBody(this.request.method) ? this.request.body : undefined,
       body: this.request.body,
       followRedirect: this.request.followRedirect,
       maxRedirects: this.request.maxRedirects || 10,
       timeout: this.request.timeout,
       time: true,
       useQuerystring: true,
-      qs: HttpService.paramsToJson(this.request.urlParams)
+      qs: HttpEnvelope.paramsToJson(this.request.urlParams)
     };
 
     let headers = this.request.headers;
@@ -80,9 +94,7 @@ class HttpService {
       }
     }
 
-    this.response.body = null;
-    this.response.headers = [];
-    this.response.status = 0;
+    this.response.clear();
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
 
@@ -179,8 +191,14 @@ class HttpService {
   }
 }
 
-class HttpServiceWrapper {
+class HttpEnvelopePart {
   constructor() {
+    this.headers = [];
+    this.body = null;
+    this.raw = '';
+  }
+
+  clear() {
     this.headers = [];
     this.body = null;
     this.raw = '';
@@ -188,50 +206,34 @@ class HttpServiceWrapper {
 
   addHeader(name, value) {
     throws.ifEmpty(name, "name");
-    let header = this.findHeader(name);
+    let {header} = this.findHeader(h => h.name === name);
 
     if (header !== null && header !== undefined) {
       header.value = value;
     } else {
-      this.headers.push(new HttpServiceHeader(name, value));
+      this.headers.push(new HttpHeader(name, value));
     }
   }
 
   removeHeader(name) {
-    let headerIndex = this.findHeaderIndex(name);
-    if (headerIndex >= 0) {
-      this.headers.splice(headerIndex, 1);
+    let {index} = this.findHeader(h => h.name === name);
+    if (index >= 0) {
+      this.headers.splice(index, 1);
     }
   }
 
-  findHeader(name) {
-    for (let i = 0; i < this.headers.length; i++) {
-      if (i in this.headers) {
-        let header = this.headers[i];
-        if (header.name === name) {
-          return header;
-        }
+  findHeader(predicate) {
+    for (let [index, header] of this.headers.entries()) {
+      if (typeof(predicate) == "function" && predicate(header) || header.name === predicate) {
+        return { header, index };
       }
     }
 
-    return undefined;
-  }
-
-  findHeaderIndex(name) {
-    for (let i = 0; i < this.headers.length; i++) {
-      if (i in this.headers) {
-        let header = this.headers[i];
-        if (header.name === name) {
-          return i;
-        }
-      }
-    }
-
-    return -1;
+    return { header: undefined, index: -1 };
   }
 }
 
-class HttpServiceRequest extends HttpServiceWrapper {
+class HttpRequest extends HttpEnvelopePart {
   constructor() {
     super();
     this.method = 'get';
@@ -242,59 +244,82 @@ class HttpServiceRequest extends HttpServiceWrapper {
     this.maxRedirects = 10;
   }
 
+  clear() {
+    super.clear();
+    this.method = 'get';
+    this.address = '';
+    this.urlParams = [];
+    this.timeout = null;
+    this.followRedirect = true;
+    this.maxRedirects = 10;
+  }
+
   addParameter(name, value) {
     throws.ifEmpty(name, "name");
-    let param = this.findParameter(name);
+    let {parameter} = this.findParameter(p => p.name === name);
 
-    if (param !== null && param !== undefined) {
-      param.value = value;
+    if (parameter !== null && parameter !== undefined) {
+      parameter.value = value;
     } else {
-      this.urlParams.push(new HttpServiceParameter(name, value));
+      this.urlParams.push(new HttpParameter(name, value));
     }
   }
 
   removeParameter(name) {
-    let paramIndex = this.findParameterIndex(name);
-    if (paramIndex >= 0) {
-      this.urlParams.splice(paramIndex, 1);
+    let {index} = this.findParameter(p => p.name === name);
+    if (index >= 0) {
+      this.urlParams.splice(index, 1);
     }
   }
 
-  findParameter(name) {
-    for (let i = 0; i < this.urlParams.length; i++) {
-      if (i in this.urlParams) {
-        let param = this.urlParams[i];
-        if (param.name === name) {
-          return param;
-        }
+  findParameter(predicate) {
+    for (let [index, parameter] of this.urlParams.entries()) {
+      if (predicate(parameter)) {
+        return { parameter, index };
       }
     }
 
-    return undefined;
-  }
-
-  findParameterIndex(name) {
-    for (let i = 0; i < this.urlParams.length; i++) {
-      if (i in this.urlParams) {
-        let parasm = this.urlParams[i];
-        if (param.name === name) {
-          return i;
-        }
-      }
-    }
-
-    return -1;
+    return { parameter: undefined, index: -1 };
   }
 }
 
-class HttpServiceResponse extends HttpServiceWrapper {
+class HttpResponse extends HttpEnvelopePart {
   constructor() {
     super();
     this.status = 0;
   }
+
+  clear() {
+    super.clear();
+    this.status = 0;
+  }
+
+  /**
+   *  @param {string|array} properties - A list of property names that will be
+   *    observed. Value of '*' will trigger the callback when changes occur to
+   *    any of the response's properties.
+   *
+   *  @param {function(changes)} callback - A function to be called when a change occurs.
+   */
+  onDidChange(properties, callback) {
+    let observer = (changes) => {
+      if (properties === "*") {
+        callback(changes);
+      } else {
+        let filteredChanges = changes.filter(change => properties.indexOf(change.name) >= 0);
+
+        if (filteredChanges && filteredChanges.length > 0) {
+          callback();
+        }
+      }
+    };
+
+    Object.observe(this, observer, ["update"]);
+    return new Disposable(() => Object.unobserve(this, observer));
+  }
 }
 
-class HttpServiceEntity {
+class HttpEnvelopeEntity {
   constructor(name, value) {
     throws.ifEmpty(name, "name");
     this.name = name;
@@ -303,16 +328,16 @@ class HttpServiceEntity {
   }
 }
 
-class HttpServiceHeader extends HttpServiceEntity {
+class HttpHeader extends HttpEnvelopeEntity {
   constructor(name, value) {
     super(name, value);
   }
 }
 
-class HttpServiceParameter extends HttpServiceEntity {
+class HttpParameter extends HttpEnvelopeEntity {
   constructor(name, value) {
     super(name, value);
   }
 }
 
-module.exports = { HttpService, HttpServiceRequest, HttpServiceResponse };
+module.exports = { HttpEnvelope };

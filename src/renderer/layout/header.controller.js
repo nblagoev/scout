@@ -1,13 +1,13 @@
 'use babel';
 
 angular.module("scout").controller('HeaderCtrl',
-  function ($scope, httpService) {
+  function ($scope) {
     let self = this;
 
-    self.httpSrv = httpService;
+    self.httpEnvelope = scout.envelope;
 
     self.sendRequest = () => {
-      httpService.sendRequest(
+      self.httpEnvelope.sendRequest(
         // we have to tell Angular that the model has been updated
         function () { $scope.$apply(); }
       );

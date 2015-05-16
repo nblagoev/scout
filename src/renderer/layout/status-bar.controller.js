@@ -1,9 +1,9 @@
 'use babel';
 
 angular.module("scout").controller('StatusBarCtrl',
-  function (statusBarService, httpService) {
+  function (statusBarService) {
     let self = this;
     self.data = statusBarService;
-    self.httpSrv = httpService;
+    self.httpEnvelope = scout.envelope;
   }
 );

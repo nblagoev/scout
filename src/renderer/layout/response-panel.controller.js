@@ -1,12 +1,26 @@
 'use babel';
 
-angular.module("scout").controller('ResponsePanelCtrl', function (httpService) {
+angular.module("scout").controller('ResponsePanelCtrl', function ($scope) {
   let self = this;
   let decodeWwwForm = require('../util/decodeWwwForm');
+  let {CompositeDisposable} = require('event-kit');
+  let subscriptions = new CompositeDisposable();
 
-  self.response = httpService.response;
-  self.decodedBody = decodeWwwForm(self.response.body);
+  self.response = scout.envelope.response;
   self.nav = new ResponseNavigation();
+
+  subscriptions.add(
+    self.response.onDidChange(['body', "raw"], (changes) => {
+      $scope.$apply(() => {
+        self.decodedBody = decodeWwwForm(self.response.body);
+      });
+    })
+  );
+
+  $scope.$on("$destroy", () => {
+    subscriptions.dispose();
+    subscriptions = null;
+  });
 });
 
 let PanelNavigation = require('../common/panel-nav');
