@@ -16,6 +16,7 @@ angular.module("scout").directive("rawPreview", function(){
         mode: "message/http",
         readOnly: "nocursor",
         lineNumbers: true,
+        lineWrapping: true,
         theme: "scout"
       });
 
