@@ -204,6 +204,32 @@ class HttpEnvelopePart {
     this.raw = '';
   }
 
+  /**
+   * @param {string|array} properties - A list of property names that will be
+   *        observed. Value of '*' will trigger the callback when changes occur to
+   *        any of the {HttpEnvelopePart}'s properties.
+   *
+   * @param {function(changes)} callback - A function to be called when a change occurs.
+   *
+   * @returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
+   */
+  onDidChange(properties, callback) {
+    let observer = (changes) => {
+      if (properties === "*") {
+        callback(changes);
+      } else {
+        let filteredChanges = changes.filter(change => properties.indexOf(change.name) >= 0);
+
+        if (filteredChanges && filteredChanges.length > 0) {
+          callback(filteredChanges);
+        }
+      }
+    };
+
+    Object.observe(this, observer, ["update"]);
+    return new Disposable(() => Object.unobserve(this, observer));
+  }
+
   addHeader(name, value) {
     throws.ifEmpty(name, "name");
     let {header} = this.findHeader(h => h.name === name);
@@ -292,30 +318,6 @@ class HttpResponse extends HttpEnvelopePart {
   clear() {
     super.clear();
     this.status = 0;
-  }
-
-  /**
-   *  @param {string|array} properties - A list of property names that will be
-   *    observed. Value of '*' will trigger the callback when changes occur to
-   *    any of the response's properties.
-   *
-   *  @param {function(changes)} callback - A function to be called when a change occurs.
-   */
-  onDidChange(properties, callback) {
-    let observer = (changes) => {
-      if (properties === "*") {
-        callback(changes);
-      } else {
-        let filteredChanges = changes.filter(change => properties.indexOf(change.name) >= 0);
-
-        if (filteredChanges && filteredChanges.length > 0) {
-          callback(filteredChanges);
-        }
-      }
-    };
-
-    Object.observe(this, observer, ["update"]);
-    return new Disposable(() => Object.unobserve(this, observer));
   }
 }
 
