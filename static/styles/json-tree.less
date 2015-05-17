@@ -1,64 +1,103 @@
 
 json-tree {
+  box-sizing: border-box;
+  font-family: 'Source Code Pro';
+
+  *, *:before, *:after {
     box-sizing: border-box;
-    *, *:before, *:after {
-        box-sizing: border-box;
+  }
+
+  .key {
+    vertical-align: baseline;
+  }
+
+  .expandable {
+    position: relative;
+
+    &::before {
+      pointer-events: none;
     }
-    .key {
-        vertical-align: middle;
+
+    &::before, & > .key {
+      cursor: pointer;
     }
-    .expandable {
-        position: relative;
-        &::before {
-            pointer-events: none;
-        }
-        &::before, & > .key {
-            cursor: pointer;
-        }
-    }
-    .branch-preview {
-        display: inline-block;
-        vertical-align: middle;
-    }
+  }
+
+  .branch-preview {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 json-tree {
-    ul {
-        padding-left: 20px;
+  ul {
+    padding-left: 20px;
+    margin: 0px;
+  }
+
+  li, ul {
+    list-style: none;
+  }
+
+  li {
+    line-height: 1.5em;
+  }
+
+  .key {
+    color: #E8725D;
+    padding: 5px 10px 5px 15px;
+
+    &::after {
+      content: ':';
     }
-    li, ul {
-        list-style: none;
+  }
+
+  json-node.string .leaf-value {
+    color: #f4bf75;
+
+    &::before {
+      content: '"';
     }
-    li {
-        line-height: 1.5em;
+
+    &::after {
+      content: '"';
     }
-    .key {
-        color: #D02828;
-        padding: 5px 10px 5px 15px;
-        &::after {
-            content: ':';
-        }
+  }
+
+  json-node.number .leaf-value {
+    color: #aa759f;
+  }
+
+  json-node.boolean .leaf-value {
+    color: #00a8c6;
+  }
+
+  json-node.null .leaf-value {
+    color: #6a9fb5;
+  }
+
+  json-node.expandable {
+    &::before {
+      content: '\25b6';
+      position: absolute;
+      left: 0px;
+      font-size: 13px;
+      transition: transform .1s ease;
     }
-    json-node.expandable {
-        &::before {
-            content: '\25b6';
-            position: absolute;
-            left: 0px;
-            font-size: 10px;
-            transition: transform .1s ease;
-        }
-        &.expanded::before {
-            transform: rotate(90deg);
-        }
+
+    &.expanded::before {
+      transform: rotate(90deg);
     }
-    .leaf-value, .branch-preview {
-        word-break: break-all;
-    }
-    .branch-preview {
-        overflow: hidden;
-        font-style: italic;
-        max-width: 40%;
-        height: 1.5em;
-        opacity: .7;
-    }
+  }
+
+  .branch-preview {
+    overflow: hidden;
+    max-width: 75%;
+    height: 1.5em;
+    opacity: .3;
+  }
+}
+
+.json-tree-container {
+  padding-top: 5px;
 }

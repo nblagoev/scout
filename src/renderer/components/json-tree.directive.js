@@ -1,12 +1,16 @@
+'use babel';
+
 /**
  * Modified version of Alex Wendland (me@alexwendland.com)'s directive for
  * creating a tree-view out of a JS Object. Only loads sub-nodes on demand
  * in order to improve performance of rendering large objects.
  */
-(function() {
+(() => {
 'use strict';
 
-var utils = {
+let _ = require('underscore-plus');
+
+let utils = {
     /* See link for possible type values to check against.
      * http://stackoverflow.com/questions/4622952/json-object-containing-array
      *
@@ -28,29 +32,18 @@ var utils = {
      * {}                  Object     object
      * new Object()        Object     object
      */
-    is: function is(obj, clazz) {
+    is(obj, clazz) {
         return Object.prototype.toString.call(obj).slice(8, -1) === clazz;
     },
 
     // See above for possible values
-    whatClass: function whatClass(obj) {
+    whatClass(obj) {
         return Object.prototype.toString.call(obj).slice(8, -1);
-    },
-
-    // Iterate over an objects keyset
-    forKeys: function forKeys(obj, f) {
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key) && typeof obj[key] !== 'function') {
-                if (f(key, obj[key])) {
-                    break;
-                }
-            }
-        }
     }
 };
 
 angular.module('angular-json-tree', ['ajs.RecursiveDirectiveHelper'])
-    .directive('jsonTree', function jsonTreeDirective() {
+    .directive('jsonTree', function () {
         return {
             restrict: 'E',
             scope: {
@@ -60,7 +53,7 @@ angular.module('angular-json-tree', ['ajs.RecursiveDirectiveHelper'])
             template: '<json-node key="\'Root\'" value="object" start-expanded="startExpanded()"></json-node>'
         };
     })
-    .directive('jsonNode', function jsonNodeDirective(ajsRecursiveDirectiveHelper) {
+    .directive('jsonNode', function (ajsRecursiveDirectiveHelper) {
         return {
             restrict: 'E',
             scope: {
@@ -68,11 +61,11 @@ angular.module('angular-json-tree', ['ajs.RecursiveDirectiveHelper'])
                 value: '=',
                 startExpanded: '&?'
             },
-            compile: function jsonNodeDirectiveCompile(elem) {
+            compile: function (elem) {
                 return ajsRecursiveDirectiveHelper.compile(elem, this);
             },
             template: ' <span class="key" ng-click="toggleExpanded()">{{key}}</span>' +
-                '       <span class="leaf-value" ng-if="!isExpandable">{{value}}</span>' +
+                '       <span class="leaf-value" ng-if="!isExpandable">{{value || \'null\'}}</span>' +
                 '       <span class="branch-preview" ng-if="isExpandable" ng-show="!isExpanded" ng-click="toggleExpanded()">{{preview}}</span>' +
                 '       <ul class="branch-value" ng-if="isExpandable && shouldRender" ng-show="isExpanded">' +
                 '           <li ng-repeat="(subkey,subval) in value">' +
@@ -85,33 +78,33 @@ angular.module('angular-json-tree', ['ajs.RecursiveDirectiveHelper'])
                 // If the value is an Array or Object, use expandable view type
                 if (utils.is(scope.value, 'Object') || utils.is(scope.value, 'Array')) {
                     scope.isExpandable = true;
+
                     // Add expandable class for CSS usage
                     elem.addClass('expandable');
+
                     // Setup preview text
-                    var isArray = utils.is(scope.value, 'Array');
-                    scope.preview = isArray ? '[ ' : '{ ';
-                    utils.forKeys(scope.value, function jsonNodeDirectiveLinkForKeys(key, value) {
-                        if (isArray) {
-                            scope.preview += value + ', ';
-                        } else {
-                            scope.preview += key + ': ' + value + ', ';
-                        }
-                    });
-                    scope.preview = scope.preview.substring(0, scope.preview.length - (scope.preview.length > 2 ? 2 : 0)) + (isArray ? ' ]' : ' }');
+                    let isArray = utils.is(scope.value, 'Array');
+                    let count = _.size(scope.value);
+                    let label = count + (count == 1 ? ' child' : ' children');
+                    scope.preview = isArray ? `[ ${label} ]` : `{ ${label} }`;
+
                     // If directive initially has isExpanded set, also set shouldRender to true
                     if (scope.startExpanded && scope.startExpanded()) {
                         scope.shouldRender = true;
                         elem.addClass('expanded');
                     }
+
                     // Setup isExpanded state handling
                     scope.isExpanded = scope.startExpanded ? scope.startExpanded() : false;
                     scope.toggleExpanded = function jsonNodeDirectiveToggleExpanded() {
                         scope.isExpanded = !scope.isExpanded;
+
                         if (scope.isExpanded) {
                             elem.addClass('expanded');
                         } else {
                             elem.removeClass('expanded');
                         }
+
                         // For delaying subnode render until requested
                         scope.shouldRender = true;
                     };
@@ -123,13 +116,14 @@ angular.module('angular-json-tree', ['ajs.RecursiveDirectiveHelper'])
             }
         };
     });
+
     /** Added by: Alex Wendland (me@alexwendland.com), 2014-08-09
      *  Source: http://stackoverflow.com/questions/14430655/recursion-in-angular-directives
      *
      *  Used to allow for recursion within directives
      */
 angular.module('ajs.RecursiveDirectiveHelper', [])
-     .factory('ajsRecursiveDirectiveHelper', function RecursiveDirectiveHelper($compile) {
+     .factory('ajsRecursiveDirectiveHelper', function ($compile) {
         return {
             /**
              * Manually compiles the element, fixing the recursion loop.
@@ -137,7 +131,7 @@ angular.module('ajs.RecursiveDirectiveHelper', [])
              * @param [link] A post-link function, or an object with function(s) registered via pre and post properties.
              * @returns An object containing the linking functions.
              */
-            compile: function RecursiveDirectiveHelperCompile(element, link) {
+            compile: function (element, link) {
                 // Normalize the link parameter
                 if (angular.isFunction(link)) {
                     link = {
@@ -153,11 +147,12 @@ angular.module('ajs.RecursiveDirectiveHelper', [])
                     /**
                      * Compiles and re-adds the contents
                      */
-                    post: function RecursiveDirectiveHelperCompilePost(scope, element) {
+                    post: function (scope, element) {
                         // Compile the contents
                         if (!compiledContents) {
                             compiledContents = $compile(contents);
                         }
+
                         // Re-add the compiled contents to the element
                         compiledContents(scope, function (clone) {
                             element.append(clone);
