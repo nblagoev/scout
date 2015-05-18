@@ -90,12 +90,16 @@ export default class Scout {
   startScoutWindow() {
     scout.storage.initialize();
     scout.styles.loadBaseStylesheets();
+    // TODO: Move to the autocomplete directive/controller?
+    let hints = scout.storage.requireStorageFile("hints");
+    hints.setDefaults("httpHeaders", require("../../config/hintmap.json").httpHeaders);
 
     require('angular');
 
-    angular.module('scout', ['content-resizer', 'ng-enter', 'angular-json-tree']);
+    angular.module('scout', ['content-resizer', 'ng-enter', 'angular-json-tree', 'autocomplete-scout']);
     require('./util/split.filter');
     require('./components/scout-canvas.directive');
+    require('./components/autocomplete.directive');
     require('./components/json-tree.directive');
     require('./components/notifications.directive');
     require('./components/notification.directive');

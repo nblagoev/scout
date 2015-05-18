@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 
     var nonPackageDirectories = [
       'dot-scout',
+      'config',
       'vendor',
       'resources'
     ];

@@ -10,9 +10,13 @@
       <td>
         <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
         <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
-        <input type="text" placeholder="Add Header"
+        <div autocomplete-scout id="footer-header-name" placeholder="Add header" class="autocomplete"
+             input-model="rpc.newHeaderName" hint-data="rpc.headerHints" search-field="value"
+             title-field="value" minlength="1" match-class="highlight"
+             input-class="topcoat-text-input table-row-name-input borderless-input"></div>
+        <!--input type="text" placeholder="Add Header"
                ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderName"
-               class="topcoat-text-input table-row-name-input borderless-input"/>
+               class="topcoat-text-input table-row-name-input borderless-input"/-->
       </td>
       <td>
         <input type="text" placeholder="Add Value"
@@ -31,7 +35,12 @@
     <td>
       <input type="checkbox" class="table-row-fix-input-position" ng-model="header.include"/>
       <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
-      <input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="header.name"/>
+
+      <div autocomplete-scout id="header-name--{{$index}}" class="autocomplete"
+           input-model="header.name" hint-data="rpc.headerHints" search-field="value" apply-field="value"
+           title-field="value" minlength="1" match-class="highlight"
+           input-class="topcoat-text-input table-row-name-input borderless-input"></div>
+      <!--input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="header.name"/-->
     </td>
     <td>
       <input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="header.value"/>

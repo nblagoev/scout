@@ -32,6 +32,7 @@ describe("StorageManager", () => {
           expect(fs.existsSync(path.join(scout.storage.storageDirPath, 'cookies'))).toBeTruthy();
           expect(fs.isFileSync(path.join(scout.storage.storageDirPath, 'cookies/.index'))).toBeTruthy();
           expect(fs.isFileSync(path.join(scout.storage.storageDirPath, 'config.json'))).toBeTruthy();
+          expect(fs.isFileSync(path.join(scout.storage.storageDirPath, 'hints.json'))).toBeTruthy();
           expect(fs.isFileSync(path.join(scout.storage.storageDirPath, 'history.json'))).toBeTruthy();
           expect(fs.isFileSync(path.join(scout.storage.storageDirPath, 'collections.json'))).toBeTruthy();
           done();

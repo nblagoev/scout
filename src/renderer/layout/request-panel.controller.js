@@ -10,6 +10,15 @@ angular.module("scout").controller('RequestPanelCtrl', function () {
   self.newParamValue = '';
   self.nav = new RequestNavigation();
 
+  let headerHints = [];
+  let headers = scout.storage.get('hints:httpHeaders');
+
+  for (let value in headers) {
+    headerHints.push({value});
+  }
+
+  self.headerHints = headerHints;
+
   self.submitHeader = () => {
     if (self.newHeaderName === undefined ||
         self.newHeaderName === null ||
