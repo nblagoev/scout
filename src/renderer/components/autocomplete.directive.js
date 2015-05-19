@@ -36,6 +36,7 @@ angular.module('autocomplete-scout', [] )
       searchField: '@',
       titleField: '@',
       descriptionField: '@',
+      moreLinkField: '@',
       imageField: '@',
       inputClass: '@',
       pause: '@',
@@ -49,15 +50,19 @@ angular.module('autocomplete-scout', [] )
     template: '<div class="autocomplete-holder" ng-class="{\'autocomplete-dropdown-visible\': showDropdown}">' +
               '  <input id="{{id}}_value" ng-model="inputModel" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(inputModel)"/>' +
               '  <div id="{{id}}_dropdown" class="autocomplete-dropdown" ng-show="showDropdown && results && results.length > 0">' +
-              '    <div class="autocomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
-              '      <div ng-if="imageField" class="autocomplete-image-holder">' +
-              '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="autocomplete-image"/>' +
-              '        <div ng-if="!result.image && result.image != \'\'" class="autocomplete-image-default"></div>' +
+              '    <div id="{{id}}_hintList" class="autocomplete-hint-list">' +
+              '      <div class="autocomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
+              '        <div ng-if="imageField" class="autocomplete-image-holder">' +
+              '          <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="autocomplete-image"/>' +
+              '          <div ng-if="!result.image && result.image != \'\'" class="autocomplete-image-default"></div>' +
+              '        </div>' +
+              '        <div class="autocomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
+              '        <div class="autocomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
               '      </div>' +
-              '      <div class="autocomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
-              '      <div class="autocomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
-              '      <div ng-if="matchClass && result.description && result.description != \'\'" class="autocomplete-description" ng-bind-html="result.description"></div>' +
-              '      <div ng-if="!matchClass && result.description && result.description != \'\'" class="autocomplete-description">{{result.description}}</div>' +
+              '    </div>' +
+              '    <div id="hint-description" ng-if="description && description != \'\'" class="autocomplete-hint-description">' +
+              '       <span class="hint-description-content">{{description}}</span>' +
+              '       <a class="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
               '    </div>' +
               '  </div>' +
               '</div>',
@@ -67,7 +72,8 @@ angular.module('autocomplete-scout', [] )
       var searchTimer = null;
       var hideTimer;
       var responseFormatter;
-      var dd = elem[0].querySelector('.autocomplete-dropdown');
+      //var dd = elem[0].querySelector('.autocomplete-dropdown');
+      var hl = elem[0].querySelector('.autocomplete-hint-list');
       var isScrollOn = false;
       var mousedownOn = null;
 
@@ -184,29 +190,29 @@ angular.module('autocomplete-scout', [] )
         }
       }
 
-      function dropdownRowOffsetHeight(row) {
+      function hintlistRowOffsetHeight(row) {
         var css = getComputedStyle(row);
         return row.offsetHeight +
           parseInt(css.marginTop, 10) + parseInt(css.marginBottom, 10);
       }
 
-      function dropdownHeight() {
-        return dd.getBoundingClientRect().top +
-          parseInt(getComputedStyle(dd).maxHeight, 10);
+      function hintlistHeight() {
+        return hl.getBoundingClientRect().top +
+          parseInt(getComputedStyle(hl).maxHeight, 10);
       }
 
-      function dropdownRow() {
+      function hintlistRow() {
         return elem[0].querySelectorAll('.autocomplete-row')[scope.currentIndex];
       }
 
-      function dropdownRowTop() {
-        return dropdownRow().getBoundingClientRect().top -
-          (dd.getBoundingClientRect().top +
-           parseInt(getComputedStyle(dd).paddingTop, 10));
+      function hintlistRowTop() {
+        return hintlistRow().getBoundingClientRect().top -
+          (hl.getBoundingClientRect().top +
+           parseInt(getComputedStyle(hl).paddingTop, 10));
       }
 
-      function dropdownScrollTopTo(offset) {
-        dd.scrollTop = dd.scrollTop + offset;
+      function hintlistScrollTopTo(offset) {
+        hl.scrollTop = hl.scrollTop + offset;
       }
 
       function keydownHandler(event) {
@@ -227,12 +233,14 @@ angular.module('autocomplete-scout', [] )
           if ((scope.currentIndex + 1) < scope.results.length && scope.showDropdown) {
             scope.$apply(function() {
               scope.currentIndex ++;
+              scope.description = scope.results[scope.currentIndex].description;
+              scope.moreLink = scope.results[scope.currentIndex].moreLink;
             });
 
             if (isScrollOn) {
-              row = dropdownRow();
-              if (dropdownHeight() < row.getBoundingClientRect().bottom) {
-                dropdownScrollTopTo(dropdownRowOffsetHeight(row));
+              row = hintlistRow();
+              if (hintlistHeight() < row.getBoundingClientRect().bottom) {
+                hintlistScrollTopTo(hintlistRowOffsetHeight(row));
               }
             }
           }
@@ -241,18 +249,22 @@ angular.module('autocomplete-scout', [] )
           if (scope.currentIndex >= 1) {
             scope.$apply(function() {
               scope.currentIndex --;
+              scope.description = scope.results[scope.currentIndex].description;
+              scope.moreLink = scope.results[scope.currentIndex].moreLink;
             });
 
             if (isScrollOn) {
-              rowTop = dropdownRowTop();
+              rowTop = hintlistRowTop();
               if (rowTop < 0) {
-                dropdownScrollTopTo(rowTop - 1);
+                hintlistScrollTopTo(rowTop - 1);
               }
             }
           }
           else if (scope.currentIndex === 0) {
             scope.$apply(function() {
               scope.currentIndex = -1;
+              scope.description = '';
+              scope.moreLink = null;
             });
           }
         } else if (which === KEY_TAB) {
@@ -269,14 +281,16 @@ angular.module('autocomplete-scout', [] )
       function clearResults() {
         scope.showDropdown = false;
         scope.results = [];
-        if (dd) {
-          dd.scrollTop = 0;
+        if (hl) {
+          hl.scrollTop = 0;
         }
       }
 
       function initResults() {
         scope.showDropdown = true;
         scope.currentIndex = -1;
+        scope.description = null;
+        scope.moreLink = null;
         scope.results = [];
       }
 
@@ -315,7 +329,7 @@ angular.module('autocomplete-scout', [] )
       }
 
       function processResults(responseData, str) {
-        var i, description, image, text, formattedText, formattedDesc;
+        var i, description, moreLink, image, text, formattedText, formattedDesc;
 
         if (responseData && responseData.length > 0) {
           scope.results = [];
@@ -326,8 +340,14 @@ angular.module('autocomplete-scout', [] )
             }
 
             description = '';
+            // TODO: Support rendering markdown markup for the description
             if (scope.descriptionField) {
               description = formattedDesc = extractValue(responseData[i], scope.descriptionField);
+            }
+
+            moreLink = '';
+            if (scope.moreLinkField) {
+              moreLink = extractValue(responseData[i], scope.moreLinkField);
             }
 
             image = '';
@@ -337,19 +357,19 @@ angular.module('autocomplete-scout', [] )
 
             if (scope.matchClass) {
               formattedText = findMatchString(text, str);
-              formattedDesc = findMatchString(description, str);
             }
 
             scope.results[scope.results.length] = {
               title: formattedText,
               description: formattedDesc,
+              moreLink: moreLink,
               image: image,
               originalObject: responseData[i]
             };
 
             if (scope.autoMatch) {
               checkExactMatch(scope.results[scope.results.length-1],
-                  {title: text, desc: description || ''}, scope.inputModel);
+                  {title: text/*, desc: description || ''*/}, scope.inputModel);
             }
           }
 
@@ -373,7 +393,9 @@ angular.module('autocomplete-scout', [] )
       };
 
       scope.hideResults = function(event) {
-        if (mousedownOn === scope.id + '_dropdown') {
+        if (mousedownOn === scope.id + '_dropdown' ||
+            mousedownOn === scope.id + '_hintList' ||
+            mousedownOn === 'hint-description') {
           mousedownOn = null;
         }
         else {
@@ -404,11 +426,15 @@ angular.module('autocomplete-scout', [] )
         // Restore original values
         if (scope.matchClass) {
           result.title = extractTitle(result.originalObject);
-          result.description = extractValue(result.originalObject, scope.descriptionField);
+          //result.description = extractValue(result.originalObject, scope.descriptionField);
         }
 
         callOrAssign(result);
         clearResults();
+      };
+
+      scope.openLink = function (url) {
+        require('shell').openExternal(url);
       };
 
       scope.inputChangeHandler = function(str) {
@@ -444,7 +470,7 @@ angular.module('autocomplete-scout', [] )
 
       // set isScrollOn
       $timeout(function() {
-        var css = getComputedStyle(dd);
+        var css = getComputedStyle(hl);
         isScrollOn = css.maxHeight && css.overflowY === 'auto';
       });
     }

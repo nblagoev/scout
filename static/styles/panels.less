@@ -16,7 +16,7 @@
   right: 0;
   overflow: auto;
   z-index: 2;
-  border-right: 1px solid #333434;
+  border-right: 1px solid @component-border-color;
 }
 
 #request-preview-panel {
@@ -26,7 +26,7 @@
   left: 0;
   right: 0;
   overflow: auto;
-  border-right: 1px solid #333434;
+  border-right: 1px solid @component-border-color;
 }
 
 #request-panel-group {
@@ -54,8 +54,8 @@
   left: @app-body-padding;
   top: @app-header-height;
   overflow: hidden;
-  background-color: #454646;
-  border: 1px solid #333434;
+  background-color: @default-background-color;
+  border: 1px solid @component-border-color;
 }
 
 .panel-header {
@@ -103,7 +103,7 @@
 }
 
 .panel-container {
-  border-top: 1px solid #333434;
+  border-top: 1px solid @component-border-color;
   color: #c6c8c8;
   position: absolute;
   bottom: 0;
@@ -137,7 +137,7 @@
   left: 0;
   right: 0;
   background-color: transparent;
-  border-bottom: 1px solid #333434;
+  border-bottom: 1px solid @component-border-color;
   cursor: n-resize;
 
 }

@@ -1,7 +1,9 @@
 'use babel';
 
-angular.module("scout").controller('RequestPanelCtrl', function () {
+angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   let self = this;
+  let {CompositeDisposable} = require('event-kit');
+  let subscriptions = new CompositeDisposable();
 
   self.request = scout.envelope.request;
   self.newHeaderName = '';
@@ -10,14 +12,22 @@ angular.module("scout").controller('RequestPanelCtrl', function () {
   self.newParamValue = '';
   self.nav = new RequestNavigation();
 
-  let headerHints = [];
-  let headers = scout.storage.get('hints:httpHeaders');
+  subscriptions.add(
+    scout.storage.onDidChange("hints:httpHeaders", (event) => {
+      let headerHints = [];
+      let headers = event.newValue;
 
-  for (let value in headers) {
-    headerHints.push({value});
-  }
+      for (let value in headers) {
+        headerHints.push({value});
+      }
 
-  self.headerHints = headerHints;
+      self.headerHints = headerHints;
+    })
+  );
+
+  // TODO: Provide a central place to load and work with hints
+  let hintsConfig = scout.storage.requireStorageFile("hints");
+  hintsConfig.setDefaults("httpHeaders", require("../../../config/hintmap.json").httpHeaders);
 
   self.submitHeader = () => {
     if (self.newHeaderName === undefined ||
@@ -42,6 +52,12 @@ angular.module("scout").controller('RequestPanelCtrl', function () {
     self.newParamName = '';
     self.newParamValue = '';
   };
+
+  $scope.$on("$destroy", () => {
+    self.headerHints = null;
+    subscriptions.dispose();
+    subscriptions = null;
+  });
 });
 
 let PanelNavigation = require('../common/panel-nav');

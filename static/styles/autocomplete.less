@@ -1,3 +1,5 @@
+@import "ui-variables";
+
 .autocomplete {
   display: inline-block;
 }
@@ -7,42 +9,58 @@
 }
 
 .autocomplete-dropdown {
-    border-color: #ececec;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px;
-    width: 250px;
-    padding: 6px;
-    cursor: pointer;
-    z-index: 1000;
-    position: fixed;
-    overflow-y: auto;
-    max-height: 200px;
-    /*top: 32px;
-    left: 0px;
-    */
-    margin-top: -6px;
-    background-color: #ffffff;
+  background-color: @app-background-color;
+  border: 1px solid @component-border-color;
+  border-radius: @component-border-radius + 1px;
+  box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  max-width: 800px;
+  z-index: 10;
+  position: fixed;
+  /*top: 32px;
+  left: 0px;
+  */
+  margin-top: 2px;
 }
 
-.autocomplete-searching {
-    color: #acacac;
-    font-size: 14px;
+.autocomplete-hint-list {
+  z-index: 11;
+  overflow-y: auto;
+  max-height: 210px;
 }
 
-.autocomplete-description {
+.autocomplete-hint-description {
+  padding: 5px 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  min-height: 2em;
+  line-height: 1.3;
+  background: @default-background-color;
+  border-top: 1px solid @component-border-color;
+  border-radius: 0 0 3px 3px;
+
+  .hint-description-content {
+    font-family: @font-family;
     font-size: 14px;
+  }
+
+  .hint-description-more-link {
+    font-family: @font-family;
+    font-size: 14px;
+    display: inline;
+  }
 }
 
 .autocomplete-row {
-    padding: 5px;
-    color: #000000;
-    margin-bottom: 4px;
-    clear: both;
+  padding: 7px;
+  color: @text-color;
+  margin-bottom: 1px;
+  clear: both;
+  cursor: pointer;
 }
 
 .autocomplete-selected-row {
-    background-color: lightblue;
+    background-color: @default-hover-background-color;
     color: #ffffff;
 }
 
@@ -70,4 +88,12 @@
     background-size: contain;
     height: 34px;
     width: 34px;
+}
+
+.autocomplete-title {
+  font-family: @font-family-monospace;
+}
+
+.highlight {
+  font-weight: bold;
 }

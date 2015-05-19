@@ -90,9 +90,6 @@ export default class Scout {
   startScoutWindow() {
     scout.storage.initialize();
     scout.styles.loadBaseStylesheets();
-    // TODO: Move to the autocomplete directive/controller?
-    let hints = scout.storage.requireStorageFile("hints");
-    hints.setDefaults("httpHeaders", require("../../config/hintmap.json").httpHeaders);
 
     require('angular');
 
