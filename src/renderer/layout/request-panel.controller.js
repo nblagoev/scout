@@ -17,8 +17,14 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
       let headerHints = [];
       let headers = event.newValue;
 
-      for (let value in headers) {
-        headerHints.push({value});
+      for (let name in headers) {
+        let metadata = headers[name];
+        headerHints.push({
+          name: name,
+          type: metadata.type,
+          description: metadata.description,
+          moreLink: metadata.moreLink
+        });
       }
 
       self.headerHints = headerHints;

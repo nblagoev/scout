@@ -1,146 +1,856 @@
 {
   "httpHeaders": {
-    "A-IM": [],
-    "Accept": [ "application/json", "application/x-www-form-urlencoded" ],
-    "Accept-Additions": [],
-    "Accept-Charset": [],
-    "Accept-Datetime": [],
-    "Accept-Encoding": [],
-    "Accept-Features": [],
-    "Accept-Language": [],
-    "Accept-Patch": [],
-    "Accept-Ranges": [],
-    "Age": [],
-    "Allow": [],
-    "Alternates": [],
-    "Apply-To-Redirect-Ref": [],
-    "Authentication-Info": [],
-    "Authorization": [],
-    "C-Ext": [],
-    "C-Man": [],
-    "C-Opt": [],
-    "C-PEP": [],
-    "C-PEP-Info": [],
-    "Cache-Control": [],
-    "Close": [],
-    "Connection": [],
-    "Content-Base": [],
-    "Content-Disposition": [],
-    "Content-Encoding": [],
-    "Content-ID": [],
-    "Content-Language": [],
-    "Content-Length": [],
-    "Content-Location": [],
-    "Content-MD5": [],
-    "Content-Range": [],
-    "Content-Script-Type": [],
-    "Content-Style-Type": [],
-    "Content-Type": [],
-    "Content-Version": [],
-    "Cookie": [],
-    "Cookie2": [],
-    "DASL": [],
-    "DAV": [],
-    "Date": [],
-    "Default-Style": [],
-    "Delta-Base": [],
-    "Depth": [],
-    "Derived-From": [],
-    "Destination": [],
-    "Differential-ID": [],
-    "Digest": [],
-    "ETag": [],
-    "Expect": [],
-    "Expires": [],
-    "Ext": [],
-    "Forwarded": [],
-    "From": [],
-    "GetProfile": [],
-    "Hobareg": [],
-    "Host": [],
-    "HTTP2-Settings": [],
-    "IM": [],
-    "If": [],
-    "If-Match": [],
-    "If-Modified-Since": [],
-    "If-None-Match": [],
-    "If-Range": [],
-    "If-Schedule-Tag-Match": [],
-    "If-Unmodified-Since": [],
-    "Keep-Alive": [],
-    "Label": [],
-    "Last-Modified": [],
-    "Link": [],
-    "Location": [],
-    "Lock-Token": [],
-    "Man": [],
-    "Max-Forwards": [],
-    "Memento-Datetime": [],
-    "Meter": [],
-    "MIME-Version": [],
-    "Negotiate": [],
-    "Opt": [],
-    "Ordering-Type": [],
-    "Origin": [],
-    "Overwrite": [],
-    "P3P": [],
-    "PEP": [],
-    "PICS-Label": [],
-    "Pep-Info": [],
-    "Position": [],
-    "Pragma": [],
-    "Prefer": [],
-    "Preference-Applied": [],
-    "ProfileObject": [],
-    "Protocol": [],
-    "Protocol-Info": [],
-    "Protocol-Query": [],
-    "Protocol-Request": [],
-    "Proxy-Authenticate": [],
-    "Proxy-Authentication-Info": [],
-    "Proxy-Authorization": [],
-    "Proxy-Features": [],
-    "Proxy-Instruction": [],
-    "Public": [],
-    "Public-Key-Pins": [],
-    "Public-Key-Pins-Report-Only": [],
-    "Range": [],
-    "Redirect-Ref": [],
-    "Referer": [],
-    "Retry-After": [],
-    "Safe": [],
-    "Schedule-Reply": [],
-    "Schedule-Tag": [],
-    "Sec-WebSocket-Accept": [],
-    "Sec-WebSocket-Extensions": [],
-    "Sec-WebSocket-Key": [],
-    "Sec-WebSocket-Protocol": [],
-    "Sec-WebSocket-Version": [],
-    "Security-Scheme": [],
-    "Server": [],
-    "Set-Cookie": [],
-    "Set-Cookie2": [],
-    "SetProfile": [],
-    "SLUG": [],
-    "SoapAction": [],
-    "Status-URI": [],
-    "Strict-Transport-Security": [],
-    "Surrogate-Capability": [],
-    "Surrogate-Control": [],
-    "TCN": [],
-    "TE": [],
-    "Timeout": [],
-    "Trailer": [],
-    "Transfer-Encoding": [],
-    "URI": [],
-    "Upgrade": [],
-    "User-Agent": [],
-    "Variant-Vary": [],
-    "Vary": [],
-    "Via": [],
-    "WWW-Authenticate": [],
-    "Want-Digest": [],
-    "Warning": [],
-    "X-Frame-Options": []
+    "A-IM": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept": {
+      "type": "header",
+      "description": "Can be used to specify certain media types which are acceptable for the response.",
+      "moreLink": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1",
+      "values": [ "application/json", "application/x-www-form-urlencoded" ]
+    },
+    "Accept-Additions": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Charset": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Datetime": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Encoding": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Features": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Language": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Patch": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Accept-Ranges": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Age": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Allow": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Alternates": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Apply-To-Redirect-Ref": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Authentication-Info": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Authorization": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "C-Ext": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "C-Man": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "C-Opt": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "C-PEP": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "C-PEP-Info": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Cache-Control": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Close": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Connection": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Base": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Disposition": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Encoding": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-ID": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Language": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Length": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Location": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-MD5": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Range": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Script-Type": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Style-Type": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Type": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Content-Version": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Cookie": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Cookie2": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "DASL": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "DAV": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Date": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Default-Style": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Delta-Base": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Depth": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Derived-From": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Destination": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Differential-ID": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Digest": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "ETag": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Expect": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Expires": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Ext": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Forwarded": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "From": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "GetProfile": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Hobareg": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Host": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "HTTP2-Settings": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "IM": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-Match": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-Modified-Since": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-None-Match": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-Range": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-Schedule-Tag-Match": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "If-Unmodified-Since": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Keep-Alive": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Label": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Last-Modified": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Link": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Location": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Lock-Token": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Man": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Max-Forwards": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Memento-Datetime": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Meter": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "MIME-Version": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Negotiate": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Opt": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Ordering-Type": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Origin": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Overwrite": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "P3P": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "PEP": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "PICS-Label": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Pep-Info": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Position": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Pragma": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Prefer": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Preference-Applied": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "ProfileObject": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Protocol": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Protocol-Info": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Protocol-Query": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Protocol-Request": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Proxy-Authenticate": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Proxy-Authentication-Info": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Proxy-Authorization": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Proxy-Features": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Proxy-Instruction": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Public": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Public-Key-Pins": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Public-Key-Pins-Report-Only": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Range": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Redirect-Ref": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Referer": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Retry-After": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Safe": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Schedule-Reply": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Schedule-Tag": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Sec-WebSocket-Accept": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Sec-WebSocket-Extensions": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Sec-WebSocket-Key": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Sec-WebSocket-Protocol": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Sec-WebSocket-Version": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Security-Scheme": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Server": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Set-Cookie": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Set-Cookie2": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "SetProfile": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "SLUG": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "SoapAction": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Status-URI": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Strict-Transport-Security": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Surrogate-Capability": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Surrogate-Control": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "TCN": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "TE": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Timeout": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Trailer": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Transfer-Encoding": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "URI": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Upgrade": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "User-Agent": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Variant-Vary": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Vary": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Via": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "WWW-Authenticate": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Want-Digest": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "Warning": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    },
+    "X-Frame-Options": {
+      "type": "header",
+      "description": "",
+      "moreLink": "",
+      "values": []
+    }
   }
 }

@@ -37,7 +37,7 @@ angular.module('autocomplete-scout', [] )
       titleField: '@',
       descriptionField: '@',
       moreLinkField: '@',
-      imageField: '@',
+      typeField: '@',
       inputClass: '@',
       pause: '@',
       minlength: '@',
@@ -52,7 +52,7 @@ angular.module('autocomplete-scout', [] )
               '  <div id="{{id}}_dropdown" class="autocomplete-dropdown" ng-show="showDropdown && results && results.length > 0">' +
               '    <div id="{{id}}_hintList" class="autocomplete-hint-list">' +
               '      <div class="autocomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
-              '        <div ng-if="imageField" class="autocomplete-image-holder">' +
+              '        <div ng-if="typeField" class="autocomplete-image-holder">' +
               '          <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="autocomplete-image"/>' +
               '          <div ng-if="!result.image && result.image != \'\'" class="autocomplete-image-default"></div>' +
               '        </div>' +
@@ -61,8 +61,8 @@ angular.module('autocomplete-scout', [] )
               '      </div>' +
               '    </div>' +
               '    <div id="hint-description" ng-if="description && description != \'\'" class="autocomplete-hint-description">' +
-              '       <span class="hint-description-content">{{description}}</span>' +
-              '       <a class="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
+              '       <span id="hint-description-content">{{description}}</span>' +
+              '       <a id="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
               '    </div>' +
               '  </div>' +
               '</div>',
@@ -329,7 +329,7 @@ angular.module('autocomplete-scout', [] )
       }
 
       function processResults(responseData, str) {
-        var i, description, moreLink, image, text, formattedText, formattedDesc;
+        var i, description, moreLink, type, text, formattedText, formattedDesc;
 
         if (responseData && responseData.length > 0) {
           scope.results = [];
@@ -350,9 +350,9 @@ angular.module('autocomplete-scout', [] )
               moreLink = extractValue(responseData[i], scope.moreLinkField);
             }
 
-            image = '';
-            if (scope.imageField) {
-              image = extractValue(responseData[i], scope.imageField);
+            type = '';
+            if (scope.typeField) {
+              type = extractValue(responseData[i], scope.typeField);
             }
 
             if (scope.matchClass) {
@@ -363,7 +363,7 @@ angular.module('autocomplete-scout', [] )
               title: formattedText,
               description: formattedDesc,
               moreLink: moreLink,
-              image: image,
+              type: type,
               originalObject: responseData[i]
             };
 
@@ -395,7 +395,9 @@ angular.module('autocomplete-scout', [] )
       scope.hideResults = function(event) {
         if (mousedownOn === scope.id + '_dropdown' ||
             mousedownOn === scope.id + '_hintList' ||
-            mousedownOn === 'hint-description') {
+            mousedownOn === 'hint-description' ||
+            mousedownOn === 'hint-description-content' ||
+            mousedownOn === 'hint-description-more-link') {
           mousedownOn = null;
         }
         else {
@@ -459,6 +461,18 @@ angular.module('autocomplete-scout', [] )
       // check pause time
       if (!scope.pause) {
         scope.pause = PAUSE;
+      }
+
+      if (!scope.descriptionField) {
+        scope.descriptionField = 'description';
+      }
+
+      if (!scope.moreLinkField) {
+        scope.moreLinkField = 'moreLink';
+      }
+
+      if (!scope.typeField) {
+        scope.typeField = 'type';
       }
 
       // set max length (default to maxlength deault from html
