@@ -51,16 +51,15 @@ angular.module('autocomplete-scout', [] )
               '  <input id="{{id}}_value" ng-model="inputModel" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(inputModel)"/>' +
               '  <div id="{{id}}_dropdown" class="autocomplete-dropdown" ng-show="showDropdown && results && results.length > 0">' +
               '    <div id="{{id}}_hintList" class="autocomplete-hint-list">' +
-              '      <div class="autocomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
-              '        <div ng-if="typeField" class="autocomplete-image-holder">' +
-              '          <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="autocomplete-image"/>' +
-              '          <div ng-if="!result.image && result.image != \'\'" class="autocomplete-image-default"></div>' +
-              '        </div>' +
-              '        <div class="autocomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
-              '        <div class="autocomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
+              '      <div class="hint-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
+              '        <span class="hint-icon-container">' +
+              '          <i class="hint-icon {{result.type}}"><span class="hint-icon-letter">{{result.type.charAt(0)}}</span></i>' +
+              '        </span>' +
+              '        <div class="hint-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
+              '        <div class="hint-title" ng-if="!matchClass">{{ result.title }}</div>' +
               '      </div>' +
               '    </div>' +
-              '    <div id="hint-description" ng-if="description && description != \'\'" class="autocomplete-hint-description">' +
+              '    <div id="hint-description" ng-if="description && description != \'\'">' +
               '       <span id="hint-description-content">{{description}}</span>' +
               '       <a id="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
               '    </div>' +
@@ -202,7 +201,7 @@ angular.module('autocomplete-scout', [] )
       }
 
       function hintlistRow() {
-        return elem[0].querySelectorAll('.autocomplete-row')[scope.currentIndex];
+        return elem[0].querySelectorAll('.hint-row')[scope.currentIndex];
       }
 
       function hintlistRowTop() {
