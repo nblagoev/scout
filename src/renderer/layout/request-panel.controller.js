@@ -43,6 +43,11 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
     }
 
     self.request.addHeader(self.newHeaderName, self.newHeaderValue);
+
+    if (!scout.storage.get(`hints:httpHeaders.${self.newHeaderName}`)) {
+      scout.storage.set(`hints:httpHeaders.${self.newHeaderName}`, { type: 'x-user-header' });
+    }
+
     self.newHeaderName = '';
     self.newHeaderValue = '';
   };
