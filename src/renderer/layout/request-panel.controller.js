@@ -13,7 +13,7 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   self.nav = new RequestNavigation();
 
   subscriptions.add(
-    scout.storage.onDidChange("hints:httpHeaders", (event) => {
+    scout.storage.onDidChange("hints:headers", (event) => {
       let headerHints = [];
       let headers = event.newValue;
 
@@ -33,7 +33,7 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
   // TODO: Provide a central place to load and work with hints
   let hintsConfig = scout.storage.requireStorageFile("hints");
-  hintsConfig.setDefaults("httpHeaders", require("../../../config/hintmap.json").httpHeaders);
+  hintsConfig.setDefaults("headers", require("../../../config/hintmap.json").headers);
 
   self.submitHeader = () => {
     if (self.newHeaderName === undefined ||
@@ -44,8 +44,8 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
     self.request.addHeader(self.newHeaderName, self.newHeaderValue);
 
-    if (!scout.storage.get(`hints:httpHeaders.${self.newHeaderName}`)) {
-      scout.storage.set(`hints:httpHeaders.${self.newHeaderName}`, { type: 'x-user-header' });
+    if (!scout.storage.get(`hints:headers.${self.newHeaderName}`)) {
+      scout.storage.set(`hints:headers.${self.newHeaderName}`, { type: 'x-user-header' });
     }
 
     self.newHeaderName = '';

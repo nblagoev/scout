@@ -135,11 +135,11 @@ describe("StorageFile", () => {
       storageFile.set('foo.undefined', null);
       storageFile.set('foo.sameObject', {b: 2, a: 1});
 
-      expect(storageFile.get("foo.same", {ignoreDefault:true})).toBeUndefined();
+      expect(storageFile.get("foo.same", {omitDefault:true})).toBeUndefined();
 
-      expect(storageFile.get("foo.changes", {ignoreDefault:true})).toBe(2);
+      expect(storageFile.get("foo.changes", {omitDefault:true})).toBe(2);
       storageFile.set('foo.changes', 1);
-      expect(storageFile.get("foo.changes", {ignoreDefault:true})).toBeUndefined();
+      expect(storageFile.get("foo.changes", {omitDefault:true})).toBeUndefined();
     });
   });
 

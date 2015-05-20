@@ -85,11 +85,15 @@ export default class StorageFile {
     scout.notifications.addError(errorMessage, {detail, dismissable: true});
   }
 
-  get(keyPath, options = {}) {
+  get(keyPath, {omitDefault, takeDefault} = {}) {
     throws.ifEmpty(keyPath, "keyPath");
 
     let value = _.valueForKeyPath(this.content, keyPath);
-    let defaultValue = (options.ignoreDefault !== true) ? _.valueForKeyPath(this.defaultContent, keyPath) : undefined;
+    let defaultValue = (omitDefault !== true) ? _.valueForKeyPath(this.defaultContent, keyPath) : undefined;
+
+    if (takeDefault === true) {
+      return this.deepClone(defaultValue);
+    }
 
     if (value) {
       value = this.deepClone(value);
@@ -104,13 +108,13 @@ export default class StorageFile {
     return value;
   }
 
-  set(keyPath, value, options = {}) {
+  set(keyPath, value, {save} = {}) {
     throws.ifEmpty(keyPath, "keyPath");
 
     let shouldSave = true;
 
-    if (options.save !== null && options.save != undefined) {
-      shouldSave = options.save;
+    if (save !== null && save != undefined) {
+      shouldSave = save;
     }
 
     let defaultValue = _.valueForKeyPath(this.defaultContent, keyPath);
@@ -129,7 +133,7 @@ export default class StorageFile {
     return true;
   }
 
-  unset(keyPath, options) {
+  unset(keyPath, options = {}) {
     throws.ifEmpty(keyPath, "keyPath");
     this.set(keyPath, _.valueForKeyPath(this.defaultContent, keyPath));
   }

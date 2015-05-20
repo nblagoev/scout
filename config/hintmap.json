@@ -1,5 +1,5 @@
 {
-  "httpHeaders": {
+  "headers": {
     "A-IM": {
       "type": "h-builtin-header",
       "description": "",
