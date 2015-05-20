@@ -57,6 +57,9 @@ angular.module('autocomplete-scout', [] )
               '        <div class="hint-title" ng-if="!matchClass">{{ result.title }}</div>' +
               '      </div>' +
               '    </div>' +
+              // make the horizontal scrollbar appear only when the maximum width is reached
+              // TODO: find a better way
+              '    <div style="height: 0px; padding-left: 33px; visibility: hidden;">{{widestEntry}}</div>' +
               '    <div id="hint-description" ng-if="description && description != \'\'">' +
               '       <span id="hint-description-content">{{description}}</span>' +
               '       <a id="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
@@ -326,7 +329,9 @@ angular.module('autocomplete-scout', [] )
       }
 
       function processResults(responseData, str) {
-        var i, description, moreLink, type, text, formattedText, formattedDesc;
+        var i, description, moreLink, type, text;
+        var formattedText, formattedDesc;
+        scope.widestEntry = "";
 
         if (responseData && responseData.length > 0) {
           scope.results = [];
@@ -363,6 +368,10 @@ angular.module('autocomplete-scout', [] )
               type: type,
               originalObject: responseData[i]
             };
+
+            if (text.length > scope.widestEntry.length) {
+              scope.widestEntry = text;
+            }
 
             if (scope.autoMatch) {
               checkExactMatch(scope.results[scope.results.length-1],
