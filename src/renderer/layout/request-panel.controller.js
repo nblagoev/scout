@@ -20,7 +20,7 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
       for (let name in headers) {
         let metadata = headers[name];
         headerHints.push({
-          name: name,
+          name: name.replace(/\\\./g, '.'),
           type: metadata.type,
           description: metadata.description,
           moreLink: metadata.moreLink
@@ -39,13 +39,14 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   });
 
   self.valueHintsForHeader = (headerName) => {
-    let values = scout.storage.get(`hints:headers.${headerName}.values`) || {};
+    let safeHeaderName = headerName.replace(/\./g, '\\.');
+    let values = scout.storage.get(`hints:headers.${safeHeaderName}.values`) || {};
     let result = [];
 
     for (let key in values) {
       let metadata = values[key];
       result.push({
-        name: key,
+        name: key.replace(/\\\./g, '.'),
         type: metadata.type,
         description: metadata.description,
         moreLink: metadata.moreLink
@@ -64,19 +65,17 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
     self.request.addHeader(self.newHeaderName, self.newHeaderValue);
 
-    if (!scout.storage.get(`hints:headers.${self.newHeaderName}`)) {
-      scout.storage.set(`hints:headers.${self.newHeaderName}`, {type: 'xh-user-header'});
+    let safeHeaderName = self.newHeaderName.replace(/\./g, '\\.');
+    let safeHeaderValue = self.newHeaderValue.replace(/\./g, '\\.');
+    let headerNameKeyPath = `hints:headers.${safeHeaderName}`;
+    let headerValueKeyPath = `hints:headers.${safeHeaderName}.values.${safeHeaderValue}`;
+
+    if (!scout.storage.get(headerNameKeyPath)) {
+      scout.storage.set(headerNameKeyPath, {type: 'xh-user-header'});
     }
 
-    let headerValues = scout.storage.get(`hints:headers.${self.newHeaderName}.values`);
-    if (!headerValues) {
-      headerValues = {};
-    }
-
-    if (!headerValues[self.newHeaderValue]) {
-      headerValues[self.newHeaderValue] = {type: 'x-user-header-value'};
-
-      scout.storage.set(`hints:headers.${self.newHeaderName}.values`, headerValues);
+    if (!scout.storage.get(headerValueKeyPath)) {
+      scout.storage.set(headerValueKeyPath, {type: 'x-user-header-value'});
     }
 
     self.newHeaderName = '';
