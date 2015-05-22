@@ -12,20 +12,15 @@
         <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
         <div autocomplete-scout id="footer-header-name" placeholder="Add Header" class="autocomplete"
              input-model="rpc.newHeaderName" hint-data="rpc.headerHints" search-field="name"
-             title-field="name" minlength="1" match-class="highlight"
+             title-field="name" minlength="1" match-class="highlight" style="width: calc(100% - 20px);"
              input-class="topcoat-text-input table-row-name-input borderless-input"></div>
-        <!--input type="text" placeholder="Add Header"
-               ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderName"
-               class="topcoat-text-input table-row-name-input borderless-input"/-->
       </td>
       <td>
         <div autocomplete-scout id="footer-header-value" placeholder="Add Value" class="autocomplete"
              input-model="rpc.newHeaderValue" hint-data="rpc.valueHintsForHeader(rpc.newHeaderName)"
              title-field="name" minlength="1" match-class="highlight" search-field="name"
-             input-class="topcoat-text-input table-row-value-input borderless-input"></div>
-        <!--input type="text" placeholder="Add Value"
-               ng-enter="rpc.submitHeader()" ng-model="rpc.newHeaderValue"
-               class="topcoat-text-input table-row-value-input borderless-input"/-->
+             input-class="topcoat-text-input table-row-value-input borderless-input"
+             style="width: calc(100% - 5px);"></div>
       </td>
       <td class="action-cell">
         <i class="fa fa-check action-btn green"
@@ -42,16 +37,14 @@
 
       <div autocomplete-scout id="header-name--{{$index}}" class="autocomplete"
            input-model="header.name" hint-data="rpc.headerHints" search-field="name"
-           title-field="name" minlength="1" match-class="highlight"
+           title-field="name" minlength="1" match-class="highlight" style="width: calc(100% - 20px);"
            input-class="topcoat-text-input table-row-name-input borderless-input"></div>
-      <!--input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="header.name"/-->
     </td>
     <td>
       <div autocomplete-scout id="header-value--{{$index}}" class="autocomplete"
            input-model="header.value" hint-data="rpc.valueHintsForHeader(header.name)" search-field="name"
-           title-field="name" minlength="1" match-class="highlight"
+           title-field="name" minlength="1" match-class="highlight" style="width: calc(100% - 5px);"
            input-class="topcoat-text-input table-row-value-input borderless-input"></div>
-      <!--input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="header.value"/-->
     </td>
     <td class="action-cell">
       <i class="fa fa-minus action-btn red"

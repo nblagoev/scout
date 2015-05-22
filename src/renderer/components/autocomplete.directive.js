@@ -48,7 +48,7 @@ angular.module('autocomplete-scout', [] )
       focusIn: '&'
     },
     template: '<div class="autocomplete-holder" ng-class="{\'autocomplete-dropdown-visible\': showDropdown}">' +
-              '  <input id="{{id}}_value" ng-model="inputModel" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(inputModel)"/>' +
+              '  <input id="{{id}}_value" ng-model="inputModel" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" style="width: 100%" ng-change="inputChangeHandler(inputModel)"/>' +
               '  <div id="{{id}}_dropdown" class="autocomplete-dropdown" ng-show="showDropdown && results && results.length > 0">' +
               '    <div id="{{id}}_hintList" class="autocomplete-hint-list">' +
               '      <div class="hint-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
