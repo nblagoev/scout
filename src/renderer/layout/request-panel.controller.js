@@ -62,7 +62,18 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
     self.request.addHeader(self.newHeaderName, self.newHeaderValue);
 
     if (!scout.storage.get(`hints:headers.${self.newHeaderName}`)) {
-      scout.storage.set(`hints:headers.${self.newHeaderName}`, { type: 'x-user-header' });
+      scout.storage.set(`hints:headers.${self.newHeaderName}`, {type: 'xh-user-header'});
+    }
+
+    let headerValues = scout.storage.get(`hints:headers.${self.newHeaderName}.values`);
+    if (!headerValues) {
+      headerValues = {};
+    }
+
+    if (!headerValues[self.newHeaderValue]) {
+      headerValues[self.newHeaderValue] = {type: 'x-user-header-value'};
+
+      scout.storage.set(`hints:headers.${self.newHeaderName}.values`, headerValues);
     }
 
     self.newHeaderName = '';
