@@ -80,6 +80,10 @@ describe("StorageFile", () => {
       storageFile.set("bar.baz", {a: 3});
       storageFile.setDefaults("bar", {baz: 7});
       expect(storageFile.get("bar.baz")).toEqual({a: 3});
+
+      storageFile.set("deep.foo", {a: 3, b: { c: 1, soDeep: {d: 100} }});
+      storageFile.setDefaults("deep.foo", {b: { c: 0, soDeep: {d: 0, e: -1}}});
+      expect(storageFile.get("deep.foo.b")).toEqual({ c: 1, soDeep: {d: 100, e: -1}});
     });
 
     it("does not allow keyPath to be null", () => {

@@ -99,7 +99,7 @@ export default class StorageFile {
       value = this.deepClone(value);
 
       if (this.isPlainObject(value) && this.isPlainObject(defaultValue)) {
-        _.defaults(value, defaultValue);
+        this.deepDefaults(value, defaultValue);
       }
     } else {
       value = this.deepClone(defaultValue);
@@ -237,6 +237,20 @@ export default class StorageFile {
       return _.mapObject(object, (key, value) => [key, this.deepClone(value)]);
     } else {
       return object;
+    }
+  }
+
+  deepDefaults(value, defaultValue) {
+    if (!this.isPlainObject(value) || !this.isPlainObject(defaultValue)) {
+      return;
+    }
+
+    _.defaults(value, defaultValue);
+
+    for (let key in value) {
+      if (value.hasOwnProperty(key) && defaultValue.hasOwnProperty(key)) {
+        this.deepDefaults(value[key], defaultValue[key])
+      }
     }
   }
 
