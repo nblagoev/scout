@@ -162,6 +162,11 @@ angular.module('autocomplete-scout', [] )
           if (!scope.showDropdown && scope.inputModel && scope.inputModel.length >= minlength) {
             initResults();
             searchTimerComplete(scope.inputModel);
+
+            if (scope.results[scope.currentIndex]) {
+              scope.description = scope.results[scope.currentIndex].description;
+              scope.moreLink = scope.results[scope.currentIndex].moreLink;
+            }
           }
         }
         else if (which === KEY_ES) {
@@ -185,6 +190,11 @@ angular.module('autocomplete-scout', [] )
 
             searchTimer = $timeout(function() {
               searchTimerComplete(scope.inputModel);
+
+              if (scope.results[scope.currentIndex]) {
+                scope.description = scope.results[scope.currentIndex].description;
+                scope.moreLink = scope.results[scope.currentIndex].moreLink;
+              }
             }, scope.pause);
           }
         }
@@ -232,7 +242,7 @@ angular.module('autocomplete-scout', [] )
           event.preventDefault();
           if ((scope.currentIndex + 1) < scope.results.length && scope.showDropdown) {
             scope.$apply(function() {
-              scope.currentIndex ++;
+              scope.currentIndex++;
               scope.description = scope.results[scope.currentIndex].description;
               scope.moreLink = scope.results[scope.currentIndex].moreLink;
             });
@@ -248,7 +258,7 @@ angular.module('autocomplete-scout', [] )
           event.preventDefault();
           if (scope.currentIndex >= 1) {
             scope.$apply(function() {
-              scope.currentIndex --;
+              scope.currentIndex--;
               scope.description = scope.results[scope.currentIndex].description;
               scope.moreLink = scope.results[scope.currentIndex].moreLink;
             });
@@ -259,13 +269,6 @@ angular.module('autocomplete-scout', [] )
                 hintlistScrollTopTo(rowTop - 1);
               }
             }
-          }
-          else if (scope.currentIndex === 0) {
-            scope.$apply(function() {
-              scope.currentIndex = -1;
-              scope.description = '';
-              scope.moreLink = null;
-            });
           }
         } else if (which === KEY_TAB) {
           if (scope.results && scope.results.length > 0 && scope.showDropdown && scope.currentIndex >= 0) {
@@ -288,7 +291,7 @@ angular.module('autocomplete-scout', [] )
 
       function initResults() {
         scope.showDropdown = true;
-        scope.currentIndex = -1;
+        scope.currentIndex = 0;
         scope.description = null;
         scope.moreLink = null;
         scope.results = [];
@@ -375,7 +378,7 @@ angular.module('autocomplete-scout', [] )
             }
 
             if (scope.autoMatch) {
-              checkExactMatch(scope.results[scope.results.length-1],
+              checkExactMatch(scope.results[scope.results.length - 1],
                   {title: text/*, desc: description || ''*/}, scope.inputModel);
             }
           }

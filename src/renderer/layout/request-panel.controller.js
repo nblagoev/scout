@@ -14,7 +14,6 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
   subscriptions.add(
     scout.storage.onDidChange("hints:headers", (event) => {
-      console.log("hint changed");
       let headerHints = [];
       let headers = event.newValue;
 

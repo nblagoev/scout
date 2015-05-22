@@ -19,12 +19,6 @@ export default class HttpEnvelope {
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
     this.inProgress = false;
-
-    this.request.headers.push(new HttpHeader('Accept', 'application/x-www-form-urlencoded'));
-    this.request.headers.push(new HttpHeader('Accept-Language', 'en_US'));
-    this.request.headers.push(new HttpHeader('Authorization', 'token 765893158vb4381b583b7158v31834y58'));
-    this.request.headers.push(new HttpHeader('Date', '23/04/2015'));
-    this.request.headers.push(new HttpHeader('Content-Type', 'application/json'));
   }
 
   get request() {
