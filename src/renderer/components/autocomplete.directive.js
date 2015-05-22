@@ -52,7 +52,7 @@ angular.module('autocomplete-scout', [] )
               '  <div id="{{id}}_dropdown" class="autocomplete-dropdown" ng-show="showDropdown && results && results.length > 0">' +
               '    <div id="{{id}}_hintList" class="autocomplete-hint-list">' +
               '      <div class="hint-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'autocomplete-selected-row\': $index == currentIndex}">' +
-              '        <span class="hint-icon-container"><i ng-if="result.type" class="hint-icon {{result.type}}"><span class="hint-icon-letter">{{result.type.charAt(0)}}</span></i></span>' +
+              '        <span class="hint-icon-container"><i ng-if="result.type" class="hint-icon {{result.type}}"><span class="hint-icon-letter">{{result.type.split("-")[0]}}</span></i></span>' +
               '        <div class="hint-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
               '        <div class="hint-title" ng-if="!matchClass">{{ result.title }}</div>' +
               '      </div>' +
