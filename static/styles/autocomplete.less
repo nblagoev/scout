@@ -19,13 +19,13 @@
   box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.3);
   min-width: 200px;
   max-width: 800px;
-  //z-index: 10;
+  z-index: 10;
   position: fixed;
   margin-top: 2px;
 }
 
 .autocomplete-hint-list {
-  //z-index: 11;
+  z-index: 11;
   overflow-y: auto;
   max-height: 265px;
 }
@@ -103,6 +103,7 @@
 
   .make-type-icon(h-builtin-header, #E8725D);
   .make-type-icon(x-user-header, #FD47DF);
+  .make-type-icon(ct-content-type, #46DDD2);
 
   .make-type-icon(placeholder-one, #DF6A73);
   .make-type-icon(placeholder-two, #D29B67);
@@ -110,7 +111,6 @@
   .make-type-icon(placeholder-four, #E5C17C);
   .make-type-icon(placeholder-five, #C144FF);
   .make-type-icon(placeholder-six, #4ADB6D);
-  .make-type-icon(placeholder-seven, #46DDD2);
   .make-type-icon(placeholder-eight, #D72121);
 }
 
@@ -125,6 +125,13 @@
   .highlight {
     color: #fff;
   }
+}
+
+.xscrollfix {
+  height: 0px;
+  padding-left: 50px;
+  visibility: hidden;
+  font-family: @font-family-monospace;
 }
 
 .make-type-icon(@type, @color) {

@@ -28,7 +28,7 @@ angular.module('autocomplete-scout', [] )
     scope: {
       inputModel: '=',
       disableInput: '=',
-      hintData: '=',
+      hintData: '&',
       id: '@',
       type: '@',
       placeholder: '@',
@@ -59,7 +59,7 @@ angular.module('autocomplete-scout', [] )
               '    </div>' +
               // make the horizontal scrollbar appear only when the maximum width is reached
               // TODO: find a better way
-              '    <div style="height: 0px; padding-left: 33px; visibility: hidden;">{{widestEntry}}</div>' +
+              '    <div class="xscrollfix">{{widestEntry}}</div>' +
               '    <div id="hint-description" ng-if="description && description != \'\'">' +
               '       <span id="hint-description-content">{{description}}</span>' +
               '       <a id="hint-description-more-link" ng-if="moreLink && moreLink != \'\'" href="#" ng-click="openLink(moreLink)">More...</a>' +
@@ -296,12 +296,13 @@ angular.module('autocomplete-scout', [] )
 
       function getLocalResults(str) {
         var i, s, value, matches = [];
+        var hints = scope.hintData();
 
-        for (i = 0; i < scope.hintData.length; i++) {
-          value = extractValue(scope.hintData[i], scope.searchField) || '';
+        for (i = 0; i < hints.length; i++) {
+          value = extractValue(hints[i], scope.searchField) || '';
 
           if (value.toLowerCase().indexOf(str.toLowerCase()) >= 0) {
-            matches[matches.length] = scope.hintData[i];
+            matches[matches.length] = hints[i];
           }
         }
 
@@ -385,7 +386,7 @@ angular.module('autocomplete-scout', [] )
       }
 
       function showAll() {
-        processResults(scope.hintData, '');
+        processResults(scope.hintData(), '');
       }
 
       scope.onFocusHandler = function() {

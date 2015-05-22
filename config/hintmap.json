@@ -4,853 +4,879 @@
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept": {
       "type": "h-builtin-header",
       "description": "Can be used to specify certain media types which are acceptable for the response.",
       "moreLink": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1",
-      "values": [ "application/json", "application/x-www-form-urlencoded" ]
+      "values": {
+        "*/*": {
+          "type": "ct-content-type",
+          "description": "",
+          "moreLink": ""
+        },
+        "application/json": {
+          "type": "ct-content-type",
+          "description": "",
+          "moreLink": ""
+        },
+        "application/x-www-form-urlencoded": {
+          "type": "ct-content-type",
+          "description": "",
+          "moreLink": ""
+        },
+        "text/plain": {
+          "type": "ct-content-type",
+          "description": "",
+          "moreLink": ""
+        },
+        "text/xml": {
+          "type": "ct-content-type",
+          "description": "",
+          "moreLink": ""
+        }
+      }
     },
     "Accept-Additions": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Charset": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Datetime": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Encoding": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Features": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Language": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Patch": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Accept-Ranges": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Age": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Allow": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Alternates": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Apply-To-Redirect-Ref": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Authentication-Info": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Authorization": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "C-Ext": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "C-Man": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "C-Opt": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "C-PEP": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "C-PEP-Info": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Cache-Control": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Close": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Connection": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Base": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Disposition": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Encoding": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-ID": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Language": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Length": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Location": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-MD5": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Range": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Script-Type": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Style-Type": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Type": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Content-Version": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Cookie": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Cookie2": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "DASL": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "DAV": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Date": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Default-Style": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Delta-Base": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Depth": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Derived-From": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Destination": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Differential-ID": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Digest": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "ETag": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Expect": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Expires": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Ext": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Forwarded": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "From": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "GetProfile": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Hobareg": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Host": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "HTTP2-Settings": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "IM": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-Match": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-Modified-Since": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-None-Match": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-Range": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-Schedule-Tag-Match": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "If-Unmodified-Since": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Keep-Alive": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Label": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Last-Modified": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Link": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Location": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Lock-Token": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Man": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Max-Forwards": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Memento-Datetime": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Meter": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "MIME-Version": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Negotiate": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Opt": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Ordering-Type": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Origin": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Overwrite": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "P3P": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "PEP": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "PICS-Label": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Pep-Info": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Position": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Pragma": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Prefer": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Preference-Applied": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "ProfileObject": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Protocol": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Protocol-Info": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Protocol-Query": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Protocol-Request": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Proxy-Authenticate": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Proxy-Authentication-Info": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Proxy-Authorization": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Proxy-Features": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Proxy-Instruction": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Public": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Public-Key-Pins": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Public-Key-Pins-Report-Only": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Range": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Redirect-Ref": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Referer": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Retry-After": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Safe": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Schedule-Reply": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Schedule-Tag": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Sec-WebSocket-Accept": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Sec-WebSocket-Extensions": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Sec-WebSocket-Key": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Sec-WebSocket-Protocol": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Sec-WebSocket-Version": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Security-Scheme": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Server": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Set-Cookie": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Set-Cookie2": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "SetProfile": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "SLUG": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "SoapAction": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Status-URI": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Strict-Transport-Security": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Surrogate-Capability": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Surrogate-Control": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "TCN": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "TE": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Timeout": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Trailer": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Transfer-Encoding": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "URI": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Upgrade": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "User-Agent": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Variant-Vary": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Vary": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Via": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "WWW-Authenticate": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Want-Digest": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "Warning": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     },
     "X-Frame-Options": {
       "type": "h-builtin-header",
       "description": "",
       "moreLink": "",
-      "values": []
+      "values": {}
     }
   }
 }

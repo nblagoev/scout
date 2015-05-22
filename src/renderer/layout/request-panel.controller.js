@@ -35,6 +35,23 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   let hintsConfig = scout.storage.requireStorageFile("hints");
   hintsConfig.setDefaults("headers", require("../../../config/hintmap.json").headers);
 
+  self.valueHintsForHeader = (headerName) => {
+    let values = scout.storage.get(`hints:headers.${headerName}.values`) || {};
+    let result = [];
+
+    for (let key in values) {
+      let metadata = values[key];
+      result.push({
+        name: key,
+        type: metadata.type,
+        description: metadata.description,
+        moreLink: metadata.moreLink
+      });
+    }
+
+    return result;
+  };
+
   self.submitHeader = () => {
     if (self.newHeaderName === undefined ||
         self.newHeaderName === null ||
