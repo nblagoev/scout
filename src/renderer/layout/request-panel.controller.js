@@ -14,6 +14,7 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
   subscriptions.add(
     scout.storage.onDidChange("hints:headers", (event) => {
+      console.log("hint changed");
       let headerHints = [];
       let headers = event.newValue;
 
@@ -33,7 +34,10 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
 
   // TODO: Provide a central place to load and work with hints
   let hintsConfig = scout.storage.requireStorageFile("hints");
-  hintsConfig.setDefaults("headers", require("../../../config/hintmap.json").headers);
+
+  hintsConfig.transact(() => {
+    hintsConfig.setDefaults("headers", require("../../../config/hintmap.json").headers);
+  });
 
   self.valueHintsForHeader = (headerName) => {
     let values = scout.storage.get(`hints:headers.${headerName}.values`) || {};
