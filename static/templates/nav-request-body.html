@@ -1,0 +1,13 @@
+<div id="request-body-select-type">
+  <select class="topcoat-select"
+          ng-model="rpc.request.body.type">
+    <option value="text">Text</option>
+    <option value="json">JSON</option>
+    <option value="urlencoded">Form URL-Encoded</option>
+    <option value="multipart">Multipart</option>
+    <option value="file">File</option>
+  </select>
+</div>
+<div id="request-body-content">
+  <ng-include src="'templates/nav-request-body-' + rpc.request.body.type + '.html'"></ng-include>
+</div>

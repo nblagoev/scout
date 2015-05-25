@@ -2,11 +2,12 @@
 
 import url from 'url';
 import request from 'request';
+import _ from 'underscore-plus';
 import * as throws from '../../common/throws';
 import symbols from "../../common/symbol-stream";
 import {CompositeDisposable, Disposable, Emitter} from 'event-kit';
 
-const [_request, _response, _inProgress] = [...symbols(3)];
+const [_request, _response, _inProgress, _type] = [...symbols(4)];
 
 /**
  * An instance of this class is always available as the `scout.envelope` global.
@@ -68,8 +69,8 @@ export default class HttpEnvelope {
       url: targetUrl,
       method: this.request.method.toUpperCase(),
       headers: {},
-      //body: HttpEnvelope.methodCanHaveBody(this.request.method) ? this.request.body : undefined,
-      body: this.request.body,
+      //body: HttpEnvelope.methodCanHaveBody(this.request.method) ? this.request.body.toString() : undefined,
+      body: this.request.body.toString(),
       followRedirect: this.request.followRedirect,
       maxRedirects: this.request.maxRedirects || 10,
       timeout: this.request.timeout,
@@ -188,13 +189,11 @@ export default class HttpEnvelope {
 class HttpEnvelopePart {
   constructor() {
     this.headers = [];
-    this.body = null;
     this.raw = '';
   }
 
   clear() {
     this.headers = [];
-    this.body = null;
     this.raw = '';
   }
 
@@ -256,6 +255,7 @@ class HttpEnvelopePart {
 class HttpRequest extends HttpEnvelopePart {
   constructor() {
     super();
+    this.body = new HttpRequestBody();
     this.method = 'get';
     this.address = '';
     this.urlParams = [];
@@ -266,6 +266,7 @@ class HttpRequest extends HttpEnvelopePart {
 
   clear() {
     super.clear();
+    this.body.clear();
     this.method = 'get';
     this.address = '';
     this.urlParams = [];
@@ -306,12 +307,110 @@ class HttpRequest extends HttpEnvelopePart {
 class HttpResponse extends HttpEnvelopePart {
   constructor() {
     super();
+    this.body = null;
     this.status = 0;
   }
 
   clear() {
     super.clear();
+    this.body = null;
     this.status = 0;
+  }
+}
+
+class HttpRequestBody {
+  constructor() {
+    this[_type] = 'text';
+    this.value = '';
+  }
+
+  set type(value) {
+    if (this[_type] === value) {
+      return;
+    }
+
+    let initializeValue = () => {
+      if (value === 'text') {
+        this.value = '';
+      } else if (value === 'urlencoded') {
+        this.value = new UrlEncodedHttpRequestBody();
+      } else {
+        scout.notifications.addError(`Unsupported body type: ${value}`);
+      }
+    };
+
+    if (_.isEmpty(this.value) || (this.value.length != null && this.value.length == 0)) {
+      initializeValue();
+      this[_type] = value;
+      return;
+    }
+
+    scout.confirm({
+      'message': 'Change the body type?',
+      'detailedMessage': 'The current body content will be lost.',
+      'buttons': {
+        'Change': () => {
+          initializeValue();
+          this[_type] = value;
+        },
+        'Cancel': () => {}
+      }
+    });
+  }
+
+  get type() {
+    return this[_type];
+  }
+
+  clear() {
+    this.type = 'text';
+    this.value = '';
+  }
+
+  toString() {
+    if (this.type === 'text') {
+      return this.value;
+    } else {
+      scout.notifications.addError(`Unsupported body type: ${this.type}`);
+    }
+  }
+}
+
+class UrlEncodedHttpRequestBody {
+  constructor() {
+    this.pairs = [];
+  }
+
+  get length() {
+    return this.pairs.length;
+  }
+
+  add(key, value) {
+    throws.ifEmpty(key, "key");
+    let {pair} = this.find(p => p.key === key);
+
+    if (pair !== null && pair !== undefined) {
+      pair.value = value;
+    } else {
+      this.pairs.push({key, value, include: true});
+    }
+  }
+
+  remove(key) {
+    let {index} = this.find(p => p.key === key);
+    if (index >= 0) {
+      this.pairs.splice(index, 1);
+    }
+  }
+
+  find(predicate) {
+    for (let [index, pair] of this.pairs.entries()) {
+      if (predicate(pair)) {
+        return { pair, index };
+      }
+    }
+
+    return { pair: undefined, index: -1 };
   }
 }
 

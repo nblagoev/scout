@@ -106,6 +106,7 @@ export default class Scout {
     require('./components/response-status.directive');
     require('./components/response-time.directive');
     require('./components/raw-preview.directive');
+    require('./components/body-editor.directive');
     require('./services/status-bar.service');
     require('./layout/notifications.controller');
     require('./layout/header.controller');

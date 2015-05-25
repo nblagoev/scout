@@ -10,6 +10,8 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   self.newHeaderValue = '';
   self.newParamName = '';
   self.newParamValue = '';
+  self.newBodyPairKey = '';
+  self.newBodyPairValue = '';
   self.nav = new RequestNavigation();
 
   subscriptions.add(
@@ -92,6 +94,18 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
     self.request.addParameter(self.newParamName, self.newParamValue);
     self.newParamName = '';
     self.newParamValue = '';
+  };
+
+  self.submitBodyKeyValuePair = () => {
+    if (self.newBodyPairKey === undefined ||
+        self.newBodyPairKey === null ||
+        self.newBodyPairKey === '') {
+      return;
+    }
+
+    self.request.body.value.add(self.newBodyPairKey, self.newBodyPairValue);
+    self.newBodyPairKey = '';
+    self.newBodyPairValue = '';
   };
 
   $scope.$on("$destroy", () => {

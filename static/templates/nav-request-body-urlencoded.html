@@ -1,0 +1,45 @@
+<table id="request-urlencoded-body-table">
+ <thead>
+  <tr>
+     <th width="180px">Key</th>
+     <th>Value</th>
+  </tr>
+ </thead>
+ <tfoot>
+    <tr>
+      <td>
+        <input type="checkbox" class="table-row-fix-input-position" checked="false"/>
+        <div class="topcoat-checkbox__checkmark table-row-checkbox hidden"></div>
+        <input type="text" placeholder="Add Key"
+               ng-enter="rpc.submitBodyKeyValuePair()" ng-model="rpc.newBodyPairKey"
+               class="topcoat-text-input table-row-name-input borderless-input"/>
+      </td>
+      <td>
+        <input type="text" placeholder="Add Value"
+               ng-enter="rpc.submitBodyKeyValuePair()" ng-model="rpc.newBodyPairValue"
+               class="topcoat-text-input table-row-value-input borderless-input"/>
+      </td>
+      <td class="action-cell">
+        <i class="fa fa-check action-btn green"
+           ng-show="rpc.newBodyPairKey"
+           ng-click="rpc.submitBodyKeyValuePair()"></i>
+      </td>
+    </tr>
+ </tfoot>
+ <tbody>
+  <tr ng-repeat="pair in rpc.request.body.value.pairs">
+    <td>
+      <input type="checkbox" class="table-row-fix-input-position" ng-model="pair.include"/>
+      <div class="topcoat-checkbox__checkmark table-row-checkbox"></div>
+      <input type="text" class="topcoat-text-input table-row-name-input borderless-input" ng-model="pair.key"/>
+    </td>
+    <td>
+      <input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="pair.value"/>
+    </td>
+    <td class="action-cell">
+      <i class="fa fa-minus action-btn red"
+         ng-click="rpc.request.body.value.remove(pair.key)"></i>
+    </td>
+  </tr>
+ </tbody>
+</table>

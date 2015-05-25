@@ -312,7 +312,7 @@ angular.module('autocomplete-scout', [] )
         processResults(matches, str);
       }
 
-      function checkExactMatch(result, obj, str){
+      function checkExactMatch(result, obj, str) {
         for(var key in obj){
           if(obj[key].toLowerCase() === str.toLowerCase()){
             scope.selectResult(result);
