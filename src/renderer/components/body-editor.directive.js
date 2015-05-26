@@ -21,15 +21,17 @@ angular.module("scout").directive("bodyEditor", function($timeout) {
 
       $timeout(function(){
         ngModelCtrl.$render = function() {
-          editor.setValue(ngModelCtrl.$viewValue);
+          if (typeof ngModelCtrl.$viewValue == 'string') {
+            editor.setValue(ngModelCtrl.$viewValue || '');
+          }
         }
 
-        editor.on('change', function(){
+        editor.on('change', function() {
           ngModelCtrl.$setViewValue(editor.getValue() || '');
         });
       });
 
-      scope.$on('$destroy', function(){
+      scope.$on('$destroy', function() {
         editor.off('change');
       });
     }
