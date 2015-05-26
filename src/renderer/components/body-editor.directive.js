@@ -1,13 +1,14 @@
 
-angular.module("scout").directive("bodyEditor", function(){
+angular.module("scout").directive("bodyEditor", function($timeout) {
   return {
     restrict: "E",
     replace: true,
+    require: "ngModel",
     scope: {
-      content: "@"
+      content: "="
     },
     template: "<div class='body-editor'></div>",
-    link: function(scope, element, attrs) {
+    link: function(scope, element, attrs, ngModelCtrl) {
       var CodeMirror = require('../../../vendor/components/codemirror/lib/codemirror.js');
       require('../../../vendor/components/codemirror/mode/http/http.js');
       scout.styles.requireStylesheet("vendor/components/codemirror/lib/codemirror.css");
@@ -18,8 +19,18 @@ angular.module("scout").directive("bodyEditor", function(){
         theme: "scout"
       });
 
-      scope.$watch('content', function(value) {
-        editor.setValue(value || '');
+      $timeout(function(){
+        ngModelCtrl.$render = function() {
+          editor.setValue(ngModelCtrl.$viewValue);
+        }
+
+        editor.on('change', function(){
+          ngModelCtrl.$setViewValue(editor.getValue() || '');
+        });
+      });
+
+      scope.$on('$destroy', function(){
+        editor.off('change');
       });
     }
   };
