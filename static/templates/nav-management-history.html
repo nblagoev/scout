@@ -1,0 +1,10 @@
+<ul class="list-group stick-to-bottom-left">
+  <li ng-repeat="entry in man.history.entries"
+      ng-class="{'list-item selected': (man.history.selectedIndex === $index)}"
+      ng-click="man.history.select($index)" class="list-item">
+        <span class="{{entry.statusClass}}-badge"></span>
+        <span class="chip-text">{{entry.method}}</span>
+        <span class="main-text">{{entry.address}}</span>
+        <span class="right-label">{{entry.renderTimestamp()}}</span>
+  </li>
+</ul>

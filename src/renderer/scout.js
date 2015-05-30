@@ -10,6 +10,7 @@ import {Emitter} from 'event-kit';
 import StyleManager from './core/style-manager';
 import HttpEnvelope from './core/http-envelope';
 import StorageManager from './core/storage-manager';
+import HistoryManager from './core/history-manager';
 import NotificationManager from './core/notification-manager';
 import WindowEventSubscriptions from './window-event-subscriptions';
 
@@ -66,6 +67,7 @@ export default class Scout {
     this.styles = new StyleManager(this.loadSettings.resourcePath);
     this.notifications = new NotificationManager();
     this.envelope = new HttpEnvelope();
+    this.history = new HistoryManager();
 
     if (this.windowEventSubscriptions) {
       this.windowEventSubscriptions.dispose();
@@ -90,6 +92,16 @@ export default class Scout {
   startScoutWindow() {
     scout.storage.initialize();
     scout.styles.loadBaseStylesheets();
+
+    let config = scout.storage.requireStorageFile("config");
+    config.transact(() => {
+      let defaults = require("../../config/default.json");
+      for (let prop in defaults) {
+        if (defaults.hasOwnProperty(prop)) {
+          config.setDefaults(prop, defaults[prop]);
+        }
+      }
+    });
 
     require('angular');
 

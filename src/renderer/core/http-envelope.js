@@ -118,6 +118,7 @@ export default class HttpEnvelope {
       }
 
       this.inProgress = false;
+      scout.history.add(this);
       callback();
     }).on('response', (res) => {
       this.lastResponseTime = Date.now() - startTime;
@@ -146,6 +147,22 @@ export default class HttpEnvelope {
     }).on('end', () => {
       callback();
     });
+  }
+
+  serialize() {
+    return {
+      request: this.request.serialize(),
+      response: this.response.serialize(),
+      lastResponseTime: this.lastResponseTime,
+      lastDeliveryTime: this.lastDeliveryTime
+    };
+  }
+
+  deserialize(envelope) {
+    this.request.deserialize(envelope.request);
+    this.response.deserialize(envelope.response);
+    this.lastResponseTime = envelope.lastResponseTime || 0;
+    this.lastDeliveryTime = envelope.lastDeliveryTime || 0;
   }
 
   static httpMethodIsSupported(method, throwError) {
@@ -275,6 +292,63 @@ class HttpRequest extends HttpEnvelopePart {
     this.maxRedirects = 10;
   }
 
+  serialize() {
+    return {
+      method: this.method,
+      address: this.address,
+      urlParams: this.urlParams.map(p => p.serialize()),
+      headers: this.headers.map(h => h.serialize()),
+      body: this.body.serialize(),
+      timeout: this.timeout,
+      followRedirect: this.followRedirect,
+      maxRedirects: this.maxRedirects
+    }
+  }
+
+  deserialize(requestObj) {
+    this.clear();
+
+    if (requestObj.method) {
+      this.method = requestObj.method;
+    }
+
+    if (requestObj.address) {
+      this.address = requestObj.address;
+    }
+
+    if (requestObj.urlParams && _.isArray(requestObj.urlParams)) {
+      this.urlParams = requestObj.urlParams;
+    }
+
+    if (requestObj.headers && _.isArray(requestObj.headers)) {
+      this.headers = [];
+      for (let header of requestObj.headers) {
+        throws.ifEmpty(header.name, "name");
+        this.headers.push({
+          name: header.name,
+          value: header.value,
+          include: header.include
+        });
+      }
+    }
+
+    if (requestObj.body) {
+      this.body.deserialize(requestObj.body);
+    }
+
+    if (requestObj.timeout && requestObj.timeout > 0) {
+      this.timeout = requestObj.timeout;
+    }
+
+    if (requestObj.followRedirect && _.isBoolean(requestObj.followRedirect)) {
+      this.followRedirect = requestObj.followRedirect;
+    }
+
+    if (requestObj.maxRedirects && requestObj.maxRedirects > 0) {
+      this.maxRedirects = requestObj.maxRedirects;
+    }
+  }
+
   addParameter(name, value) {
     throws.ifEmpty(name, "name");
     let {parameter} = this.findParameter(p => p.name === name);
@@ -316,12 +390,73 @@ class HttpResponse extends HttpEnvelopePart {
     this.body = null;
     this.status = 0;
   }
+
+  serialize() {
+    return {
+      status: this.status,
+      raw: this.raw,
+      headers: this.headers.map(h => h.serialize()),
+      body: this.body
+    }
+  }
+
+  deserialize(responseObj) {
+    this.clear();
+
+    if (responseObj.status && responseObj.status > 0) {
+      this.status = responseObj.status;
+    }
+
+    if (responseObj.raw) {
+      this.raw = responseObj.raw;
+    }
+
+    if (responseObj.headers && _.isArray(responseObj.headers)) {
+      this.headers = [];
+      for (let header of responseObj.headers) {
+        throws.ifEmpty(header.name, "name");
+        this.headers.push({
+          name: header.name,
+          value: header.value,
+          include: header.include
+          });
+      }
+    }
+
+    if (responseObj.body) {
+      this.body = responseObj.body;
+    }
+  }
 }
 
 class HttpRequestBody {
   constructor() {
     this[_type] = 'text';
     this.value = '';
+  }
+
+  serialize() {
+    let value = null;
+    if (this.type === 'text') {
+      value = this.value;
+    } else if (this.type === 'urlencoded') {
+      value = this.value.serialize();
+    } else {
+      scout.notifications.addError('Cannot serialize body', {detail: `Unsupported body type: ${this.type}`});
+    }
+
+    return { type: this.type, value };
+  }
+
+  deserialize(bodyObj) {
+    if (bodyObj.type === 'text') {
+      this.value = bodyObj.value;
+    } else if (bodyObj.type === 'urlencoded') {
+      this.value = new UrlEncodedHttpRequestBody();
+      this.value.deserialize(bodyObj.value);
+    } else {
+      scout.notifications.addError('Cannot deserialize body', {detail: `Unsupported body type: ${bodyObj.type}`});
+    }
   }
 
   set type(value) {
@@ -412,6 +547,18 @@ class UrlEncodedHttpRequestBody {
 
     return { pair: undefined, index: -1 };
   }
+
+  serialize() {
+    return pairs.map(p => ({ key: p.key, value: p.value, include: p.include }));
+  }
+
+  deserialize(pairsObj) {
+    this.pairs = [];
+    for (let pair of pairsObj.pairs) {
+      throws.ifEmpty(pair.key, "key");
+      this.pairs.push({ key: pair.key, value: pair.value, include: pair.include });
+    }
+  }
 }
 
 class HttpEnvelopeEntity {
@@ -420,6 +567,21 @@ class HttpEnvelopeEntity {
     this.name = name;
     this.value = value;
     this.include = true;
+  }
+
+  serialize() {
+    return {
+      include: this.include,
+      name: this.name,
+      value: this.value
+    };
+  }
+
+  deserialize(entityObj) {
+    throws.ifEmpty(entityObj.name, "name");
+    this.include = entityObj.include;
+    this.name = entityObj.name;
+    this.value = entityObj.value;
   }
 }
 

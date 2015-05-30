@@ -11,7 +11,7 @@ import {CompositeDisposable, Disposable, Emitter} from 'event-kit';
 
 /**
  * Used to access Scout's storage folder.
-
+ *
  * An instance of this class is always available as the `scout.storage` global.
  */
 export default class StorageManager {

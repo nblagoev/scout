@@ -1,0 +1,162 @@
+@import "ui-variables";
+
+@disclosure-arrow-size: 12px;
+
+.list-group,
+.list-group .list-group-item {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: static;
+}
+
+.list-group,
+.list-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  cursor: default;
+
+  &.stick-to-bottom-left {
+    margin-left: -(@component-body-padding);
+    margin-bottom: -(@component-body-padding);
+  }
+
+  li:not(.list-nested-item),
+  li.list-nested-item > .list-item {
+    line-height: @component-line-height;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &:hover::before {
+      content: '';
+      background-color: @background-color-selected;
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: @component-line-height;
+    }
+
+    .chip-text {
+      position: relative;
+      background-color: rgba(0, 0, 0, .2);
+      border-radius: 3px;
+      padding: 2px 7px;
+      margin-right: 4px;
+    }
+
+    .main-text {
+
+    }
+
+    .right-label {
+      float: right;
+      position: absolute;
+      padding-right: 5px;
+      right: 0;
+      font-style: italic;
+      color: #797979;
+    }
+  }
+
+  .make-item-badge(unknown, @http-unknown-code-color);
+  .make-item-badge(info, @http-info-code-color);
+  .make-item-badge(success, @http-success-code-color);
+  .make-item-badge(redirect, @http-redirect-code-color);
+  .make-item-badge(client-error, @http-client-error-code-color);
+  .make-item-badge(server-error, @http-server-error-code-color);
+
+  // The background highlight uses ::before rather than the item background so
+  // it can span the entire width of the parent container rather than the size
+  // of the list item.
+  .selected::before {
+    content: '';
+    background-color: @background-color-selected;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: @component-line-height;
+  }
+
+  .icon::before,
+  .icon::after  {
+    margin-right: @component-icon-padding;
+    position: relative;
+    top: 1px;
+  }
+
+  .no-icon {
+    padding-left: @component-icon-padding + @component-icon-size;
+  }
+}
+
+// Handle indentation of the tree. Assume disclosure arrows.
+.list-tree {
+  .list-nested-item > .list-tree > li,
+  .list-nested-item > .list-group > li {
+    padding-left: @component-icon-size + @component-icon-padding;
+  }
+
+  &.has-collapsable-children {
+    @disclosure-arrow-padding: @disclosure-arrow-size + @component-icon-padding;
+    li.list-item {
+      margin-left: @disclosure-arrow-padding;
+    }
+
+    .list-nested-item.collapsed > .list-group,
+    .list-nested-item.collapsed > .list-tree {
+      display: none;
+    }
+
+    // Nested items always get disclosure arrows
+    .list-nested-item > .list-item {
+      &:not(:hover)::before{
+        .fa;
+        content: @fa-var-chevron-down;
+        margin-right: @component-icon-padding;
+        position: relative;
+        top: -1px;
+        font-size: 11px;
+      }
+    }
+
+    .list-nested-item.collapsed > .list-item {
+      &:not(:hover)::before{
+        .fa;
+        content: @fa-var-chevron-right;
+        font-size: 11px;
+        left: 1px;
+      }
+    }
+
+    .list-nested-item > .list-tree > li,
+    .list-nested-item > .list-group > li {
+      padding-left: @disclosure-arrow-padding;
+    }
+
+    // You want a subtree to be flat -- no collapsable children
+    .has-flat-children,
+    &.has-flat-children {
+      li.list-item {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.make-item-badge(@type, @bgcolor) {
+  .@{type}-badge {
+    margin-right: 10px;
+
+    &::before {
+      content: '';
+      background: fadeout(@bgcolor, 30%);
+      height: @component-line-height;
+      width: 0.45em;
+      position: absolute;
+    }
+  }
+}

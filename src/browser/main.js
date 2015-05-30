@@ -10,7 +10,6 @@ import fs from 'fs-plus';
 import {spawn} from 'child_process';
 
 import BrowserWindow from 'browser-window';
-import Application from './application';
 
 // NB: Hack around broken native modules atm
 var nslog = console.log;
@@ -104,11 +103,9 @@ function start() {
   app.on('ready', () => {
     require('../babel').register();
 
-    if (args.devMode) {
-      Application = require(path.join(args.resourcePath, 'src', 'browser', 'application'));
-    } else {
-      Application = require('./application');
-    }
+    let Application = args.devMode
+                      ? require(path.join(args.resourcePath, 'src', 'browser', 'application'))
+                      : require('./application');
 
     global.application = new Application(args);
 
