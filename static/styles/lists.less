@@ -31,7 +31,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
 
-    &:hover::before {
+    &:hover::after {
       content: '';
       background-color: @background-color-selected;
       position: absolute;
@@ -48,14 +48,10 @@
       margin-right: 4px;
     }
 
-    .main-text {
-
-    }
-
     .right-label {
       float: right;
       position: absolute;
-      padding-right: 5px;
+      padding-right: @component-padding;
       right: 0;
       font-style: italic;
       color: #797979;
@@ -69,10 +65,10 @@
   .make-item-badge(client-error, @http-client-error-code-color);
   .make-item-badge(server-error, @http-server-error-code-color);
 
-  // The background highlight uses ::before rather than the item background so
+  // The background highlight uses ::after rather than the item background so
   // it can span the entire width of the parent container rather than the size
   // of the list item.
-  .selected::before {
+  .selected::after {
     content: '';
     background-color: @background-color-selected;
     position: absolute;
@@ -85,7 +81,7 @@
   .icon::after  {
     margin-right: @component-icon-padding;
     position: relative;
-    top: 1px;
+    top: -1px;
   }
 
   .no-icon {
@@ -113,7 +109,7 @@
 
     // Nested items always get disclosure arrows
     .list-nested-item > .list-item {
-      &:not(:hover)::before{
+      &::before{
         .fa;
         content: @fa-var-chevron-down;
         margin-right: @component-icon-padding;
@@ -124,7 +120,7 @@
     }
 
     .list-nested-item.collapsed > .list-item {
-      &:not(:hover)::before{
+      &::before{
         .fa;
         content: @fa-var-chevron-right;
         font-size: 11px;
