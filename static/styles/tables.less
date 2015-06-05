@@ -1,4 +1,3 @@
-@import "ui-variables";
 
 table {
   border-collapse: collapse;
@@ -7,7 +6,7 @@ table {
 
 thead {
   font-size: 13px;
-  border-bottom: 1px solid #323434;
+  border-bottom: 1px solid @component-border-color;
 }
 
 #request-headers-table > tbody > tr:first-child > td,
@@ -43,7 +42,7 @@ thead {
 
 th {
   padding: 5px;
-  color: #797979;
+  color: @text-color-subtle;
 }
 
 td {
@@ -87,13 +86,13 @@ tfoot .table-row-value-input::-webkit-input-placeholder {
 }
 
 .borderless-input {
-  border: 1px solid #454646;
+  border: 1px solid @default-background-color;
   box-shadow: none;
   padding: 0 0.313rem;
   text-overflow: ellipsis;
 
   &:focus {
-    border: 1px solid #323434;
+    border: 1px solid @component-border-color;
     box-shadow: none;
   }
 }

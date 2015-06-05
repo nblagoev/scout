@@ -5,7 +5,7 @@ import os from 'os';
 import path from 'path';
 import remote from 'remote';
 import _ from 'underscore-plus';
-import {Emitter} from 'event-kit';
+import {Emitter, CompositeDisposable} from 'event-kit';
 
 import StyleManager from './core/style-manager';
 import HttpEnvelope from './core/http-envelope';
@@ -42,6 +42,7 @@ export default class Scout {
 
   constructor() {
     this.emitter = new Emitter();
+    this.disposables = new CompositeDisposable();
   }
 
   initialize() {
@@ -91,7 +92,6 @@ export default class Scout {
 
   startScoutWindow() {
     scout.storage.initialize();
-    scout.styles.loadBaseStylesheets();
 
     let config = scout.storage.requireStorageFile("config");
     config.transact(() => {
@@ -102,6 +102,14 @@ export default class Scout {
         }
       }
     });
+
+    let theme = scout.storage.get('config:theme');
+    this.themeDisposable = scout.styles.loadBaseStylesheets(theme);
+    this.disposables.add(scout.storage.onDidChange('config:theme', (event) => {
+      let disposable = scout.styles.loadBaseStylesheets(event.newValue);
+      this.themeDisposable.dispose();
+      this.themeDisposable = disposable;
+    }));
 
     require('angular');
 
@@ -135,10 +143,11 @@ export default class Scout {
 
   unloadScoutWindow() {
     // TODO: cleanup and save state
+    this.disposables.dispose();
   }
 
   removeScoutWindow() {
-    // TODO: sdestroy UI elements
+    // TODO: destroy UI elements
 
     if (this.windowEventSubscriptions) {
       this.windowEventSubscriptions.unsubscribe();

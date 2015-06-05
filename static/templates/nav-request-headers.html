@@ -23,9 +23,11 @@
              style="width: calc(100% - 5px);"></div>
       </td>
       <td class="action-cell">
-        <i class="fa fa-check action-btn green"
-           ng-show="rpc.newHeaderName"
-           ng-click="rpc.submitHeader()"></i>
+        <button class="topcoat-button--quiet action-btn"
+                ng-show="rpc.newHeaderName"
+                ng-click="rpc.submitHeader()">
+          <i class="fa fa-check green"></i>
+        </button>
       </td>
     </tr>
  </tfoot>
@@ -47,8 +49,10 @@
            input-class="topcoat-text-input table-row-value-input borderless-input"></div>
     </td>
     <td class="action-cell">
-      <i class="fa fa-minus action-btn red"
-         ng-click="rpc.request.removeHeader(header.name)"></i>
+      <button class="topcoat-button--quiet action-btn"
+              ng-click="rpc.request.removeHeader(header.name)">
+        <i class="fa fa-minus red"></i>
+      </button>
     </td>
   </tr>
  </tbody>

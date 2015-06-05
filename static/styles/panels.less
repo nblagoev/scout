@@ -1,4 +1,3 @@
-@import "ui-variables";
 
 @app-header-height: 43px;
 @app-statusbar-height: 30px;
@@ -78,8 +77,8 @@
   padding: 4px 20px;
   font-weight: 400;
   text-align: right;
-  background-color: #3f4041;
-  color: #c6c8c8;
+  background-color: @component-header-background-color;
+  color: @component-header-text-color;
   text-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-top: 1px solid rgba(255,255,255,0.1);
   border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -119,7 +118,6 @@
 
 .panel-container {
   border-top: 1px solid @component-border-color;
-  color: #c6c8c8;
   position: absolute;
   bottom: 0;
   right: 0;

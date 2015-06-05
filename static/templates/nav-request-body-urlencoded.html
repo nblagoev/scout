@@ -20,9 +20,11 @@
                class="topcoat-text-input table-row-value-input borderless-input"/>
       </td>
       <td class="action-cell">
-        <i class="fa fa-check action-btn green"
-           ng-show="rpc.newBodyPairKey"
-           ng-click="rpc.submitBodyKeyValuePair()"></i>
+        <button class="topcoat-button--quiet action-btn"
+                ng-show="rpc.newBodyPairKey"
+                ng-click="rpc.submitBodyKeyValuePair()">
+          <i class="fa fa-check green"></i>
+        </button>
       </td>
     </tr>
  </tfoot>
@@ -37,8 +39,10 @@
       <input type="text" class="topcoat-text-input table-row-value-input borderless-input" ng-model="pair.value"/>
     </td>
     <td class="action-cell">
-      <i class="fa fa-minus action-btn red"
-         ng-click="rpc.request.body.value.remove(pair.key)"></i>
+      <button class="topcoat-button--quiet action-btn"
+              ng-click="rpc.request.body.value.remove(pair.key)">
+        <i class="fa fa-minus red"></i>
+      </button>
     </td>
   </tr>
  </tbody>

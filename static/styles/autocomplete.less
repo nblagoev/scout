@@ -1,4 +1,3 @@
-@import "ui-variables";
 
 @row-line-height: 2em;
 @type-icon-font-size: 1em;
@@ -13,7 +12,7 @@
 }
 
 .autocomplete-dropdown {
-  background-color: @app-background-color;
+  background-color: @dropdown-background-color;
   border: 1px solid @component-border-color;
   border-radius: @component-border-radius + 1px;
   box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.3);
@@ -38,7 +37,7 @@
   max-height: 150px;
   overflow-y: auto;
   line-height: 1.3;
-  background: @default-background-color;
+  background: @hint-description-background-color;
   border-top: 1px solid @component-border-color;
   border-radius: 0 0 3px 3px;
 
@@ -81,8 +80,8 @@
     text-align: center;
     font-style: normal;
     font-weight: bold;
-    color: #777;
-    background: fadeout(#333, 90%);
+    color: @hint-icon-text-color;
+    background: fadeout(@hint-icon-background-color, 90%);
 
     > *::before {
       font-size: @type-icon-font-size;
@@ -101,17 +100,27 @@
     }
   }
 
-  .make-type-icon(h-builtin-header, #E8725D);
-  .make-type-icon(xh-user-header, #FD47DF);
-  .make-type-icon(ct-content-type, #46DDD2);
+  .make-type-icon(h-builtin-header, @ui-color-15);
+  .make-type-icon(xh-user-header, @ui-color-16);
+  .make-type-icon(ct-content-type, @ui-color-8);
 
-  .make-type-icon(pl-placeholder-one, #DF6A73);
-  .make-type-icon(pl-placeholder-two, #D29B67);
-  .make-type-icon(pl-placeholder-three, #61AEEF);
-  .make-type-icon(pl-placeholder-four, #E5C17C);
-  .make-type-icon(pl-placeholder-five, #C144FF);
-  .make-type-icon(pl-placeholder-six, #4ADB6D);
-  .make-type-icon(pl-placeholder-eight, #D72121);
+  .make-type-icon(pl-placeholder-1, @ui-color-1);
+  .make-type-icon(pl-placeholder-2, @ui-color-2);
+  .make-type-icon(pl-placeholder-3, @ui-color-3);
+  .make-type-icon(pl-placeholder-4, @ui-color-4);
+  .make-type-icon(pl-placeholder-5, @ui-color-5);
+  .make-type-icon(pl-placeholder-6, @ui-color-6);
+  .make-type-icon(pl-placeholder-7, @ui-color-7);
+  .make-type-icon(pl-placeholder-8, @ui-color-8);
+  .make-type-icon(pl-placeholder-9, @ui-color-9);
+  .make-type-icon(pl-placeholder-10, @ui-color-10);
+  .make-type-icon(pl-placeholder-11, @ui-color-11);
+  .make-type-icon(pl-placeholder-12, @ui-color-12);
+  .make-type-icon(pl-placeholder-13, @ui-color-13);
+  .make-type-icon(pl-placeholder-14, @ui-color-14);
+  .make-type-icon(pl-placeholder-15, @ui-color-15);
+  .make-type-icon(pl-placeholder-16, @ui-color-16);
+  .make-type-icon(pl-placeholder-17, @ui-color-17);
 }
 
 .autocomplete-selected-row {
@@ -120,10 +129,11 @@
 
 .hint-title {
   font-family: @font-family-monospace;
-  color: #c3c3c3;
+  color: @hint-title-text-color;
 
   .highlight {
-    color: #fff;
+    color: @hint-title-highlight-color;
+    font-weight: bold;
   }
 }
 
@@ -137,6 +147,6 @@
 .make-type-icon(@type, @color) {
   .hint-icon.@{type} {
     color: @color;
-    background: fadeout(@color, 80%);
+    background: fadeout(@color, @ui-background-fadeout);
   }
 }

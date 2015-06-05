@@ -1,4 +1,3 @@
-@import "ui-variables";
 
 json-tree {
   box-sizing: border-box;
@@ -45,7 +44,7 @@ json-tree {
   }
 
   .key {
-    color: #E8725D;
+    color: @ui-color-11;
     padding: 5px 10px 5px 15px;
 
     &::after {
@@ -54,7 +53,7 @@ json-tree {
   }
 
   json-node.string .leaf-value {
-    color: #f4bf75;
+    color: @ui-color-7;
 
     &::before {
       content: '"';
@@ -66,15 +65,15 @@ json-tree {
   }
 
   json-node.number .leaf-value {
-    color: #aa759f;
+    color: @ui-color-2;
   }
 
   json-node.boolean .leaf-value {
-    color: #00a8c6;
+    color: @ui-color-15;
   }
 
   json-node.null .leaf-value {
-    color: #6a9fb5;
+    color: @ui-color-15;
   }
 
   json-node.expandable {
@@ -95,7 +94,7 @@ json-tree {
     overflow: hidden;
     max-width: 75%;
     height: 1.5em;
-    opacity: .3;
+    opacity: .4;
   }
 }
 

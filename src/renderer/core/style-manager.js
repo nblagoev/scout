@@ -38,8 +38,15 @@ export default class StyleManager {
     }
   }
 
-  loadBaseStylesheets() {
-    this.requireStylesheet('static/styles/scout');
+  loadBaseStylesheets(theme) {
+    if (!theme || theme == "light") {
+      return this.requireStylesheet('static/styles/scout-light');
+    } else if (theme == "dark") {
+      return this.requireStylesheet('static/styles/scout-dark');
+    } else {
+      scout.notifications.addWarning(`Could not find theme '${theme}'`);
+      return this.requireStylesheet('static/styles/scout-light');
+    }
   }
 
   resolveStylesheet(stylesheetPath) {
@@ -116,5 +123,7 @@ export default class StyleManager {
         delete this.styleElementsBySourcePath[sourcePath];
       }
     });
+
+    return this.styleSheetDisposablesBySourcePath[sourcePath];
   }
 }
