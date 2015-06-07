@@ -52,49 +52,13 @@ export default class HttpEnvelope {
       return;
     }
 
-    throws.ifEmpty(this.request.address, "address");
-    throws.ifEmpty(this.request.method, "method");
-    HttpEnvelope.httpMethodIsSupported(this.request.method, true);
-
     this.inProgress = true;
-    let targetUrl = url.parse(this.request.address);
-
-    if (!targetUrl.protocol) {
-      targetUrl = url.parse('https://' + this.request.address);
-    }
-
-    throws.ifEmpty(targetUrl.hostname, "hostname");
-
-    let options = {
-      url: targetUrl,
-      method: this.request.method.toUpperCase(),
-      headers: {},
-      //body: HttpEnvelope.methodCanHaveBody(this.request.method) ? this.request.body.toString() : undefined,
-      body: this.request.body.toString(),
-      followRedirect: this.request.followRedirect,
-      maxRedirects: this.request.maxRedirects || 10,
-      timeout: this.request.timeout,
-      time: true,
-      useQuerystring: true,
-      qs: HttpEnvelope.paramsToJson(this.request.urlParams)
-    };
-
-    let headers = this.request.headers;
-    for (let i = 0; i < headers.length; i++) {
-      if (i in headers) {
-        let header = headers[i];
-        if (header.include === true) {
-          options.headers[header.name] = header.value;
-        }
-      }
-    }
-
     this.response.clear();
     this.lastResponseTime = 0;
     this.lastDeliveryTime = 0;
 
     let startTime = Date.now();
-    request(options, (error, res, body) => {
+    request(this.request.toJSON(), (error, res, body) => {
       if (error) {
         let message = "Could not send request";
         let detail = null;
@@ -206,12 +170,10 @@ export default class HttpEnvelope {
 class HttpEnvelopePart {
   constructor() {
     this.headers = [];
-    this.raw = '';
   }
 
   clear() {
     this.headers = [];
-    this.raw = '';
   }
 
   /**
@@ -240,11 +202,15 @@ class HttpEnvelopePart {
     return new Disposable(() => Object.unobserve(this, observer));
   }
 
-  addHeader(name, value) {
+  addHeader(name, value, options = {}) {
     throws.ifEmpty(name, "name");
-    let {header} = this.findHeader(h => h.name === name);
+    let {header} = this.findHeader(name);
 
     if (header !== null && header !== undefined) {
+      if (options.ignoreExisting === true) {
+        return;
+      }
+
       header.value = value;
     } else {
       this.headers.push(new HttpHeader(name, value));
@@ -252,7 +218,7 @@ class HttpEnvelopePart {
   }
 
   removeHeader(name) {
-    let {index} = this.findHeader(h => h.name === name);
+    let {index} = this.findHeader(name);
     if (index >= 0) {
       this.headers.splice(index, 1);
     }
@@ -260,7 +226,8 @@ class HttpEnvelopePart {
 
   findHeader(predicate) {
     for (let [index, header] of this.headers.entries()) {
-      if (typeof(predicate) == "function" && predicate(header) || header.name === predicate) {
+      if (typeof(predicate) == "function" && predicate(header) ||
+          typeof(predicate) == "string" && header.name.toLowerCase() === predicate.toLowerCase()) {
         return { header, index };
       }
     }
@@ -290,6 +257,79 @@ class HttpRequest extends HttpEnvelopePart {
     this.timeout = null;
     this.followRedirect = true;
     this.maxRedirects = 10;
+  }
+
+  toJSON() {
+    HttpEnvelope.httpMethodIsSupported(this.method, true);
+    let targetUrl = url.parse(this.address);
+
+    if (!targetUrl.protocol) {
+      targetUrl = url.parse('https://' + this.address);
+    }
+
+    let result = {
+      url: targetUrl,
+      method: this.method.toUpperCase(),
+      headers: {},
+      //body: HttpEnvelope.methodCanHaveBody(this.method) ? this.body.toString() : undefined,
+      body: this.body.toString(),
+      followRedirect: this.followRedirect,
+      maxRedirects: this.maxRedirects || 10,
+      timeout: this.timeout,
+      time: true,
+      useQuerystring: true,
+      qs: HttpEnvelope.paramsToJson(this.urlParams)
+    };
+
+    if (targetUrl.hostname) {
+      if (targetUrl.port &&
+          !(targetUrl.port === 80 && targetUrl.protocol === 'http:') &&
+          !(targetUrl.port === 443 && targetUrl.protocol === 'https:')) {
+        this.addHeader('Host', `${targetUrl.hostname}:${targetUrl.port}`);
+      } else {
+        this.addHeader('Host', targetUrl.hostname);
+      }
+    }
+
+    if (result.method !== 'GET' && typeof result.method !== 'undefined' &&
+        this.findHeader('Content-Length').index < 0 && result.body) {
+      this.addHeader('Content-Length', result.body.length);
+    }
+
+    let headers = this.headers;
+    for (let i = 0; i < headers.length; i++) {
+      if (i in headers) {
+        let header = headers[i];
+        if (header.include === true) {
+          result.headers[header.name] = header.value;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  toRaw() {
+    let json = this.toJSON();
+
+    if (!json.url.path || !json.method) {
+      return '';
+    }
+
+    let result = `${json.method} ${json.url.path} HTTP/1.1\r\n`;
+
+    for (let key in json.headers) {
+      if (json.headers.hasOwnProperty(key)) {
+        let value = json.headers[key];
+        result += `${key}: ${value}\r\n`;
+      }
+    }
+
+    if (json.body && json.body.length > 0) {
+      result += `\r\n${json.body}`;
+    }
+
+    return result;
   }
 
   serialize() {
@@ -383,12 +423,14 @@ class HttpResponse extends HttpEnvelopePart {
     super();
     this.body = null;
     this.status = 0;
+    this.raw = '';
   }
 
   clear() {
     super.clear();
     this.body = null;
     this.status = 0;
+    this.raw = '';
   }
 
   serialize() {
