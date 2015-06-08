@@ -281,21 +281,6 @@ class HttpRequest extends HttpEnvelopePart {
       qs: HttpEnvelope.paramsToJson(this.urlParams)
     };
 
-    if (targetUrl.hostname) {
-      if (targetUrl.port &&
-          !(targetUrl.port === 80 && targetUrl.protocol === 'http:') &&
-          !(targetUrl.port === 443 && targetUrl.protocol === 'https:')) {
-        this.addHeader('Host', `${targetUrl.hostname}:${targetUrl.port}`);
-      } else {
-        this.addHeader('Host', targetUrl.hostname);
-      }
-    }
-
-    if (result.method !== 'GET' && typeof result.method !== 'undefined' &&
-        this.findHeader('Content-Length').index < 0 && result.body) {
-      this.addHeader('Content-Length', result.body.length);
-    }
-
     let headers = this.headers;
     for (let i = 0; i < headers.length; i++) {
       if (i in headers) {
@@ -304,6 +289,13 @@ class HttpRequest extends HttpEnvelopePart {
           result.headers[header.name] = header.value;
         }
       }
+    }
+
+    if (!result.headers.hasOwnProperty('User-Agent')) {
+      let userAgent = navigator.userAgent;
+      let lastScoutIndex = userAgent.lastIndexOf("Scout");
+      userAgent = userAgent.substring(0, lastScoutIndex) + "Electron" + userAgent.substring(lastScoutIndex + 5);
+      result.headers['User-Agent'] = userAgent;
     }
 
     return result;
@@ -323,6 +315,25 @@ class HttpRequest extends HttpEnvelopePart {
         let value = json.headers[key];
         result += `${key}: ${value}\r\n`;
       }
+    }
+
+    if (json.url.hostname && this.findHeader('Host').index < 0) {
+      if (json.url.port &&
+          !(json.url.port === 80 && json.url.protocol === 'http:') &&
+          !(json.url.port === 443 && json.url.protocol === 'https:')) {
+        result += `Host: ${json.url.hostname}:${json.url.port}\r\n`;
+      } else {
+        result += `Host: ${json.url.hostname}\r\n`;
+      }
+    }
+
+    if (json.method !== 'GET' && typeof json.method !== 'undefined' &&
+        this.findHeader('Content-Length').index < 0 && json.body) {
+      result += `Content-Length: ${json.body.length}\r\n`;
+    }
+
+    if (this.findHeader('Connection').index < 0) {
+      result += 'Connection: close\r\n';
     }
 
     if (json.body && json.body.length > 0) {
