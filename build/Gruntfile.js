@@ -20,6 +20,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-build-atom-shell');
   grunt.loadNpmTasks('grunt-atom-shell-installer');
   grunt.loadNpmTasks('grunt-peg');
+  grunt.loadNpmTasks('grunt-sloc');
   grunt.loadTasks('tasks');
 
   // This allows all subsequent paths to be relative to the root of the repo
@@ -124,6 +125,20 @@ module.exports = function (grunt) {
 
     lesslint: {
       src: ['static/**/*.less']
+    },
+
+    sloc: {
+      'scout-source-files': {
+        files: {
+          '.': [ 'build/tasks/**/*.js',
+                 'script/**/*.js',
+                 'spec/**/*.js',
+                 'src/**/*.js',
+                 'static/**/*.html',
+                 'static/**/*.less'
+          ]
+        }
+      }
     },
 
     'build-atom-shell': {
