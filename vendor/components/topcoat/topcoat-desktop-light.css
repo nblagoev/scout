@@ -3419,6 +3419,35 @@ input[type="search"]::-webkit-search-cancel-button {
   outline: 0;
 }
 
+.topcoat-popover {
+  position: absolute;
+  text-align: center;
+  width: 22rem;
+  height: auto;
+  padding: 1.2rem;
+  background: #e5e9e8;
+  border-radius: 0.3rem;
+  border: 0.1rem solid #a0afab;
+  box-shadow: 0 0.4rem 0.6rem 0 rgba(0,0,0,0.2), inset 0 1px 0 #fff;
+  text-shadow: 0 0.1rem #fff;
+}
+
+.topcoat-popover:before {
+  position: absolute;
+  content: '';
+  left: 0;
+  right: 0;
+  top: -11px;
+  margin: 0 auto;
+  width: 2rem;
+  height: 2rem;
+  background-color: #e5e9e8;
+  border-left: 1px solid #a0afab;
+  border-top: 1px solid #a0afab;
+  box-shadow: inset 1px 1px 0 #fff;
+  -webkit-transform: rotate(45deg);
+}
+
 body {
   margin: 0;
   padding: 0;

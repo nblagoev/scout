@@ -368,18 +368,22 @@ class HttpRequest extends HttpEnvelopePart {
     }
 
     if (requestObj.urlParams && _.isArray(requestObj.urlParams)) {
-      this.urlParams = requestObj.urlParams;
+      this.urlParams = [];
+      for (let param of requestObj.urlParams) {
+        throws.ifEmpty(param.name, "name");
+        let paramObj = new HttpParameter(param.name, param.value);
+        paramObj.include = param.include;
+        this.urlParams.push(paramObj);
+      }
     }
 
     if (requestObj.headers && _.isArray(requestObj.headers)) {
       this.headers = [];
       for (let header of requestObj.headers) {
         throws.ifEmpty(header.name, "name");
-        this.headers.push({
-          name: header.name,
-          value: header.value,
-          include: header.include
-        });
+        let headerObj = new HttpHeader(header.name, header.value);
+        headerObj.include = header.include;
+        this.headers.push(headerObj);
       }
     }
 
@@ -468,11 +472,9 @@ class HttpResponse extends HttpEnvelopePart {
       this.headers = [];
       for (let header of responseObj.headers) {
         throws.ifEmpty(header.name, "name");
-        this.headers.push({
-          name: header.name,
-          value: header.value,
-          include: header.include
-          });
+        let headerObj = new HttpHeader(header.name, header.value);
+        headerObj.include = header.include;
+        this.headers.push(headerObj);
       }
     }
 

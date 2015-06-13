@@ -2,6 +2,7 @@
 
 angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   let self = this;
+  let utils = require('../common/utils');
   let {CompositeDisposable} = require('event-kit');
   let subscriptions = new CompositeDisposable();
 
@@ -13,6 +14,45 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   self.newBodyPairKey = '';
   self.newBodyPairValue = '';
   self.nav = new RequestNavigation();
+  self.basicAuth = {
+    get user() {
+      let authHeader = self.request.findHeader('Authorization').header;
+
+      if (!authHeader || !authHeader.value || !authHeader.value.startsWith('Basic ')) {
+        return '';
+      }
+
+      let decodedHeader = utils.fromBase64(authHeader.value.substring(6));
+      let user = decodedHeader.split(':')[0];
+      return user || '';
+    },
+    set user(value) {
+      if (typeof value !== 'string' || !value) {
+        self.request.removeHeader('Authorization');
+        return;
+      }
+
+      let header = value + ':' + (this.pass || '');
+      let authHeader = 'Basic ' + utils.toBase64(header);
+      self.request.addHeader('Authorization', authHeader);
+    },
+    get pass () {
+      let authHeader = self.request.findHeader('Authorization').header;
+
+      if (!authHeader || !authHeader.value || !authHeader.value.startsWith('Basic ')) {
+        return '';
+      }
+
+      let decodedHeader = utils.fromBase64(authHeader.value.substring(6));
+      let pass = decodedHeader.split(':').slice(1).join(':');
+      return pass || '';
+    },
+    set pass(value) {
+      let header = this.user + ':' + (value || '');
+      let authHeader = 'Basic ' + utils.toBase64(header);
+      self.request.addHeader('Authorization', authHeader);
+    }
+  };
 
   subscriptions.add(
     scout.storage.onDidChange("hints:headers", (event) => {

@@ -113,7 +113,7 @@ export default class Scout {
 
     require('angular');
 
-    angular.module('scout', ['content-resizer', 'ng-enter', 'angular-json-tree', 'autocomplete-scout']);
+    angular.module('scout', ['content-resizer', 'ng-enter', 'angular-json-tree', 'autocomplete-scout', 'nsPopover']);
     require('./util/split.filter');
     require('./components/scout-canvas.directive');
     require('./components/autocomplete.directive');
@@ -134,6 +134,7 @@ export default class Scout {
     require('./layout/request-panel.controller');
     require('./layout/management-panel.controller');
     require('./layout/response-panel.controller');
+    require('../../vendor/components/nsPopover');
 
     let app = document.createElement('scout-canvas');
     document.body.appendChild(app);

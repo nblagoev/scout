@@ -1,0 +1,26 @@
+<div class="triangle"></div>
+<div class="ns-popover-tooltip">
+  <div class="popover-content">
+    <table id="popover-basic-auth-table">
+     <tbody>
+      <tr>
+        <td class="popover-basic-auth-table-header">Username:</td>
+        <td>
+          <input type="text" class="topcoat-text-input"
+                 ng-model="rpc.basicAuth.user"/>
+        </td>
+      </tr>
+      <tr>
+        <td class="popover-basic-auth-table-header">Password:</td>
+        <td>
+          <input type="password" class="topcoat-text-input"
+                 ng-model="rpc.basicAuth.pass"/>
+        </td>
+      </tr>
+     </tbody>
+    </table>
+  </div>
+  <div class="popover-preview">
+    {{rpc.request.findHeader("Authorization").header.value}}
+  </div>
+</div>

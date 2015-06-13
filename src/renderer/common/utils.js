@@ -14,4 +14,12 @@ export function getStatusClass(statusCode) {
   }
 
   return "unknown";
-} 
+}
+
+export function toBase64(str) {
+  return (new Buffer(str || '', 'ascii')).toString('base64');
+}
+
+export function fromBase64(str) {
+  return (new Buffer(str || '', 'base64')).toString('ascii');
+}

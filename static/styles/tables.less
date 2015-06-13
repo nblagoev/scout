@@ -28,16 +28,19 @@ thead {
   }
 
   > td.request-options-table-header {
-     padding-top: 9px;
+     padding-top: 10px;
    }
 }
 
-#request-options-table > tbody > tr > td {
-  padding-bottom: 4px;
+#request-options-table > tbody > tr > td,
+#redirections-option-table > tbody > tr > td,
+#authorization-option-table > tbody > tr > td,
+#popover-basic-auth-table > tbody > tr > td {
+  padding-bottom: 5px;
 }
 
-#redirections-option-table > tbody > tr > td {
-  padding-bottom: 4px;
+#popover-basic-auth-table > tbody > tr > td > input {
+  width: 100%;
 }
 
 th {
@@ -77,12 +80,13 @@ tfoot .table-row-value-input::-webkit-input-placeholder {
   width: ~"calc(100% - 5px)";
 }
 
-.request-options-table-header {
+.request-options-table-header,
+.popover-basic-auth-table-header {
   vertical-align: top;
   text-align: right;
   font-weight: 500;
   padding-right: 10px;
-  padding-top: 2px;
+  padding-top: 3px;
 }
 
 .borderless-input {

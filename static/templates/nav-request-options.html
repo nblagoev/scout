@@ -41,5 +41,24 @@
       </table>
     </td>
   </tr>
+  <tr>
+    <td class="request-options-table-header">Authorization: </td>
+    <td>
+      <table id="authorization-option-table">
+        <tbody>
+          <tr><td>
+            <button class="topcoat-button" ns-popover
+                    ns-popover-template="templates/popover-basic-auth-settings.html"
+                    ns-popover-theme="ns-popover-tooltip-theme" ns-popover-timeout="-1"
+                    ns-popover-trigger="click" ns-popover-placement="bottom">Set HTTP Basic Auth</button>
+          </td></tr>
+          <tr><td>
+            <button class="topcoat-button" disabled="true">Set OAuth 1</button>
+            <button class="topcoat-button" disabled="true">Set OAuth 2</button>
+          </td></tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
  </tbody>
 </table>
