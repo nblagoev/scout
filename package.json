@@ -32,6 +32,7 @@
     "marked": "^0.3.3",
     "mixto": "^1",
     "mkdirp": "0.5.1",
+    "moment": "^2.10.3",
     "nslog": "^2.0.0",
     "pathwatcher": "^4.4.0",
     "property-accessors": "^1",
