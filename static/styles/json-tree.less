@@ -44,7 +44,8 @@ json-tree {
   }
 
   .key {
-    color: @ui-color-11;
+    color: @ui-color-15;
+    font-weight: bold;
     padding: 5px 10px 5px 15px;
 
     &::after {
@@ -53,7 +54,7 @@ json-tree {
   }
 
   json-node.string .leaf-value {
-    color: @ui-color-7;
+    color: @ui-color-10;
 
     &::before {
       content: '"';
@@ -69,11 +70,11 @@ json-tree {
   }
 
   json-node.boolean .leaf-value {
-    color: @ui-color-15;
+    color: @ui-color-16;
   }
 
   json-node.null .leaf-value {
-    color: @ui-color-15;
+    color: @ui-color-16;
   }
 
   json-node.expandable {
