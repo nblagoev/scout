@@ -105,7 +105,7 @@ function start() {
 
     let Application = args.devMode
                       ? require(path.join(args.resourcePath, 'src', 'browser', 'application'))
-                      : require('./application');
+                      : require('./src/browser/application');
 
     global.application = new Application(args);
 
