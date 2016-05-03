@@ -1,4 +1,3 @@
-'use babel';
 
 angular.module('scout').directive('notificationsArea', function ($compile) {
 

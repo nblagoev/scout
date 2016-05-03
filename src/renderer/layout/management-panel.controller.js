@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('ManagementPanelCtrl', function ($scope) {
   let utils = require('../common/utils');
   let moment = require('moment');

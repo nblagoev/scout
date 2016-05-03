@@ -1,65 +1,49 @@
-{
-  "menu": [
-    {
-      "label": "Scout",
-      "submenu": [
-        { "label": "About Scout", "command": "application:about" },
-        { "label": "Restart and Install Update", "command": "application:install-update", "visible": false },
-        { "label": "Check for Update", "command": "application:check-for-update", "visible": false },
-        { "label": "Downloading Update", "enabled": false, "visible": false },
-        { "type": "separator" },
-        { "label": "Preferences...", "command": "application:show-settings", "accelerator": "Command+," },
-        { "type": "separator" },
-        { "label": "Services", "submenu": [] },
-        { "type": "separator" },
-        { "label": "Quit", "command": "application:quit" }
-      ]
-    },
+[
+  {
+    "label": "Scout",
+    "submenu": [
+      { "label": "About Scout...", "command": "application:about" },
+      { "type": "separator" },
+      { "label": "Hide", "accelerator": "Command+H", "selector": "hide:" },
+      { "label": "Hide Others", "accelerator": "Command+Shift+H", "selector": "hideOtherApplications:" },
+      { "label": "Show All", "selector": "unhideAllApplications:" },
+      { "type": "separator" },
+      { "label": "Quit", "accelerator": "Command+Q", "command": "application:quit" }
+    ]
+  },
 
-    {
-      "label": "Edit",
-      "submenu": [
-        { "label": "Undo", "selector": "undo:", "accelerator": "Command+Z" },
-        { "label": "Redo", "selector": "redo:", "accelerator": "Shift+Command+Z" },
-        { "type": "separator" },
-        { "label": "Cut", "selector": "cut:", "accelerator": "Command+X" },
-        { "label": "Copy", "selector": "copy:", "accelerator": "Command+C" },
-        { "label": "Paste", "selector": "paste:", "accelerator": "Command+V" },
-        { "label": "Select All", "selector": "selectAll:", "accelerator": "Command+A" }
-      ]
-    },
+  {
+    "label": "File",
+    "submenu": [
+      { "label": "New Window", "accelerator": "CmdOrCtrl+N", "command": "application:new-window" },
+      { "type": "separator" },
+      { "label": "Close Window", "accelerator": "Command+W", "role": "close"}
+    ]
+  },
 
-    {
-      "label": "View",
-      "submenu": [
-        { "label": "Reload", "command": "window:reload", "accelerator": "Command+R" },
-        { "label": "Toggle Full Screen", "command": "window:toggle-full-screen", "accelerator": "Command+Control+F" },
-        {
-          "label": "Developer",
-          "submenu": [
-            { "label": "Run Tests...", "command": "application:run-specs", "accelerator": "Alt+Command+T" },
-            { "label": "Toggle Developer Tools", "command": "window:toggle-dev-tools", "accelerator": "Alt+Command+I" }
-          ]
-        }
-      ]
-    },
+  {
+    "label": "Edit",
+    "submenu": [
+      { "label": "Cut",   "accelerator": "CmdOrCtrl+X", "role": "cut" },
+      { "label": "Copy", "accelerator": "CmdOrCtrl+C", "role": "copy" },
+      { "label": "Paste", "accelerator": "CmdOrCtrl+V", "role": "paste"},
+      { "label": "Select All", "accelerator": "CmdOrCtrl+A", "role": "selectall" },
+      { "type": "separator" }
+    ]
+  },
 
-    {
-      "label": "Window",
-      "submenu": [
-        { "label": "&New Window", "command": "application:new-window", "accelerator": "Command+Shift+N"  },
-        { "label": "Minimize", "selector": "performMiniaturize:", "accelerator": "Command+M" },
-        { "label": "Zoom", "selector": "performZoom:" }
-      ]
-    },
-
-    {
-      "label": "Help",
-      "submenu": [
-        { "label": "Report Issue", "command": "application:report-issue" },
-        { "type": "separator" }
-      ]
-    }
-
-  ]
-}
+  {
+    "label": "View",
+    "submenu": [
+      { "label": "Reload", "accelerator": "Shift+CmdOrCtrl+R", "command": "window:reload" },
+      { "label": "Toggle Full Screen", "command": "window:toggle-full-screen" },
+      {
+        "label": "Developer",
+        "submenu": [
+          { "label": "Run Tests...", "command": "application:run-specs", "accelerator": "Alt+Command+T" },
+          { "label": "Toggle Developer Tools", "command": "window:toggle-dev-tools", "accelerator": "Alt+Command+I" }
+        ]
+      }
+    ]
+  }
+]

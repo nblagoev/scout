@@ -1,76 +1,74 @@
-'use babel';
-
-import {Emitter} from 'event-kit';
+import {Emitter} from 'event-kit'
 
 /**
   A notification to the user containing a message and type.
 */
 export default class Notification {
 
-  constructor(type, message, options={}) {
-    this.type = type;
-    this.message = message;
-    this.options = options;
-    this.emitter = new Emitter();
-    this.timestamp = new Date();
-    this.dismissed = !this.isDismissable();
-    this.displayed = false;
+  constructor(type, message, options = {}) {
+    this.type = type
+    this.message = message
+    this.options = options
+    this.emitter = new Emitter()
+    this.timestamp = new Date()
+    this.dismissed = !this.isDismissable()
+    this.displayed = false
   }
 
   onDidDismiss(callback) {
-    return this.emitter.on('did-dismiss', callback);
+    return this.emitter.on('did-dismiss', callback)
   }
 
   onDidDisplay(callback) {
-    return this.emitter.on('did-display', callback);
+    return this.emitter.on('did-display', callback)
   }
 
   get detail() {
-    return this.options.detail;
+    return this.options.detail
   }
 
   isEqual(other) {
     return this.message === other.message &&
            this.type === other.type &&
-           this.detail === other.detail;
+           this.detail === other.detail
   }
 
   dismiss() {
     if (!this.isDismissable() || this.isDismissed()) {
-      return;
+      return
     }
 
-    this.dismissed = true;
-    this.emitter.emit('did-dismiss', this);
+    this.dismissed = true
+    this.emitter.emit('did-dismiss', this)
   }
 
-  isDismissed() { return this.dismissed; }
+  isDismissed() { return this.dismissed }
 
-  isDismissable() { return this.options.dismissable || false; }
+  isDismissable() { return this.options.dismissable || false }
 
-  wasDisplayed() { return this.displayed; }
+  wasDisplayed() { return this.displayed }
 
   setDisplayed(displayed) {
-    this.displayed = displayed;
-    this.emitter.emit('did-display', this);
+    this.displayed = displayed
+    this.emitter.emit('did-display', this)
   }
 
   get icon() {
     if (this.options.icon) {
-      return this.options.icon;
+      return this.options.icon
     }
 
     switch (this.type) {
       case 'fatal':
-        return 'bug';
+        return 'bug'
       case 'error':
-        return 'fire';
+        return 'fire'
       case 'warning':
-        return 'exclamation-triangle';
+        return 'exclamation-triangle'
       case 'info':
-        return 'info-circle';
+        return 'info-circle'
       case 'success':
-        return 'check';
+        return 'check'
     }
   }
 }

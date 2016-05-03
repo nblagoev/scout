@@ -1,27 +1,8 @@
-git:
-  depth: 10
-
-env:
-  - NODE_VERSION=0.10
-
-os:
-  - linux
-  - osx
-
-sudo: true
-
-install:
-  - git clone https://github.com/creationix/nvm.git /tmp/.nvm
-  - source /tmp/.nvm/nvm.sh
-  - nvm install $NODE_VERSION
-  - nvm use $NODE_VERSION
-  - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      sudo apt-get update;
-      sudo apt-get install -y build-essential ca-certificates curl git
-        fakeroot clang gcc-multilib g++-multilib libgnome-keyring-dev
-        libnss3 libgtk2.0-dev libnotify-dev libdbus-1-dev libxrandr-dev
-        libxext-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev
-        libXtst-dev --no-install-recommends;
-    fi
-
-script: script/build --verbose
+language: node_js
+node_js:
+  - "5.11"
+  - "4.1"
+  - "4.0"
+#before_script:
+#  - npm install -g gulp
+#script: gulp

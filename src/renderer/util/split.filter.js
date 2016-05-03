@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module('scout').filter('split', function() {
   return (input, splitChar, splitIndex = 0) => {
     if (!input) {

@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('NotificationsCtrl', function ($scope) {
   let disposable = scout.onWillThrowError(({message, url, line, originalError, preventDefault}) => {
     preventDefault();

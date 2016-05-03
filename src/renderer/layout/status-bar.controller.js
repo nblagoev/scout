@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('StatusBarCtrl',
   function (statusBarService) {
     let self = this;

@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('HeaderCtrl',
   function ($scope) {
     let self = this;

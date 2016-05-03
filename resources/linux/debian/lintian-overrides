@@ -1,7 +1,0 @@
-scout: arch-dependent-file-in-usr-share
-scout: changelog-file-missing-in-native-package
-scout: copyright-file-contains-full-apache-2-license
-scout: copyright-should-refer-to-common-license-file-for-apache-2
-scout: embedded-library
-scout: package-installs-python-bytecode
-scout: unstripped-binary-or-object

@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('ResponsePanelCtrl', function ($scope) {
   let self = this;
   let decodeWwwForm = require('../util/decodeWwwForm');

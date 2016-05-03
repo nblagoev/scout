@@ -1,48 +1,45 @@
-{
-  "menu": [
-    {
-      "label": "&File",
-      "submenu": [
-        { "label": "&New Window", "command": "application:new-window", "accelerator": "Control+Shift+N"  },
-        { "label": "&Preferences", "command": "application:show-settings" },
-        { "label": "Quit", "command": "application:quit" }
-      ]
-    },
+[
+  {
+    "label": "File",
+    "submenu": [
+      { "label": "New Window", "accelerator": "CmdOrCtrl+N", "command": "application:new-window" },
+      { "type": "separator" },
+      { "label": "Close Window", "command": "window:close" },
+      { "type": "separator" },
+      { "label": "Exit", "command": "application:close" }
+    ]
+  },
 
-    {
-      "label": "&Edit",
-      "submenu": [
-        { "label": "&Undo", "command": "core:undo", "accelerator": "Control+Z" },
-        { "label": "&Redo", "command": "core:redo", "accelerator": "Control+Y" },
-        { "type": "separator" },
-        { "label": "&Cut", "command": "core:cut", "accelerator": "Control+X" },
-        { "label": "C&opy", "command": "core:copy", "accelerator": "Control+C" },
-        { "label": "&Paste", "command": "core:paste", "accelerator": "Control+V" },
-        { "label": "Select &All", "command": "core:select-all", "accelerator": "Control+A" }
-      ]
-    },
+  {
+    "label": "Edit",
+    "submenu": [
+      { "label": "Cut",   "accelerator": "CmdOrCtrl+X", "role": "cut" },
+      { "label": "Copy", "accelerator": "CmdOrCtrl+C", "role": "copy" },
+      { "label": "Paste", "accelerator": "CmdOrCtrl+V", "role": "paste"},
+      { "label": "Select All", "accelerator": "CmdOrCtrl+A", "role": "selectall" },
+      { "type": "separator" }
+    ]
+  },
 
-    {
-      "label": "&View",
-      "submenu": [
-        { "label": "&Reload", "command": "window:reload", "accelerator": "Control+R" },
-        { "label": "Toggle &Full Screen", "command": "window:toggle-full-screen", "accelerator": "Control+Shift+F" },
-        {
-          "label": "Developer",
-          "submenu": [
-            { "label": "Run Tests...", "command": "application:run-specs", "accelerator": "Control+Shift+T" },
-            { "label": "Toggle Developer &Tools", "command": "window:toggle-dev-tools", "accelerator": "Control+Shift+I" }
-          ]
-        }
-      ]
-    },
+  {
+    "label": "View",
+    "submenu": [
+      { "label": "&Reload", "accelerator": "Shift+CmdOrCtrl+R", "command": "window:reload" },
+      { "label": "Toggle Full Screen", "command": "window:toggle-full-screen" },
+      {
+        "label": "Developer",
+        "submenu": [
+          { "label": "Run Tests...", "command": "application:run-specs", "accelerator": "Control+Shift+T" },
+          { "label": "Toggle Developer &Tools", "command": "window:toggle-dev-tools", "accelerator": "Control+Shift+I" }
+        ]
+      }
+    ]
+  },
 
-    {
-      "label": "&Help",
-      "submenu": [
-        { "label": "About Scout", "command": "application:about" }
-      ]
-    }
-
-  ]
-}
+  {
+    "label": "Help",
+    "submenu": [
+      { "label": "About Scout...", "command": "application:about" }
+    ]
+  }
+]

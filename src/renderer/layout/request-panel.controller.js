@@ -1,5 +1,3 @@
-'use babel';
-
 angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   let self = this;
   let utils = require('../common/utils');
@@ -77,7 +75,7 @@ angular.module("scout").controller('RequestPanelCtrl', function ($scope) {
   let hintsConfig = scout.storage.requireStorageFile("hints");
 
   hintsConfig.transact(() => {
-    hintsConfig.setDefaults("headers", require("../../../config/hintmap.json").headers);
+    hintsConfig.setDefaults("headers", require("../../config/hintmap.json").headers);
   });
 
   self.valueHintsForHeader = (headerName) => {

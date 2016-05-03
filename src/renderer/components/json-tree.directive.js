@@ -1,5 +1,3 @@
-'use babel';
-
 /**
  * Modified version of Alex Wendland (me@alexwendland.com)'s directive for
  * creating a tree-view out of a JS Object. Only loads sub-nodes on demand
